@@ -13,8 +13,8 @@ spec:
       version: v2.5.7
       sourceRef:
         kind: HelmRepository
-        name: rancher-server
-        namespace: cattle-system
+        name: rancher-stable
+        namespace: flux-system
   values:
     hostname: rancher.${SECRET_DOMAIN}
     tls: external
