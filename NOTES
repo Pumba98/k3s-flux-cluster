@@ -8,3 +8,10 @@ export BOOTSTRAP_GITHUB_REPOSITORY="https://github.com/Pumba98/k3s-flux-cluster"
 export BOOTSTRAP_DOMAIN="k8s.t-d.dev"    
 export BOOTSTRAP_METALLB_LB_RANGE="192.168.1.210-192.168.1.210"
 export BOOTSTRAP_INGRESS_NGINX_LB="192.168.1.210"
+
+
+
+
+
+sops --encrypt --in-place ./cluster/base/flux-system/gotk-secret.yaml 
+kubectl apply -f cluster/base/flux-system/.decrypted\~gotk-secret.yaml --kubeconfig kubeconfig
