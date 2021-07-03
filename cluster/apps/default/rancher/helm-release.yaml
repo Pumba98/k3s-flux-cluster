@@ -1,0 +1,20 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rancher
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://releases.rancher.com/server-charts/latest
+      chart: rancher
+      version: v2.5.7
+      sourceRef:
+        kind: HelmRepository
+        name: rancher-server
+        namespace: cattle-system
+  values:
+    hostname: rancher.${SECRET_DOMAIN}
+    tls: external
