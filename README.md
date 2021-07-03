@@ -1,8 +1,8 @@
-# Template for deploying k3s backed by Flux
+# k3s cluster backed by Flux
 
-Template for deploying a single [k3s](https://k3s.io/) cluster with [k3sup](https://github.com/alexellis/k3sup) backed by [Flux](https://toolkit.fluxcd.io/) and [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/).
+A single [k3s](https://k3s.io/) cluster backed by [Flux](https://toolkit.fluxcd.io/) and [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/).
 
-The purpose here is to showcase how you can deploy an entire Kubernetes cluster and show it off to the world using the [GitOps](https://www.weave.works/blog/what-is-gitops-really) tool [Flux](https://toolkit.fluxcd.io/). When completed, your Git repository will be driving the state of your Kubernetes cluster. In addition with the help of the [Flux SOPS integration](https://toolkit.fluxcd.io/guides/mozilla-sops/) you'll be able to commit GPG encrypted secrets to your public repo.
+Kubernetes cluster using the [GitOps](https://www.weave.works/blog/what-is-gitops-really) tool [Flux](https://toolkit.fluxcd.io/). The Git repository is the driving the state of the Kubernetes cluster. In addition with the help of the [Flux SOPS integration](https://toolkit.fluxcd.io/guides/mozilla-sops/) secrets can be commited to the repo GPG encrypted.
 
 ## Overview
 
@@ -15,45 +15,31 @@ The purpose here is to showcase how you can deploy an entire Kubernetes cluster 
 
 ## :wave:&nbsp; Introduction
 
-The following components will be installed in your [k3s](https://k3s.io/) cluster by default. They are only included to get a minimum viable cluster up and running. You are free to add / remove components to your liking but anything outside the scope of the below components are not supported by this template.
+The following components will are installed in the [k3s](https://k3s.io/) cluster. T
 
 Feel free to read up on any of these technologies before you get started to be more familiar with them.
 
-- [flannel](https://github.com/flannel-io/flannel)
-- [local-path-provisioner](https://github.com/rancher/local-path-provisioner)
 - [flux](https://toolkit.fluxcd.io/)
 - [metallb](https://metallb.universe.tf/)
 - [cert-manager](https://cert-manager.io/) with Cloudflare DNS challenge
 - [ingress-nginx](https://kubernetes.github.io/ingress-nginx/)
 - [homer](https://github.com/bastienwirtz/homer)
-- [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller)
 
-## :memo:&nbsp; Prerequisites
-
-### :computer:&nbsp; Nodes
-
-Already provisioned Bare metal or VMs with any modern operating system like Ubuntu, Debian or CentOS.
-
-### :wrench:&nbsp; Tools
+## :wrench:&nbsp; Tools
 
 :round_pushpin: You need to install the required CLI tools listed below on your workstation.
 
-| Tool                                                               | Purpose                                                             | Minimum version | Required |
-|--------------------------------------------------------------------|---------------------------------------------------------------------|:---------------:|:--------:|
-| [k3sup](https://github.com/alexellis/k3sup)                        | Tool to install k3s on your nodes                                   |    `0.10.2`     |    ✅     |
-| [kubectl](https://kubernetes.io/docs/tasks/tools/)                 | Allows you to run commands against Kubernetes clusters              |    `1.21.0`     |    ✅     |
-| [flux](https://toolkit.fluxcd.io/)                                 | Operator that manages your k8s cluster based on your Git repository |    `0.12.3`     |    ✅     |
-| [SOPS](https://github.com/mozilla/sops)                            | Encrypts k8s secrets with GnuPG                                     |     `3.7.1`     |    ✅     |
-| [GnuPG](https://gnupg.org/)                                        | Encrypts and signs your data                                        |    `2.2.27`     |    ✅     |
-| [pinentry](https://gnupg.org/related_software/pinentry/index.html) | Allows GnuPG to read passphrases and PIN numbers                    |     `1.1.1`     |    ✅     |
-| [direnv](https://github.com/direnv/direnv)                         | Exports env vars based on present working directory                 |    `2.28.0`     |    ❌     |
-| [pre-commit](https://github.com/pre-commit/pre-commit)             | Runs checks during `git commit`                                     |    `2.12.0`     |    ❌     |
-| [kustomize](https://kustomize.io/)                                 | Template-free way to customize application configuration            |     `4.1.0`     |    ❌     |
-| [helm](https://helm.sh/)                                           | Manage Kubernetes applications                                      |     `3.5.4`     |    ❌     |
+| Tool                                                               | Purpose                                                             | Minimum version |
+|--------------------------------------------------------------------|---------------------------------------------------------------------|:---------------:|
+| [kubectl](https://kubernetes.io/docs/tasks/tools/)                 | Allows you to run commands against Kubernetes clusters              |    `1.21.0`     |
+| [flux](https://toolkit.fluxcd.io/)                                 | Operator that manages your k8s cluster based on your Git repository |    `0.12.3`     |
+| [SOPS](https://github.com/mozilla/sops)                            | Encrypts k8s secrets with GnuPG                                     |     `3.7.1`     |
+| [GnuPG](https://gnupg.org/)                                        | Encrypts and signs your data                                        |    `2.2.27`     |
+| [pre-commit](https://github.com/pre-commit/pre-commit)             | Runs checks during `git commit`                                     |    `2.12.0`     |
 
 ### :warning:&nbsp; pre-commit
 
-It is advisable to install [pre-commit](https://pre-commit.com/) and the pre-commit hooks that come with this repository.
+Install [pre-commit](https://pre-commit.com/) and the pre-commit hooks that come with this repository.
 [sops-pre-commit](https://github.com/k8s-at-home/sops-pre-commit) will check to make sure you are not by accident commiting your secrets un-encrypted.
 
 After pre-commit is installed on your machine run:
@@ -89,13 +75,6 @@ cluster
 ```
 
 ## :rocket:&nbsp; Lets go!
-
-Very first step will be to create a new repository by clicking the **Use this template** button on this page.
-
-:round_pushpin: In these instructions you will be exporting several environment variables to your current shell env. Make sure you stay with in your current shell to not lose any exported variables.
-
-:round_pushpin: **All of the below commands** are run on your **local** workstation, **not** on any of your cluster nodes. 
-
 ### :closed_lock_with_key:&nbsp; Setting up GnuPG keys
 
 :round_pushpin: Here we will create a personal and a Flux GPG key. Using SOPS with GnuPG allows us to encrypt and decrypt secrets.
@@ -149,40 +128,6 @@ gpg --list-secret-keys "${FLUX_KEY_NAME}"
 export FLUX_KEY_FP=AB675CE4CC64251G3S9AE1DAA88ARRTY2C009E2D
 ```
 
-### :sailboat:&nbsp; Installing k3s with k3sup
-
-:round_pushpin: Here we will be install [k3s](https://k3s.io/) with [k3sup](https://github.com/alexellis/k3sup). After completion, k3sup will drop a `kubeconfig` in your present working directory for use with interacting with your cluster with `kubectl`.
-
-1. Ensure you are able to SSH into you nodes with using your private ssh key. This is how k3sup is able to connect to your remote node.
-
-2. Install the master node
-
-```sh
-k3sup install \
-    --host=169.254.1.1 \
-    --user=k8s-at-home \
-    --k3s-version=v1.20.5+k3s1 \
-    --k3s-extra-args="--disable servicelb --disable traefik"
-```
-
-3. Join worker nodes (optional)
-
-```sh
-k3sup join \
-    --host=169.254.1.2 \
-    --server-host=169.254.1.1 \
-    --k3s-version=v1.20.5+k3s1 \
-    --user=k8s-at-home
-```
-
-4. Verify the nodes are online
-   
-```sh
-kubectl --kubeconfig=./kubeconfig get nodes
-# NAME           STATUS   ROLES                       AGE     VERSION
-# k8s-master-a   Ready    control-plane,master      4d20h   v1.20.5+k3s1
-# k8s-worker-a   Ready    worker                    4d20h   v1.20.5+k3s1
-```
 
 ### :cloud:&nbsp; Cloudflare API Token
 
@@ -202,7 +147,7 @@ In order to use cert-manager with the Cloudflare DNS challenge you will need to 
 8. Export this token and your Cloudflare email address to an environment variable on your system to be used in the following steps
 
 ```sh
-export BOOTSTRAP_CLOUDFLARE_EMAIL="k8s-at-home@gmail.com"
+export BOOTSTRAP_CLOUDFLARE_EMAIL="k8s@home.com"
 export BOOTSTRAP_CLOUDFLARE_TOKEN="kpG6iyg3FS_du_8KRShdFuwfbwu3zMltbvmJV6cD"
 ```
 
@@ -235,44 +180,27 @@ kubectl --kubeconfig=./kubeconfig create secret generic sops-gpg \
     --from-file=sops.asc=/dev/stdin
 ```
 
-4. Export more environment variables for application configuration
-
-```sh
-# The repo you created from this template
-export BOOTSTRAP_GITHUB_REPOSITORY="https://github.com/k8s-at-home/home-cluster"
-# Choose one of your domains or use a made up one
-export BOOTSTRAP_DOMAIN="k8s-at-home.com"
-# Pick a range of unused IPs that are on the same network as your nodes
-export BOOTSTRAP_METALLB_LB_RANGE="169.254.1.10-169.254.1.20"
-# The load balancer IP for ingress-nginx, choose from one of the available IPs above
-export BOOTSTRAP_INGRESS_NGINX_LB="169.254.1.10"
-```
-
-5. Create required files based on ALL exported environment variables.
-
-```sh
-envsubst < ./tmpl/.sops.yaml > ./.sops.yaml
-envsubst < ./tmpl/cluster-secrets.yaml > ./cluster/base/cluster-secrets.yaml
-envsubst < ./tmpl/cluster-settings.yaml > ./cluster/base/cluster-settings.yaml
-envsubst < ./tmpl/gotk-sync.yaml > ./cluster/base/flux-system/gotk-sync.yaml
-envsubst < ./tmpl/secret.enc.yaml > ./cluster/core/cert-manager/secret.enc.yaml
-```
-
-6. **Verify** all the above files have the correct information present
-
-7. Encrypt `cluster/cluster-secrets.yaml` and `cert-manager/secret.enc.yaml` with SOPS
+4. Encrypt `cluster/cluster-secrets.yaml`, `cert-manager/secret.enc.yaml` and `flux-secret.yaml` with SOPS
 
 ```sh
 export GPG_TTY=$(tty)
 sops --encrypt --in-place ./cluster/base/cluster-secrets.yaml
 sops --encrypt --in-place ./cluster/core/cert-manager/secret.enc.yaml
+sops --encrypt --in-place ./flux-secret.yaml
+```
+
+
+5. Add the Flux SSH key in-order for Flux to pull private git repositories
+
+```sh
+sops -d flux-secret.yaml | kubectl --kubeconfig=./kubeconfig apply -f -
 ```
 
 :round_pushpin: Variables defined in `cluster-secrets.yaml` and `cluster-settings.yaml` will be usable anywhere in your YAML manifests under `./cluster`
 
-8. **Verify** all the above files are **encrypted** with SOPS
+6. **Verify** all the above files are **encrypted** with SOPS
 
-9. Push you changes to git
+7. Push you changes to git
 
 ```sh
 git add -A
@@ -280,7 +208,7 @@ git commit -m "initial commit"
 git push
 ```
 
-10. Install Flux
+8. Install Flux
 
 :round_pushpin: Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
 
@@ -321,33 +249,6 @@ kubectl --kubeconfig=./kubeconfig apply --kustomize=./cluster/base/flux-system
 :tada: **Congratulations** you have a Kubernetes cluster managed by Flux, your Git repository is driving the state of your cluster.
 
 ## :mega:&nbsp; Post installation
-
-### Verify Flux
-
-```sh
-kubectl --kubeconfig=./kubeconfig get pods -n flux-system
-# NAME                                       READY   STATUS    RESTARTS   AGE
-# helm-controller-5bbd94c75-89sb4            1/1     Running   0          1h
-# kustomize-controller-7b67b6b77d-nqc67      1/1     Running   0          1h
-# notification-controller-7c46575844-k4bvr   1/1     Running   0          1h
-# source-controller-7d6875bcb4-zqw9f         1/1     Running   0          1h
-```
-
-### Verify ingress
-
-If your cluster is not accessible to outside world you can update your hosts file to verify the ingress controller is working.
-
-```sh
-echo "${BOOTSTRAP_INGRESS_NGINX_LB} ${BOOTSTRAP_DOMAIN} homer.${BOOTSTRAP_DOMAIN}" | sudo tee -a /etc/hosts
-```
-
-Head over to your browser and you _should_ be able to access `https://homer.${BOOTSTRAP_DOMAIN}`
-
-### direnv
-
-This is a great tool to export environment variables depending on what your present working directory is, head over to their [installation guide](https://direnv.net/docs/installation.html) and don't forget to hook it into your shell!
-
-When this is done you no longer have to use `--kubeconfig=./kubeconfig` in your `kubectl`, `flux` or `helm` commands.
 
 ### VSCode SOPS extension
 
@@ -412,11 +313,6 @@ Flux has a wide range of CLI options available be sure to run `flux --help` to v
 ### :robot:&nbsp; Automation
 
 - [Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) is a very useful tool that when configured will start to create PRs in your Github repository when Docker images, Helm charts or anything else that can be tracked has a newer version. The configuration for renovate is located [here](./.github/renovate.json5).
-
-- [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller) will watch for new k3s releases and upgrade your nodes when new releases are found.
-
-There's also a couple Github workflows included in this repository that will help automate some processes.
-
 - [Flux upgrade schedule](./.github/workflows/flux-schedule.yaml) - workflow to upgrade Flux.
 - [Renovate schedule](./.github/workflows/renovate-schedule.yaml) - workflow to annotate `HelmRelease`'s which allows [Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) to track Helm chart versions.
 
@@ -424,8 +320,6 @@ There's also a couple Github workflows included in this repository that will hel
 
 The world is your cluster, try installing another application or if you have a NAS and want storage back by that check out the helm charts for [democratic-csi](https://github.com/democratic-csi/democratic-csi), [csi-driver-nfs](https://github.com/kubernetes-csi/csi-driver-nfs) or [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner).
 
-If you plan on exposing your ingress to the world from your home. Checkout [our rough guide](https://docs.k8s-at-home.com/guides/dyndns/) to run a k8s `CronJob` to update DDNS.
-
 ## :handshake:&nbsp; Thanks
 
-Big shout out to all the authors and contributors to the projects that we are using in this repository.
+Big shout out to [k8s@home](https://github.com/k8s-at-home) for their [k3s-cluster-template](https://github.com/k8s-at-home/template-cluster-k3s) :heart:
