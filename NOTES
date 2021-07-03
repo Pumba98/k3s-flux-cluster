@@ -13,5 +13,4 @@ export BOOTSTRAP_INGRESS_NGINX_LB="192.168.1.210"
 
 
 
-sops --encrypt --in-place ./cluster/base/flux-system/gotk-secret.yaml 
-kubectl apply -f cluster/base/flux-system/.decrypted\~gotk-secret.yaml --kubeconfig kubeconfig
+sops -d flux-secret.yaml | kubectl --kubeconfig=./kubeconfig apply -f -
