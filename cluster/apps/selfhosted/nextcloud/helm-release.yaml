@@ -17,6 +17,9 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    image:
+      repository: nextcloud
+      tag: 19.0.3-apache
     ingress:
       enabled: true
       tls:
@@ -54,6 +57,9 @@ spec:
           enabled: false
       replica:
         replicaCount: 1
+
+    internalDatabase:
+      enabled: false
 
     postgresql:
       enabled: true
