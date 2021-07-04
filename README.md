@@ -180,20 +180,20 @@ kubectl --kubeconfig=./kubeconfig create secret generic sops-gpg \
     --from-file=sops.asc=/dev/stdin
 ```
 
-4. Encrypt `cluster/cluster-secrets.yaml`, `cert-manager/secret.enc.yaml` and `flux-secret.yaml` with SOPS
+4. Encrypt `cluster/cluster-secrets.yaml`, `cert-manager/secret.enc.yaml` and `flux-system/flux-secret.yaml` with SOPS
 
 ```sh
 export GPG_TTY=$(tty)
 sops --encrypt --in-place ./cluster/base/cluster-secrets.yaml
 sops --encrypt --in-place ./cluster/core/cert-manager/secret.enc.yaml
-sops --encrypt --in-place ./flux-secret.yaml
+sops --encrypt --in-place ./cluster/base/flux-system/flux-secret.yaml
 ```
 
 
 5. Add the Flux SSH key in-order for Flux to pull private git repositories
 
 ```sh
-sops -d flux-secret.yaml | kubectl --kubeconfig=./kubeconfig apply -f -
+sops -d ./cluster/base/flux-system/flux-secret.yaml | kubectl --kubeconfig=./kubeconfig apply -f -
 ```
 
 :round_pushpin: Variables defined in `cluster-secrets.yaml` and `cluster-settings.yaml` will be usable anywhere in your YAML manifests under `./cluster`
