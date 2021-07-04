@@ -25,19 +25,19 @@ spec:
       DOMAIN: 'https://bw.${SECRET_DOMAIN}'
       ADMIN_TOKEN: 
         valueFrom:
-          - secretRef:
-              name: vaultwarden-secrets
-              key: adminToken
+          secretRef:
+            name: vaultwarden-secrets
+            key: adminToken
       YUBICO_CLIENT_ID: 
         valueFrom:
-          - secretRef:
-              name: vaultwarden-secrets
-              key: yubikeyClientID
+          secretRef:
+            name: vaultwarden-secrets
+            key: yubikeyClientID
       YUBICO_SECRET_KEY:
         valueFrom:
-          - secretRef:
-              name: vaultwarden-secrets
-              key: yubikeySecretKey
+          secretRef:
+            name: vaultwarden-secrets
+            key: yubikeySecretKey
     ingress:
       main:
         enabled: true
