@@ -4,17 +4,19 @@ A single [k3s](https://k3s.io/) cluster backed by [Flux](https://toolkit.fluxcd.
 
 Kubernetes cluster using the [GitOps](https://www.weave.works/blog/what-is-gitops-really) tool [Flux](https://toolkit.fluxcd.io/). The Git repository is the driving the state of the Kubernetes cluster. In addition with the help of the [Flux SOPS integration](https://toolkit.fluxcd.io/guides/mozilla-sops/) secrets can be commited to the repo GPG encrypted.
 
-## :wave:&nbsp; Introduction
+## :wave:&nbsp; Software
 
 The following components will are installed in the [k3s](https://k3s.io/) cluster.
 
-- [flux](https://toolkit.fluxcd.io/)
-- [metallb](https://metallb.universe.tf/)
-- [ingress-nginx](https://kubernetes.github.io/ingress-nginx/)
-- [cert-manager](https://cert-manager.io/) with Cloudflare DNS challenge
-- [longhorn]()
-- [rancher]()
-- [homer](https://github.com/bastienwirtz/homer)
+| Software                                                     | Purpose                                                |
+| ------------------------------------------------------------ | ------------------------------------------------------ |
+| [flux](https://toolkit.fluxcd.io/)                           | GitOps Tool managing the cluster                       |
+| [metallb](https://metallb.universe.tf/)                      | Bare metal load-balancer                               |
+| [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) | Cluster ingress controller                             |
+| [cert-manager](https://cert-manager.io/)                     | letsencrypt certificates with Cloudflare DNS challenge |
+| [longhorn](https://longhorn.io/)                             | Persistent Storage                                     |
+| [rancher](https://rancher.com/products/rancher/)             | Kubernetes Management dashboard                        |
+| [homer](https://github.com/bastienwirtz/homer)               | Static dashboard for the cluster                       |
 
 ## :wrench:&nbsp; Tools
 
@@ -54,69 +56,29 @@ cluster
 ├── apps
 │   ├── default
 │   ├── networking
-│   └── system-upgrade
+│   └ ...
 ├── base
 │   └── flux-system
 ├── core
 │   ├── cert-manager
 │   ├── metallb-system
 │   ├── namespaces
-│   └── system-upgrade
+│   └ ...
 └── crds
-    └── cert-manager
+    ├── cert-manager
+    └ ...
 ```
 
 ## :rocket:&nbsp; Lets go!
 
-### :closed_lock_with_key:&nbsp; Setting up GnuPG keys
 
-:round_pushpin: Here we will create a personal and a Flux GPG key. Using SOPS with GnuPG allows us to encrypt and decrypt secrets.
+:round_pushpin: Some notes how to install [flux](https://toolkit.fluxcd.io/) into the cluster.
 
-1. Create a Personal GPG Key, password protected, and export the fingerprint. It's **strongly encouraged** to back up this key somewhere safe so you don't lose it.
-
-```sh
-export GPG_TTY=$(tty)
-export PERSONAL_KEY_NAME="First name Last name (location) <email>"
-
-gpg --batch --full-generate-key <<EOF
-Key-Type: 1
-Key-Length: 4096
-Subkey-Type: 1
-Subkey-Length: 4096
-Expire-Date: 0
-Name-Real: ${PERSONAL_KEY_NAME}
-EOF
-
-gpg --list-secret-keys "${PERSONAL_KEY_NAME}"
-```
-
-2. Create a Flux GPG Key and export the fingerprint
+1. Encrypt secrets with SOPS
 
 ```sh
 export GPG_TTY=$(tty)
-export FLUX_KEY_NAME="Cluster name (Flux) <email>"
-
-gpg --batch --full-generate-key <<EOF
-%no-protection
-Key-Type: 1
-Key-Length: 4096
-Subkey-Type: 1
-Subkey-Length: 4096
-Expire-Date: 0
-Name-Real: ${FLUX_KEY_NAME}
-EOF
-
-gpg --list-secret-keys "${FLUX_KEY_NAME}"
-```
-
-### :small_blue_diamond:&nbsp; GitOps with Flux
-
-:round_pushpin: Here we will be installing [flux](https://toolkit.fluxcd.io/) after some quick bootstrap steps.
-
-1. Verify Flux can be installed
-
-```sh
-flux check --pre
+sops --encrypt --in-place ./cluster/base/cluster-secrets.yaml
 ```
 
 2. Pre-create the `flux-system` namespace
@@ -128,80 +90,30 @@ kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f
 3. Add the Flux GPG key in-order for Flux to decrypt SOPS secrets
 
 ```sh
-gpg --export-secret-keys --armor "${FLUX_KEY_FP}" |
+gpg --export-secret-keys --armor "F218E6030557131BFE2B62AF9EB6C6C54B075E78" |
 kubectl create secret generic sops-gpg \
     --namespace=flux-system \
     --from-file=sops.asc=/dev/stdin
 ```
 
-4. Encrypt `cluster/cluster-secrets.yaml`, `cert-manager/secret.enc.yaml` and `flux-system/flux-secret.yaml` with SOPS
-
-```sh
-export GPG_TTY=$(tty)
-sops --encrypt --in-place ./cluster/base/cluster-secrets.yaml
-sops --encrypt --in-place ./cluster/core/cert-manager/secret.enc.yaml
-sops --encrypt --in-place ./cluster/base/flux-system/flux-secret.yaml
-```
-
-5. Add the Flux SSH key in-order for Flux to pull private git repositories
+4. Add the Flux SSH key in-order for Flux to pull private git repositories
 
 ```sh
 sops -d ./cluster/base/flux-system/flux-secret.yaml | kubectl apply -f -
 ```
 
-6. **Verify** all the above files are **encrypted** with SOPS
+5. Push everything (**Verify** all secrets are **encrypted** with SOPS!)
 
-7. Push you changes to git
-
-```sh
-git add -A
-git commit -m "initial commit"
-git push
-```
-
-8. Install Flux
-
-:round_pushpin: Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
+6. Install Flux
 
 ```sh
 kubectl apply --kustomize=./cluster/base/flux-system
 ```
 
-## :mega:&nbsp; Post installation
+:round_pushpin: Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
 
-### :point_right:&nbsp; Debugging
 
-Manually sync Flux with your Git repository
-
-```sh
-flux reconcile source git flux-system
-```
-
-Show the health of you kustomizations
-
-```sh
-kubectl get kustomization -A
-```
-
-Show the health of your main Flux `GitRepository`
-
-```sh
-flux get sources git
-```
-
-Show the health of your `HelmRelease`s
-
-```sh
-flux get helmrelease -A
-```
-
-Show the health of your `HelmRepository`s
-
-```sh
-flux get sources helm -A
-```
-
-### :robot:&nbsp; Automation
+## :robot:&nbsp; Automation
 
 - [Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) is a very useful tool that when configured will start to create PRs in your Github repository when Docker images, Helm charts or anything else that can be tracked has a newer version. The configuration for renovate is located [here](./.github/renovate.json5).
 - [Flux upgrade schedule](./.github/workflows/flux-schedule.yaml) - workflow to upgrade Flux.
