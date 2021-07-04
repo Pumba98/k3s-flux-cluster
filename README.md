@@ -29,6 +29,7 @@ The following components will are installed in the [k3s](https://k3s.io/) cluste
 | [rancher](https://rancher.com/products/rancher/)          | Kubernetes Management Dashboard                        |
 | [homer](https://github.com/bastienwirtz/homer)            | Static dashboard for the cluster applications          |
 | [vaultwarden](https://github.com/dani-garcia/vaultwarden) | Unofficial Bitwarden compatible server written in Rust |
+| [nextcloud](https://nextcloud.com/)                       | File share and collaboration platform​                  |
 
 ## :wrench:&nbsp; Tools
 

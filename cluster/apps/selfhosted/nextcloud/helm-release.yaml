@@ -29,6 +29,9 @@ spec:
         secretName: nextcloud-secrets
         usernameKey: username
         passwordKey: password
+      extraEnv:
+        - name: OVERWRITEPROTOCOL
+          value: https
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
