@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
 - default
 - networking
+- cattle-system
 # - system-upgrade
