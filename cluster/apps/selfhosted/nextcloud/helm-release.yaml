@@ -52,11 +52,11 @@ spec:
 
     redis:
       enabled: true
+      cluster:
+        enabled: false
       master:
         persistence:
           enabled: false
-      replica:
-        replicaCount: 1
 
     internalDatabase:
       enabled: false
@@ -68,4 +68,4 @@ spec:
       postgresqlDatabase: nextcloud
       persistence:
         enabled: true
-        size: 1GB
+        size: 1Gi
