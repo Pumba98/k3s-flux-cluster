@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 19.0.13-apache
+      tag: 21.0.3-apache
     ingress:
       enabled: true
       tls:
