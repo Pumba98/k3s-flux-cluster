@@ -42,7 +42,7 @@ spec:
     externalDatabase:
       enabled: true
       type: postgresql
-      host: nextcloud-postgresql.selfhosted
+      host: nextcloud-postgresql
       user: nextcloud
       password: changeme
       database: nextcloud
