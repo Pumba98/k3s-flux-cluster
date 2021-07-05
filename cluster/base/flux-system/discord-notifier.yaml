@@ -8,7 +8,7 @@ spec:
   type: discord
   username: Flux
   channel: flux
-  Address: ${SECRET_FLUX_DISCORD_WEBHOOK}
+  address: ${SECRET_FLUX_DISCORD_WEBHOOK}
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
