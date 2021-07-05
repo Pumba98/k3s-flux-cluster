@@ -17,3 +17,45 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    alertmanager:
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: "nginx"
+        hosts:
+        - "alert-manager.${SECRET_DOMAIN}"
+        tls:
+        - hosts:
+          - "alert-manager.${SECRET_DOMAIN}"
+    grafana:
+      enabled: true
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: "nginx"
+        hosts:
+        - "alert-manager.${SECRET_DOMAIN}"
+        tls:
+        - hosts:
+          - "alert-manager.${SECRET_DOMAIN}"
+    kubeEtcd:
+      enabled: false
+    prometheus:
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: "nginx"
+        hosts:
+        - "grafana.${SECRET_DOMAIN}"
+        tls:
+        - hosts:
+          - "grafana.${SECRET_DOMAIN}"
+      prometheusSpec:
+        retention: 14d
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "-"
+              resources:
+                requests:
+                  storage: 5Gi
