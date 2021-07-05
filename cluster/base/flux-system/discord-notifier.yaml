@@ -1,0 +1,60 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Provider
+metadata:
+  name: discord
+  namespace: flux-system
+spec:
+  type: discord
+  username: Flux
+  channel: flux
+  Address: ${SECRET_ALERT_MANAGER_DISCORD_WEBHOOK}
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Alert
+metadata:
+  name: home-cluster
+  namespace: flux-system
+spec:
+  providerRef:
+    name: discord
+  eventSeverity: info
+  eventSources:
+    - kind: GitRepository
+      name: '*'
+    - kind: Kustomization
+      name: '*'
+  suspend: false
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Alert
+metadata:
+  name: helmreleases
+  namespace: flux-system
+spec:
+  providerRef:
+    name: discord
+  eventSeverity: info
+  eventSources:
+    - kind: HelmRelease
+      namespace: 'cert-manager'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'default'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'logs'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'kube-system'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'monitoring'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'rook-ceph'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'velero'
+      name: '*'
+  suspend: false
