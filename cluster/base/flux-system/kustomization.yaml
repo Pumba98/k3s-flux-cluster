@@ -5,4 +5,5 @@ resources:
 - gotk-sync.yaml
 - flux-secret.yaml
 - discord-notifier.yaml
+- discord-webhook-secret.yaml
 - charts
