@@ -34,10 +34,10 @@ spec:
         pathType: Prefix
         ingressClassName: "nginx"
         hosts:
-        - "alert-manager.${SECRET_DOMAIN}"
+        - "grafana.${SECRET_DOMAIN}"
         tls:
         - hosts:
-          - "alert-manager.${SECRET_DOMAIN}"
+          - "grafana.${SECRET_DOMAIN}"
     kubeEtcd:
       enabled: false
     prometheus:
@@ -46,10 +46,10 @@ spec:
         pathType: Prefix
         ingressClassName: "nginx"
         hosts:
-        - "grafana.${SECRET_DOMAIN}"
+        - "prometheus.${SECRET_DOMAIN}"
         tls:
         - hosts:
-          - "grafana.${SECRET_DOMAIN}"
+          - "prometheus.${SECRET_DOMAIN}"
       prometheusSpec:
         retention: 14d
         storageSpec:
