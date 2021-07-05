@@ -5,4 +5,5 @@ resources:
 - networking
 - cattle-system
 - selfhosted
+- monitoring
 # - system-upgrade

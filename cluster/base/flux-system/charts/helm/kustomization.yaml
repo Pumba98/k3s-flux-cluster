@@ -9,3 +9,5 @@ resources:
 - rancher-stable-charts.yaml
 - longhorn-charts.yaml
 - nextcloud-charts.yaml
+- prometheus-charts.yaml
+- grafana-charts.yaml
