@@ -17,7 +17,12 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    kubeEtcd:
+      enabled: false
     alertmanager:
+      image:
+        repository: quay.io/prometheus/alertmanager
+        tag: v0.22.0
       ingress:
         enabled: true
         pathType: Prefix
@@ -29,6 +34,11 @@ spec:
           - "alert-manager.${SECRET_DOMAIN}"
     grafana:
       enabled: true
+      image:
+        repository: grafana/grafana
+        tag: 8.0.3
+      admin:
+        existingSecret: grafana-secrets
       ingress:
         enabled: true
         pathType: Prefix
@@ -38,9 +48,10 @@ spec:
         tls:
         - hosts:
           - "grafana.${SECRET_DOMAIN}"
-    kubeEtcd:
-      enabled: false
     prometheus:
+      image:
+        repository: quay.io/prometheus/prometheus
+        tag: v2.27.1
       ingress:
         enabled: true
         pathType: Prefix
