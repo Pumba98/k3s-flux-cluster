@@ -40,4 +40,7 @@ spec:
     - kind: HelmRelease
       namespace: '*'
       name: '*'
+    - kind: HelmRelease
+      namespace: 'monitoring'
+      name: '*'
   suspend: false
