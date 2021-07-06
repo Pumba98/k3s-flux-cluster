@@ -21,7 +21,7 @@ spec:
     - ingress
     provider: cloudflare
     cloudflare:
-      secretName: cloudflare-api-key
+      secretName: external-dns-secrets
       email: "${SECRET_CLOUDFLARE_EMAIL}"
       proxied: true
     policy: sync
