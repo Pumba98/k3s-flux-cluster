@@ -22,6 +22,8 @@ spec:
       tag: 21.0.3-apache
     ingress:
       enabled: true
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
       tls:
       - hosts:
         - cloud.${SECRET_DOMAIN} 
