@@ -17,6 +17,10 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    kubeControllerManager:
+      enabled: false
+    kubeScheduler:
+      enabled: false
     kubeEtcd:
       enabled: false
     alertmanager:

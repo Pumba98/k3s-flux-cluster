@@ -18,3 +18,4 @@ spec:
   values:
     hostname: rancher.${SECRET_DOMAIN}
     tls: external
+    replicas: 1

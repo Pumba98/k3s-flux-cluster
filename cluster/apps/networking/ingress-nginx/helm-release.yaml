@@ -18,7 +18,7 @@ spec:
   values:
     controller:
       ingressClass: nginx
-      replicaCount: 1
+      kind: DaemonSet
       service:
         type: LoadBalancer
         loadBalancerIP: "${INGRESS_NGINX_LB}"
