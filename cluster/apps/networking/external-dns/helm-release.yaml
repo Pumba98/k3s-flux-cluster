@@ -27,8 +27,8 @@ spec:
       proxied: true
     policy: sync
     domainFilters:
-    - "${SECRET_DOMAIN}"
-    txtPrefix: "ext."
+    - "${SECRET_CLOUDFLARE_DOMAIN}"
+    # txtPrefix: "ext."
     crd:
       create: false
     # annotationFilter: "external-dns/is-public in (true)"
