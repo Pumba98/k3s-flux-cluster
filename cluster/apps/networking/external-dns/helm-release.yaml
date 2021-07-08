@@ -27,7 +27,7 @@ spec:
       proxied: true
     policy: sync
     domainFilters:
-    - "${SECRET_CLOUDFLARE_DOMAIN}"
+    - "${SECRET_DOMAIN}"
     # txtPrefix: "ext."
     crd:
       create: false
