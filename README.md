@@ -106,7 +106,7 @@ kubectl create secret generic sops-gpg \
 5. Add the Flux SSH key in-order for Flux to pull private git repositories
 
 ```sh
-sops -d ./cluster/base/flux-system/flux-secret.yaml | kubectl apply -f -
+sops -d ./flux-secret.yaml | kubectl apply -f -
 ```
 
 6. Push everything & Install Flux

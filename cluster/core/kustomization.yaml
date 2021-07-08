@@ -5,4 +5,5 @@ resources:
 - metallb-system
 - cert-manager
 - longhorn-system
+- flux-extra
 # - system-upgrade
