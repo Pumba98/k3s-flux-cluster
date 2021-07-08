@@ -38,30 +38,28 @@ spec:
         enabled: true
         existingClaim: homer-config
         mountPath: /www/assets
-    initContainers:
-      - name: git-sync
-        image: k8s.gcr.io/git-sync-amd64:v2.0.6
-        command: ["/bin/sh"]
-        args: ["-c", "echo $GIT_SSH_KEY > /etc/git-secret/ssh; git-sync"]
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: codercom/code-server
+          tag: 3.10.2
+        workingDir: /www/assets
+        args:
+        - --user-data-dir
+        - /www/assets/.vscode
+        - --auth
+        - none
+        ingress:
+          enabled: true
+          hosts:
+          - host: "homer-config.${SECRET_DOMAIN}"
+            paths:
+            - path: /
+              pathType: Prefix
+          tls:
+          - hosts:
+            - "homer-config.${SECRET_DOMAIN}"
         volumeMounts:
-        - name: assets
+        - name: config
           mountPath: /www/assets
-        env:
-        - name: GIT_SYNC_REPO
-          value: https://github.com/Pumba98/homer-config
-        - name: GIT_SYNC_BRANCH
-          value: master
-        - name: GIT_SYNC_ROOT
-          value: /
-        - name: GIT_SYNC_DEST
-          value: /www/assets
-        - name: GIT_SYNC_PERMISSIONS
-          value: "0777"
-        - name: GIT_SYNC_ONE_TIME
-          value: "true"
-        - name: GIT_SYNC_SSH
-          value: "true"
-        - name: GIT_SSH_KEY
-          value: ${SECRET_HOMER_SSH}
-        securityContext:
-          runAsUser: 0
