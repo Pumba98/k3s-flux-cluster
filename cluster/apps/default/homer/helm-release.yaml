@@ -38,3 +38,30 @@ spec:
         enabled: true
         existingClaim: homer-config
         mountPath: /www/assets
+    initContainers:
+      - name: git-sync
+        image: k8s.gcr.io/git-sync-amd64:v2.0.6
+        command: ["/bin/sh"]
+        args: ["-c", "echo $GIT_SSH_KEY > /etc/git-secret/ssh; git-sync"]
+        volumeMounts:
+        - name: assets
+          mountPath: /www/assets
+        env:
+        - name: GIT_SYNC_REPO
+          value: https://github.com/Pumba98/homer-config
+        - name: GIT_SYNC_BRANCH
+          value: master
+        - name: GIT_SYNC_ROOT
+          value: /
+        - name: GIT_SYNC_DEST
+          value: /www/assets
+        - name: GIT_SYNC_PERMISSIONS
+          value: "0777"
+        - name: GIT_SYNC_ONE_TIME
+          value: "true"
+        - name: GIT_SYNC_SSH
+          value: "true"
+        - name: GIT_SSH_KEY
+          value: ${SECRET_HOMER_SSH}
+        securityContext:
+          runAsUser: 0
