@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
 - ingress-nginx
 - wildcard-certificate
-
 - external-dns
