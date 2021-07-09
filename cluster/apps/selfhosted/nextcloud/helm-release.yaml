@@ -51,6 +51,9 @@ spec:
 
     cronjob:
       enabled: true
+      image:
+        repository: curlimages/curl
+        tag: latest
 
     redis:
       enabled: true
