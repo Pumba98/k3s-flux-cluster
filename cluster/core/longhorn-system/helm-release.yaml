@@ -27,13 +27,13 @@ spec:
           { 
             "name":"snap", 
             "task":"snapshot", 
-            "cron":"*/1 * * * *", 
-            "retain":1
+            "cron":"0 * * * *", 
+            "retain":24
           },
           {
             "name":"backup", 
             "task":"backup", 
-            "cron":"*/2 * * * *", 
+            "cron":"0 2 * * *", 
             "retain":1
           }
         ]'
