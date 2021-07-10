@@ -21,8 +21,24 @@ spec:
       defaultClass: true
       defaultClassReplicaCount: 3
       reclaimPolicy: Delete
+      recurringJobs:
+        enable: true
+        jobList:
+          - name: "snapshot"
+            task: "snapshot"
+            cron: "*/1 * * * *"
+            retain: 1
+          - name: "backup"
+            task: "backup"
+            cron: "*/2 * * * *"
+            # retain: 1
+            # labels: 
+            #   interval: 2m
     ingress:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: "nginx"
       host: longhorn.${SECRET_DOMAIN}
+    defaultSettings:
+      backupTarget: s3://k3slonghorn@s3.eu-central-003.backblazeb2.com/
+      backupTargetCredentialSecret: longhorn-system-secrets
