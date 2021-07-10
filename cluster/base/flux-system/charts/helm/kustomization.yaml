@@ -11,3 +11,4 @@ resources:
 - nextcloud-charts.yaml
 - prometheus-charts.yaml
 - grafana-charts.yaml
+- infracloudio-charts.yaml
