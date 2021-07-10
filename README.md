@@ -14,22 +14,28 @@ The following components will are installed in the [k3s](https://k3s.io/) cluste
 
 ### Core
 
-| Software                                                     | Purpose                                      |
-| ------------------------------------------------------------ | -------------------------------------------- |
-| [flux](https://toolkit.fluxcd.io/)                           | GitOps Tool managing the cluster             |
-| [metallb](https://metallb.universe.tf/)                      | Bare metal LoadBalancer                      |
-| [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) | Cluster Ingress controller                   |
-| [cert-manager](https://cert-manager.io/)                     | Letsencrypt certificates with Cloudflare DNS |
-| [longhorn](https://longhorn.io/)                             | Persistent Block Storage Provisioner         |
+| Software                                 | Purpose                                      |
+| ---------------------------------------- | -------------------------------------------- |
+| [flux](https://toolkit.fluxcd.io/)       | GitOps Tool managing the cluster             |
+| [metallb](https://metallb.universe.tf/)  | Bare metal LoadBalancer                      |
+| [cert-manager](https://cert-manager.io/) | Letsencrypt certificates with Cloudflare DNS |
+| [longhorn](https://longhorn.io/)         | Persistent Block Storage Provisioner         |
 
 ### Apps
 
-| Software                                                  | Purpose                                                |
-| --------------------------------------------------------- | ------------------------------------------------------ |
-| [rancher](https://rancher.com/products/rancher/)          | Kubernetes Management Dashboard                        |
-| [homer](https://github.com/bastienwirtz/homer)            | Static dashboard for the cluster applications          |
-| [vaultwarden](https://github.com/dani-garcia/vaultwarden) | Unofficial Bitwarden compatible server written in Rust |
-| [nextcloud](https://nextcloud.com/)                       | File share and collaboration platform​                  |
+| Software                                                                  | Purpose                                                |
+| ------------------------------------------------------------------------- | ------------------------------------------------------ |
+| [ingress-nginx](https://kubernetes.github.io/ingress-nginx/)              | Cluster Ingress controller                             |
+| [external-dns](https://github.com/kubernetes-sigs/external-dns)           | Configure Cloudflare DNS Servers                       |
+| [rancher](https://rancher.com/products/rancher/)                          | Kubernetes Management Dashboard                        |
+| [Grafana](https://grafana.com/)                                           | Monitoring & Logging Dashboard                         |
+| [kube-prom-stack](https://github.com/prometheus-operator/kube-prometheus) | Prometheus & Exporters to monitor the cluster          |
+| [Grafana Loki](https://grafana.com/oss/loki/)                             | log aggregation system                                 |
+| [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)  | Monitoring Alerts                                      |
+| [BotKube](https://www.botkube.io/)                                        | messaging bot for monitoring and debugging Kubernetes  |
+| [nextcloud](https://nextcloud.com/)                                       | File share and collaboration platform​                 |
+| [vaultwarden](https://github.com/dani-garcia/vaultwarden)                 | Unofficial Bitwarden compatible server written in Rust |
+| [homer](https://github.com/bastienwirtz/homer)                            | Static dashboard for the cluster applications          |
 
 ## :wrench:&nbsp; Tools
 
