@@ -23,17 +23,20 @@ spec:
       reclaimPolicy: Delete
       recurringJobs:
         enable: true
-        jobList:
-          - name: "snapshot"
-            task: "snapshot"
-            cron: "*/1 * * * *"
-            retain: 1
-          - name: "backup"
-            task: "backup"
-            cron: "*/2 * * * *"
-            # retain: 1
-            # labels: 
-            #   interval: 2m
+        jobList: '[
+          { 
+            "name":"snap", 
+            "task":"snapshot", 
+            "cron":"*/1 * * * *", 
+            "retain":1
+          },
+          {
+            "name":"backup", 
+            "task":"backup", 
+            "cron":"*/2 * * * *", 
+            "retain":1
+          }
+        ]'
     ingress:
       enabled: true
       annotations:
