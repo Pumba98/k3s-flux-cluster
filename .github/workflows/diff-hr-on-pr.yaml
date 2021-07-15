@@ -3,7 +3,7 @@ name: Create diff on updated Helm Releases # https://github.com/billimek/k8s-git
 on: # yamllint disable-line rule:truthy
   pull_request:
     branches:
-    - master
+    - main
     paths:
     - "**.yaml"
 
