@@ -28,10 +28,8 @@ spec:
     policy: sync
     domainFilters:
     - "${SECRET_DOMAIN}"
-    # txtPrefix: "ext."
     crd:
       create: false
-    # annotationFilter: "external-dns/is-public in (true)"
     resources:
       requests:
         memory: 100Mi
