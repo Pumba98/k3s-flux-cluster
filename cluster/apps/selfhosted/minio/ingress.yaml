@@ -6,7 +6,8 @@ metadata:
   namespace: default
 spec:
   rules:
-  - http:
+  - host: minio1.${SECRET_DOMAIN}
+    http:
       paths:
       - path: /
         pathType: Prefix
@@ -23,7 +24,8 @@ metadata:
   namespace: selfhosted
 spec:
   rules:
-  - http:
+  - host: minio-console.${SECRET_DOMAIN}
+    http:
       paths:
       - path: /
         pathType: Prefix
