@@ -12,3 +12,4 @@ resources:
 - prometheus-charts.yaml
 - grafana-charts.yaml
 - infracloudio-charts.yaml
+- local-path-provisioner-charts.yaml
