@@ -28,9 +28,7 @@ spec:
         tag: v0.7.5
       replicaCount: 1
       ingress:
-        enabled: true
-        host: minio-console.${SECRET_DOMAIN}
-        path: /
+        enabled: false
     tenants:
       - name: minio1
         image:
@@ -76,9 +74,4 @@ spec:
             pullPolicy: IfNotPresent
           replicaCount: 1
           secrets:
-            enabled: true
-            name: console-secret
-            passphrase: SECRET
-            salt: SECRET
-            accessKey: YOURCONSOLEACCESS
-            secretKey: YOURCONSOLESECRET
+            enabled: false

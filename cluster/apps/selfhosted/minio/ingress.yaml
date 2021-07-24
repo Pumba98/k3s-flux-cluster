@@ -20,17 +20,17 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minio-console
-  namespace: selfhosted
+  name: minio1-console
+  namespace: default
 spec:
   rules:
-  - host: minio-console.${SECRET_DOMAIN}
+  - host: minio1-console.${SECRET_DOMAIN}
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: console
+            name: minio1-console
             port:
               number: 9443
