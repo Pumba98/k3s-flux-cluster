@@ -1,0 +1,78 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: minio
+  namespace: selfhosted
+spec:
+  releaseName: minio
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://operator.min.io/
+      chart: minio-operator
+      version: 4.1.3
+      sourceRef:
+        kind: HelmRepository
+        name: minio-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    operator:
+      image:
+        repository: minio/operator
+        tag: v4.1.3
+      replicaCount: 1
+    console:
+      image:
+        repository: minio/console
+        tag: v0.7.5
+      replicaCount: 1
+      ingress:
+        enabled: true
+        host: minio-console.${SECRET_DOMAIN}
+        path: /
+    tenants:
+      - name: minio1
+        image:
+          repository: minio/minio
+          tag: RELEASE.2021-06-17T00-10-46Z
+        namespace: default
+        pools:
+          ## Servers specifies the number of MinIO Tenant Pods / Servers in this pool.
+          ## For standalone mode, supply 1. For distributed mode, supply 4 or more.
+          - servers: 4
+            ## volumesPerServer specifies the number of volumes attached per MinIO Tenant Pod / Server.
+            volumesPerServer: 4
+            size: 1Gi
+            storageClassName: local-path
+        secrets:
+          enabled: true
+          name: minio1-secret
+          accessKey: minio
+          secretKey: minio123
+        metrics:
+          enabled: false
+          port: 9000
+        ## Enable S3 specific features such as Bucket DNS which would allow `buckets` to be
+        ## accessible as DNS entries of form `<bucketname>.minio.default.svc.cluster.local`
+        s3:
+          bucketDNS: false
+        ## PodManagement policy for MinIO Tenant Pods. Can be "OrderedReady" or "Parallel"
+        ## Refer https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#pod-management-policy
+        ## for details.
+        podManagementPolicy: Parallel
+        ## Define configuration for Console (Graphical user interface for MinIO)
+        ## Refer https://github.com/minio/console
+        console:
+          image:
+            repository: minio/console
+            tag: v0.7.5
+            pullPolicy: IfNotPresent
+          replicaCount: 1
+          secrets:
+            enabled: true
+            name: console-secret
+            passphrase: SECRET
+            salt: SECRET
+            accessKey: YOURCONSOLEACCESS
+            secretKey: YOURCONSOLESECRET
