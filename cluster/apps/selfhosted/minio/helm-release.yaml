@@ -74,4 +74,4 @@ spec:
             enabled: false
             name: console-secret
           env:
-            CONSOLE_MINIO_SERVER: https://minio1.${SECRET_DOMAIN}
+            - CONSOLE_MINIO_SERVER: https://minio1.${SECRET_DOMAIN}
