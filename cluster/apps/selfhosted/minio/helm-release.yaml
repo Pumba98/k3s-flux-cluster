@@ -72,5 +72,6 @@ spec:
           replicaCount: 1
           secrets:
             enabled: false
+            name: console-secret
           env:
             MINIO_DOMAIN: minio1-console.${SECRET_DOMAIN}
