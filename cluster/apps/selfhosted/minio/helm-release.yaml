@@ -37,8 +37,8 @@ spec:
           repository: minio/minio
           tag: RELEASE.2021-06-17T00-10-46Z
         namespace: default
-        scheduler: {}
         imagePullSecret: {}
+        scheduler: {}
         pools:
           ## Servers specifies the number of MinIO Tenant Pods / Servers in this pool.
           ## For standalone mode, supply 1. For distributed mode, supply 4 or more.
@@ -55,6 +55,8 @@ spec:
         metrics:
           enabled: false
           port: 9000
+        certificate:
+          requestAutoCert: true
         ## Enable S3 specific features such as Bucket DNS which would allow `buckets` to be
         ## accessible as DNS entries of form `<bucketname>.minio.default.svc.cluster.local`
         s3:
