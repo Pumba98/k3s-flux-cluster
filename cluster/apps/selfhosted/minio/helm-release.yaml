@@ -48,8 +48,8 @@ spec:
         secrets:
           enabled: true
           name: minio1-secret
-          accessKey: minio
-          secretKey: minio123
+          accessKey: ${SECRET_MINIO_ACCESSKEY}
+          secretKey: ${SECRET_MINIO_SECRETKEY}
         metrics:
           enabled: false
           port: 9000
@@ -59,9 +59,6 @@ spec:
         ## accessible as DNS entries of form `<bucketname>.minio.default.svc.cluster.local`
         s3:
           bucketDNS: false
-        ## PodManagement policy for MinIO Tenant Pods. Can be "OrderedReady" or "Parallel"
-        ## Refer https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#pod-management-policy
-        ## for details.
         podManagementPolicy: Parallel
         env:
           MINIO_DOMAIN: minio1.${SECRET_DOMAIN}
@@ -75,3 +72,5 @@ spec:
           replicaCount: 1
           secrets:
             enabled: false
+          env:
+            MINIO_DOMAIN: minio1-console.${SECRET_DOMAIN}
