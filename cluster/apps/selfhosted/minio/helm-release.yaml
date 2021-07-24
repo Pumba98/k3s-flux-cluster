@@ -65,6 +65,8 @@ spec:
         ## Refer https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#pod-management-policy
         ## for details.
         podManagementPolicy: Parallel
+        env:
+          MINIO_DOMAIN: minio1.${SECRET_DOMAIN}
         ## Define configuration for Console (Graphical user interface for MinIO)
         ## Refer https://github.com/minio/console
         console:
