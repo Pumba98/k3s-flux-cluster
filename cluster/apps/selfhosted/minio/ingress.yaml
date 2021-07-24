@@ -4,8 +4,8 @@ kind: Ingress
 metadata:
   name: minio1
   namespace: default
-annotations:
-  nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   rules:
   - host: minio1.${SECRET_DOMAIN}
@@ -24,8 +24,8 @@ kind: Ingress
 metadata:
   name: minio1-console
   namespace: default
-annotations:
-  nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   rules:
   - host: minio1-console.${SECRET_DOMAIN}
