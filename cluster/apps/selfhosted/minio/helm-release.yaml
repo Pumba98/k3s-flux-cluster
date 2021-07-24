@@ -61,7 +61,8 @@ spec:
           bucketDNS: false
         podManagementPolicy: Parallel
         env:
-          MINIO_DOMAIN: minio1.${SECRET_DOMAIN}
+          - name: MINIO_DOMAIN
+            value: minio1.${SECRET_DOMAIN}
         ## Define configuration for Console (Graphical user interface for MinIO)
         ## Refer https://github.com/minio/console
         console:
