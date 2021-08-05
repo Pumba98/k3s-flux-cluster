@@ -25,7 +25,7 @@ spec:
     console:
       image:
         repository: minio/console
-        tag: v0.7.5
+        tag: v0.8.3
       replicaCount: 1
       ingress:
         enabled: false
@@ -68,7 +68,7 @@ spec:
         console:
           image:
             repository: minio/console
-            tag: v0.7.5
+            tag: v0.8.3
             pullPolicy: IfNotPresent
           replicaCount: 1
           secrets:
