@@ -43,5 +43,5 @@ spec:
         kubernetes.io/ingress.class: "nginx"
       host: longhorn.${SECRET_DOMAIN}
     defaultSettings:
-      backupTarget: s3://longhorn@us-east-1
+      backupTarget: s3://longhorn@us-east-1/
       backupTargetCredentialSecret: longhorn-system-secrets
