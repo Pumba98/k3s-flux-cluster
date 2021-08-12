@@ -7,3 +7,4 @@ resources:
 - longhorn-system.yaml
 - selfhosted.yaml
 - monitoring.yaml
+- mail.yaml
