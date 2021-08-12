@@ -39,7 +39,7 @@ spec:
       #     - "mail.${SECRET_DOMAIN}"
     persistence:
       size: 1Gi
-      accessMode: ReadWriteOnce
+      accessMode: ReadWriteMany
     # rspamd:
     #   resources:
     #     limits:
