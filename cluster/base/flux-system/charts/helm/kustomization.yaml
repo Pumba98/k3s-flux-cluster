@@ -14,3 +14,4 @@ resources:
 - infracloudio-charts.yaml
 - minio-charts.yaml
 - local-path-provisioner-charts.yaml
+- mailu-charts.yaml

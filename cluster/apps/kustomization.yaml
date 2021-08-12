@@ -6,4 +6,5 @@ resources:
 - cattle-system
 - selfhosted
 - monitoring
+- mail
 # - system-upgrade
