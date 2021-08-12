@@ -31,7 +31,7 @@ spec:
     logLevel: INFO
     ingress:
       annotations:
-        external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
         external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
       hosts:
         - "mail.${SECRET_DOMAIN}"
