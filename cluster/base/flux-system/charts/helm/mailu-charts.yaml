@@ -6,5 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  url: https://mailu.github.io/helm-charts
+  url: https://roobre.github.io/mailu-helm-charts
+  #Upstream https://mailu.github.io/helm-charts
   timeout: 3m
