@@ -30,13 +30,13 @@ spec:
     subnet: 10.42.0.0/16
     logLevel: INFO
     ingress:
-      # annotations:
-      #   external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
       hosts:
         - "mail.${SECRET_DOMAIN}"
-      # tls:
-      #   hosts:
-      #     - "mail.${SECRET_DOMAIN}"
+      tls:
+        hosts:
+          - "mail.${SECRET_DOMAIN}"
     persistence:
       size: 1Gi
       accessMode: ReadWriteMany
