@@ -27,7 +27,7 @@ spec:
       username: postmaster
       password: "${SECRET_MAILU_POSTMASTER_PASSWORD}"
     secretKey: "${SECRET_MAILU_SECRET_KEY}"
-    subnet: 10.43.0.0/16
+    subnet: 10.42.0.0/16
     logLevel: INFO
     ingress:
       # annotations:
@@ -44,12 +44,12 @@ spec:
     #   resources:
     #     limits:
     #       memory: 500Mi
-    # roundcube:
-    #   resources:
-    #     requests:
-    #       cpu: 200m
-    #     limits:
-    #       cpu: 400m
+    roundcube:
+      resources:
+        requests:
+          cpu: 200m
+        limits:
+          cpu: 400m
   postRenderers:
     - kustomize:
         patchesJson6902:
