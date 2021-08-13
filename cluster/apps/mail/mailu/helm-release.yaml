@@ -27,7 +27,7 @@ spec:
       username: postmaster
       password: "${SECRET_MAILU_POSTMASTER_PASSWORD}"
     secretKey: "${SECRET_MAILU_SECRET_KEY}"
-    subnet: 10.42.0.0/16
+    subnet: ${NETWORK_K8S_CIDR}
     logLevel: INFO
     ingress:
       annotations:
