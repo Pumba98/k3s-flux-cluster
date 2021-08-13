@@ -67,7 +67,7 @@ spec:
       VPN_INTERFACE: wg0
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: "8005"
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "${NETWORK_LOCAL_CIDR}"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: "10.0.0.0/8 ${NETWORK_LOCAL_CIDR}"
       VPN_LOCAL_CIDRS: "${WIREGUARD_VPN_NETWORK}"
     publicPorts:
       - hostname: mailu-front
