@@ -4,3 +4,4 @@ resources:
 - ingress-nginx
 - wildcard-certificate
 - external-dns
+- pod-gateway
