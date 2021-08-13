@@ -49,7 +49,7 @@ spec:
           periodSeconds: 60
           failureThreshold: 1
         networkPolicy:
-          enabled: true
+          enabled: false
           egress:
             - to:
                 - ipBlock:
@@ -67,22 +67,23 @@ spec:
       VPN_INTERFACE: wg0
       VPN_BLOCK_OTHER_TRAFFIC: false
       VPN_TRAFFIC_PORT: "8005"
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "172.15.0.0/16 10.0.0.0/8 ${NETWORK_LOCAL_CIDR}"
-      VPN_LOCAL_CIDRS: "172.15.0.0/16"
-    publicPorts:
-      - hostname: mailu-front
-        IP: 2
-        ports:
-          - type: tcp
-            port: 25
-          - type: tcp
-            port: 465
-          - type: tcp
-            port: 587
-          - type: tcp
-            port: 143
-          - type: tcp
-            port: 993
+      VXLAN_IP_NETWORK: "172.16.0.1"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: "172.16.0.0/24 10.0.0.0/8 ${NETWORK_LOCAL_CIDR}"
+      VPN_LOCAL_CIDRS: "172.16.0.0/24 ${WIREGUARD_VPN_NETWORK}"
+    # publicPorts:
+    #   - hostname: mailu-front
+    #     IP: 2
+    #     ports:
+    #       - type: tcp
+    #         port: 25
+    #       - type: tcp
+    #         port: 465
+    #       - type: tcp
+    #         port: 587
+    #       - type: tcp
+    #         port: 143
+    #       - type: tcp
+    #         port: 993
     webhook:
       image:
         repository: ghcr.io/k8s-at-home/gateway-admision-controller
