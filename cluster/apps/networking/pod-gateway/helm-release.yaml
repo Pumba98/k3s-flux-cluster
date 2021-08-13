@@ -65,10 +65,10 @@ spec:
       - mail
     settings:
       VPN_INTERFACE: wg0
-      VPN_BLOCK_OTHER_TRAFFIC: true
+      VPN_BLOCK_OTHER_TRAFFIC: false
       VPN_TRAFFIC_PORT: "8005"
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "10.0.0.0/8 ${NETWORK_LOCAL_CIDR}"
-      VPN_LOCAL_CIDRS: "${WIREGUARD_VPN_NETWORK}"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: "172.15.0.0/16 10.0.0.0/8 ${NETWORK_LOCAL_CIDR}"
+      VPN_LOCAL_CIDRS: "172.15.0.0/16 ${WIREGUARD_VPN_NETWORK}"
     publicPorts:
       - hostname: mailu-front
         IP: 2
