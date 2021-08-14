@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://roobre.github.io/mailu-helm-charts/
+      # renovate: registryUrl=https://roobre.github.io/mailu-helm-charts
       chart: mailu
       version: 0.2.1
       sourceRef:
