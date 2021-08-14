@@ -68,8 +68,8 @@ spec:
       VPN_BLOCK_OTHER_TRAFFIC: false
       VPN_TRAFFIC_PORT: "8005"
       VXLAN_IP_NETWORK: "172.16.0"
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "10.0.0.0/8 ${NETWORK_LOCAL_CIDR}"
-      VPN_LOCAL_CIDRS: "172.16.0.0/24"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: ""
+      VPN_LOCAL_CIDRS: "172.16.0.0/24 10.0.0.0/8 ${NETWORK_LOCAL_CIDR}"
     # publicPorts:
     #   - hostname: mailu-front
     #     IP: 2
