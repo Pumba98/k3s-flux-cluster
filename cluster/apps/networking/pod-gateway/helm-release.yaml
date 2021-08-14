@@ -31,7 +31,7 @@ spec:
         env:
           TZ: "Etc/UTC"
           IPTABLES_BACKEND: legacy
-          KILLSWITCH: "true"
+          KILLSWITCH: "false"
         configFileSecret: pod-gateway-vpnconfig
         resources:
           requests:
