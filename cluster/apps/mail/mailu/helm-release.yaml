@@ -53,6 +53,8 @@ spec:
           cpu: 400m
     # pull #84
     front:
+      controller:
+        kind: DaemonSet
       externalService:
         enabled: true
         type: LoadBalancer
@@ -76,3 +78,10 @@ spec:
               - op: add
                 path: /spec/template/spec/hostname
                 value: mailu-front
+          - target:
+              kind: Service
+              name: mailu-front-ext
+            patch:
+              - op: add
+                path: /spec/externalTrafficPolicy
+                value: Local
