@@ -29,9 +29,9 @@ spec:
             repository: ghcr.io/k8s-at-home/wireguard
             tag: v1.0.20210424
         env:
-          TZ: "America/Chicago"
+          TZ: "Etc/UTC"
           IPTABLES_BACKEND: legacy
-          KILLSWITCH: "false"
+          KILLSWITCH: "true"
         configFileSecret: pod-gateway-vpnconfig
         resources:
           requests:
@@ -49,7 +49,7 @@ spec:
           periodSeconds: 60
           failureThreshold: 1
         networkPolicy:
-          enabled: false
+          enabled: true
           egress:
             - to:
                 - ipBlock:
@@ -60,16 +60,15 @@ spec:
                   protocol: UDP
             - to:
                 - ipBlock:
-                    cidr: 10.0.0.0/8
+                    cidr: ${NETWORK_K8S_CLUSTER_CIDR}
     routed_namespaces:
       - mail
     settings:
       VPN_INTERFACE: wg0
-      VPN_BLOCK_OTHER_TRAFFIC: false
+      VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: "8005"
-      VXLAN_IP_NETWORK: "172.16.0"
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "10.0.0.0/8"
-      VPN_LOCAL_CIDRS: "172.16.0.0/24 10.0.0.0/8 ${NETWORK_LOCAL_CIDR}"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: "${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR}"
+      VPN_LOCAL_CIDRS: "172.16.0.0/24 ${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_LOCAL_CIDR}"
     # publicPorts:
     #   - hostname: mailu-front
     #     IP: 2
