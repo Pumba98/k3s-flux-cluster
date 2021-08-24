@@ -30,7 +30,9 @@ spec:
     subnet: ${NETWORK_K8S_CIDR}
     ingress:
       annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
         external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
+        nginx.ingress.kubernetes.io/whitelist-source-range: "${NETWORK_LOCAL_CIDR}"
       hosts:
         - "mail.${SECRET_DOMAIN}"
       tls:
