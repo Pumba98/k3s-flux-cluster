@@ -49,7 +49,7 @@ spec:
           periodSeconds: 60
           failureThreshold: 1
         networkPolicy:
-          enabled: false
+          enabled: true
           egress:
             - to:
                 - ipBlock:
@@ -68,10 +68,10 @@ spec:
       - mail
     settings:
       VPN_INTERFACE: wg0
-      VPN_BLOCK_OTHER_TRAFFIC: false
+      VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: "8005"
       NOT_ROUTED_TO_GATEWAY_CIDRS: "${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR}"
-      VPN_LOCAL_CIDRS: "172.16.0.0/24 ${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_LOCAL_CIDR}"
+      VPN_LOCAL_CIDRS: "172.16.0.0/24 ${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR}"
     publicPorts:
       - hostname: mailu-front
         IP: 2
