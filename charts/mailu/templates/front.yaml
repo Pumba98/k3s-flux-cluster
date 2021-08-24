@@ -217,10 +217,10 @@ spec:
     - name: imap-auth
       port: 10143
       protocol: TCP
-    {{ if not .Values.ingress.externalIngress }}
     - name: http
       port: 80
       protocol: TCP
+    {{ if not .Values.ingress.externalIngress }}
     - name: https
       port: 443
       protocol: TCP
