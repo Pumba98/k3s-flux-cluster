@@ -64,8 +64,8 @@ spec:
             - to:
                 - ipBlock:
                     cidr: ${NETWORK_K8S_SERVICE_CIDR}
-    routed_namespaces:
-      - mail
+    routed_namespaces: []
+      #- mail
     settings:
       VPN_INTERFACE: wg0
       VPN_BLOCK_OTHER_TRAFFIC: false
