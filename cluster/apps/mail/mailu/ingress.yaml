@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: mailu-web-ingress
+  namespace: mail
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
 spec:
