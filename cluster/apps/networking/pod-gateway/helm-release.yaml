@@ -64,28 +64,28 @@ spec:
             - to:
                 - ipBlock:
                     cidr: ${NETWORK_K8S_SERVICE_CIDR}
-    routed_namespaces: []
-      #- mail
+    routed_namespaces:
+      - mail
     settings:
       VPN_INTERFACE: wg0
       VPN_BLOCK_OTHER_TRAFFIC: false
       VPN_TRAFFIC_PORT: "8005"
       NOT_ROUTED_TO_GATEWAY_CIDRS: "${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR}"
       VPN_LOCAL_CIDRS: "172.16.0.0/24 ${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_LOCAL_CIDR}"
-    publicPorts:
-      - hostname: mailu-front
-        IP: 2
-        ports:
-          - type: tcp
-            port: 25
-          - type: tcp
-            port: 465
-          - type: tcp
-            port: 587
-          - type: tcp
-            port: 143
-          - type: tcp
-            port: 993
+    # publicPorts:
+    #   - hostname: mailu-front
+    #     IP: 2
+    #     ports:
+    #       - type: tcp
+    #         port: 25
+    #       - type: tcp
+    #         port: 465
+    #       - type: tcp
+    #         port: 587
+    #       - type: tcp
+    #         port: 143
+    #       - type: tcp
+    #         port: 993
     webhook:
       image:
         repository: ghcr.io/k8s-at-home/gateway-admision-controller

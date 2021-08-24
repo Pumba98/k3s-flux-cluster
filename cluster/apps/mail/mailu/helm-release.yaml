@@ -74,20 +74,20 @@ spec:
           smtp: true
           smtps: true
           submission: true
-  postRenderers:
-    - kustomize:
-        patchesJson6902:
-          - target:
-              kind: Deployment
-              name: mailu-front
-            patch:
-              - op: add
-                path: /spec/template/spec/hostname
-                value: mailu-front
-          - target:
-              kind: Service
-              name: mailu-front-ext
-            patch:
-              - op: add
-                path: /spec/externalTrafficPolicy
-                value: Local
+  # postRenderers:
+  #   - kustomize:
+  #       patchesJson6902:
+  #         - target:
+  #             kind: Deployment
+  #             name: mailu-front
+  #           patch:
+  #             - op: add
+  #               path: /spec/template/spec/hostname
+  #               value: mailu-front
+  #         - target:
+  #             kind: Service
+  #             name: mailu-front-ext
+  #           patch:
+  #             - op: add
+  #               path: /spec/externalTrafficPolicy
+  #               value: Local
