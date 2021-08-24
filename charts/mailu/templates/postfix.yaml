@@ -1,0 +1,142 @@
+# This file is derived from https://github.com/Mailu/Mailu/blob/master/docs/kubernetes/mailu/admin.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mailu.fullname" . }}-postfix
+spec:
+  selector:
+    matchLabels:
+      app: {{ include "mailu.fullname" . }}
+      component: postfix
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ include "mailu.fullname" . }}
+        component: postfix
+    spec:
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: postfix
+        image: {{ .Values.postfix.image.repository }}:{{ default .Values.mailuVersion .Values.postfix.image.tag }}
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: /queue
+            name: data
+            subPath: mailqueue
+        env:
+          - name: LOG_LEVEL
+            value: {{ default .Values.logLevel .Values.postfix.logLevel }}
+          - name: REJECT_UNLISTED_RECIPIENT
+            value: "yes"
+          - name: DOMAIN
+            value: "{{ required "domain" .Values.domain }}"
+          - name: HOSTNAMES
+            value: "{{ join "," .Values.hostnames }}"
+          - name: MESSAGE_SIZE_LIMIT
+            value: "{{ mul .Values.mail.messageSizeLimitInMegabytes (mul 1024 1024) }}"
+          - name: SUBNET
+            value: "{{ .Values.subnet }}"
+          - name: RECIPIENT_DELIMITER
+            value: "+"
+          - name: LMTP_ADDRESS
+            value: {{ include "mailu.fullname" . }}-dovecot:2525
+          - name: ANTISPAM_MILTER_ADDRESS
+            value: {{ include "mailu.fullname" . }}-rspamd:11332
+          - name: ADMIN_ADDRESS
+            value: {{ include "mailu.fullname" . }}-admin
+          - name: FRONT_ADDRESS
+            value: {{ include "mailu.fullname" . }}-front
+          {{ if hasKey .Values.external_relay "host" }}
+          - name: RELAYHOST
+            value: "{{ .Values.external_relay.host }}"
+          {{ if hasKey .Values.external_relay "username" }}
+          - name: RELAYUSER
+            value: "{{ .Values.external_relay.username }}"
+          - name: RELAYPASSWORD
+            value: "{{ .Values.external_relay.password }}"
+          {{- end}}
+          {{- end}}
+        ports:
+          - name: smtp
+            containerPort: 25
+            protocol: TCP
+          - name: smtp-ssl
+            containerPort: 465
+            protocol: TCP
+          - name: smtp-starttls
+            containerPort: 587
+            protocol: TCP
+          - name: smtp-auth
+            containerPort: 10025
+            protocol: TCP
+        {{- with .Values.postfix.resources }}
+        resources:
+        {{- .|toYaml|nindent 10}}
+        {{- end }}
+        livenessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - 'echo QUIT|nc localhost 25|grep "220 .* ESMTP Postfix"'
+          periodSeconds: 10
+          failureThreshold: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - 'echo QUIT|nc localhost 25|grep "220 .* ESMTP Postfix"'
+          periodSeconds: 10
+          failureThreshold: 3
+          timeoutSeconds: 5
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "mailu.claimName" . }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 0
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mailu.fullname" . }}-postfix
+  labels:
+    app: {{ include "mailu.fullname" . }}
+    component: postfix
+spec:
+  selector:
+    app: {{ include "mailu.fullname" . }}
+    component: postfix
+  ports:
+  - name: smtp
+    port: 25
+    protocol: TCP
+  - name: smtp-ssl
+    port: 465
+    protocol: TCP
+  - name: smtp-starttls
+    port: 587
+    protocol: TCP
+  - name: smtp-auth
+    port: 10025
+    protocol: TCP

@@ -1,0 +1,133 @@
+# This file is derived from https://github.com/Mailu/Mailu/blob/master/docs/kubernetes/mailu/webmail.yaml
+
+{{- if .Values.roundcube.enabled }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mailu.fullname" . }}-roundcube
+spec:
+  selector:
+    matchLabels:
+      app: {{ include "mailu.fullname" . }}
+      component: roundcube
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ include "mailu.fullname" . }}
+        component: roundcube
+    spec:
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: roundcube
+        image: {{ .Values.roundcube.image.repository }}:{{ default .Values.mailuVersion .Values.roundcube.image.tag }}
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: /data
+            name: data
+            subPath: roundcube
+        env:
+          - name: MESSAGE_SIZE_LIMIT
+            value: "{{ mul .Values.mail.messageSizeLimitInMegabytes (mul 1024 1024) }}"
+          - name: IMAP_ADDRESS
+            value: {{ include "mailu.fullname" . }}-dovecot
+          - name: FRONT_ADDRESS
+            value: {{ include "mailu.fullname" . }}-front
+          - name: SECRET_KEY
+            value: "{{ required "secretKey" .Values.secretKey }}"
+          - name: SUBNET
+            value: {{ .Values.subnet }}
+          {{- if eq .Values.database.roundcubeType "sqlite" }}
+          - name: ROUNDCUBE_DB_FLAVOR
+            value: sqlite
+          {{- else if eq .Values.database.roundcubeType "mysql" }}
+          - name: ROUNDCUBE_DB_FLAVOR
+            value: mysql
+          - name: ROUNDCUBE_DB_USER
+            value: {{ required "database.mysql.roundcubeUser" .Values.database.mysql.roundcubeUser }}
+          - name: ROUNDCUBE_DB_PW
+            value: {{ required "database.mysql.roundcubePassword" .Values.database.mysql.roundcubePassword }}
+          - name: ROUNDCUBE_DB_NAME
+            value: {{ required "database.mysql.roundcubeDatabase" .Values.database.mysql.roundcubeDatabase }}
+          - name: ROUNDCUBE_DB_HOST
+            {{- if .Values.database.mysql.host }}
+            value: {{ .Values.database.mysql.host }}
+            {{- end }}
+            value: {{ include "mailu.fullname" . }}-mysql
+          {{- else if eq .Values.database.roundcubeType "postgresql" }}
+          - name: ROUNDCUBE_DB_FLAVOR
+            value: postgresql
+          - name: ROUNDCUBE_DB_USER
+            value: {{ required "database.postgresql.roundcubeUser" .Values.database.postgresql.roundcubeUser }}
+          - name: ROUNDCUBE_DB_PW
+            value: {{ required "database.postgresql.roundcubePassword" .Values.database.postgresql.roundcubePassword }}
+          - name: ROUNDCUBE_DB_NAME
+            value: {{ required "database.postgresql.roundcubeDatabase" .Values.database.postgresql.roundcubeDatabase }}
+          - name: ROUNDCUBE_DB_HOST
+            {{- if .Values.database.postgresql.host }}
+            value: {{ .Values.database.postgresql.host }}
+            {{- end }}
+          {{- else }}
+          value: {{ required "database.type must be one of sqlite/mysql/postgresql" .None }}
+          {{- end }}
+        ports:
+          - name: http
+            containerPort: 80
+        {{- with .Values.roundcube.resources }}
+        resources:
+        {{- .|toYaml|nindent 10}}
+        {{- end }}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 5
+          failureThreshold: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 10
+          failureThreshold: 1
+          timeoutSeconds: 5
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "mailu.claimName" . }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mailu.fullname" . }}-roundcube
+  labels:
+    app: {{ include "mailu.fullname" . }}
+    component: roundcube
+spec:
+  selector:
+    app: {{ include "mailu.fullname" . }}
+    component: roundcube
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+
+{{- end }}

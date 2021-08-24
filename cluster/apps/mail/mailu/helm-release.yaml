@@ -8,13 +8,18 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://roobre.github.io/mailu-helm-charts
-      chart: mailu
-      version: 0.2.1
+      chart: /charts/mailu/
       sourceRef:
-        kind: HelmRepository
-        name: mailu-charts
+        kind: GitRepository
+        name: flux-system
         namespace: flux-system
+      # # renovate: registryUrl=https://roobre.github.io/mailu-helm-charts
+      # chart: mailu
+      # version: 0.2.1
+      # sourceRef:
+      #   kind: HelmRepository
+      #   name: mailu-charts
+      #   namespace: flux-system
       interval: 5m
   values:
     certmanager:
@@ -51,13 +56,14 @@ spec:
           cpu: 200m
         limits:
           cpu: 400m
-    # pull #84
     front:
       controller:
         kind: DaemonSet
       externalService:
         enabled: true
         type: LoadBalancer
+        externalTrafficPolicy: Local
+        loadBalancerIP: 192.168.1.211
         pop3:
           pop3: false
           pop3s: true
