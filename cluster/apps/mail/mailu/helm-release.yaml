@@ -35,7 +35,6 @@ spec:
         nginx.ingress.kubernetes.io/whitelist-source-range: "${NETWORK_LOCAL_CIDR}"
       hosts:
         - "mail.${SECRET_DOMAIN}"
-        - "mailu.${SECRET_DOMAIN}"
       tls:
         hosts:
           - "mail.${SECRET_DOMAIN}"
