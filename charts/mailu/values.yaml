@@ -199,6 +199,15 @@ dovecot:
     limits:
       memory: 500Mi
       cpu: 500m
+  # enable dovecot overrides
+  # overrides:
+  #   dovecot.conf: |
+  #     # More info here: https://mailu.io/1.8/kubernetes/mailu/index.html#dovecot
+  #     mail_nfs_index = yes
+  #     mail_nfs_storage = yes
+  #     mail_fsync = always
+  #     mmap_disable = yes
+  #     mail_max_userip_connections=100
 
 rspamd:
   # logLevel: WARNING
@@ -264,3 +273,19 @@ mysql:
     limits:
       memory: 512Mi
       cpu: 200m
+
+fetchmail:
+  enabled: false
+  # logLevel: WARNING
+  image:
+    repository: mailu/fetchmail
+    # tag defaults to mailuVersion
+    # tag: master
+  resources:
+    requests:
+      memory: 100Mi
+      cpu: 100m
+    limits:
+      memory: 200Mi
+      cpu: 200m
+  delay: 600
