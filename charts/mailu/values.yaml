@@ -162,7 +162,7 @@ admin:
 redis:
   image:
     repository: redis
-    tag: 5-alpine
+    tag: 6-alpine
   resources:
     requests:
       memory: 200Mi
