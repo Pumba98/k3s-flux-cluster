@@ -35,6 +35,12 @@ spec:
         secretName: nextcloud-secrets
         usernameKey: username
         passwordKey: password
+      configs:
+        proxy.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' => array('${NETWORK_K8S_CIDR}')
+          );
       extraEnv:
         - name: OVERWRITEPROTOCOL
           value: https
@@ -47,7 +53,7 @@ spec:
       type: postgresql
       host: nextcloud-postgresql
       user: nextcloud
-      password: changeme
+      password: ${SECRET_NEXTCLOUD_DB_PASSWORD}
       database: nextcloud
 
     cronjob:
@@ -70,7 +76,7 @@ spec:
     postgresql:
       enabled: true
       postgresqlUsername: nextcloud
-      postgresqlPassword: changeme
+      postgresqlPassword: ${SECRET_NEXTCLOUD_DB_PASSWORD}
       postgresqlDatabase: nextcloud
       persistence:
         enabled: true
