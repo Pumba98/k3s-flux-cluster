@@ -49,7 +49,7 @@ spec:
           periodSeconds: 60
           failureThreshold: 1
         networkPolicy:
-          enabled: true
+          enabled: false
           egress:
             - to:
                 - ipBlock:
