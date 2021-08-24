@@ -46,48 +46,39 @@ spec:
     persistence:
       size: 1Gi
       accessMode: ReadWriteMany
-    # rspamd:
-    #   resources:
-    #     limits:
-    #       memory: 500Mi
-    roundcube:
-      resources:
-        requests:
-          cpu: 200m
-        limits:
-          cpu: 400m
     front:
       controller:
-        kind: DaemonSet
-      externalService:
-        enabled: true
-        type: LoadBalancer
-        externalTrafficPolicy: Local
-        loadBalancerIP: 192.168.1.211
-        pop3:
-          pop3: false
-          pop3s: true
-        imap:
-          imap: false
-          imaps: true
-        smtp:
-          smtp: true
-          smtps: true
-          submission: true
-  # postRenderers:
-  #   - kustomize:
-  #       patchesJson6902:
-  #         - target:
-  #             kind: Deployment
-  #             name: mailu-front
-  #           patch:
-  #             - op: add
-  #               path: /spec/template/spec/hostname
-  #               value: mailu-front
-  #         - target:
-  #             kind: Service
-  #             name: mailu-front-ext
-  #           patch:
-  #             - op: add
-  #               path: /spec/externalTrafficPolicy
-  #               value: Local
+        kind: Deployment
+      #   kind: DaemonSet
+      # externalService:
+      #   enabled: true
+      #   type: LoadBalancer
+      #   externalTrafficPolicy: Local
+      #   loadBalancerIP: 192.168.1.211
+      #   pop3:
+      #     pop3: false
+      #     pop3s: true
+      #   imap:
+      #     imap: false
+      #     imaps: true
+      #   smtp:
+      #     smtp: true
+      #     smtps: true
+      #     submission: true
+  postRenderers:
+    - kustomize:
+        patchesJson6902:
+          - target:
+              kind: Deployment
+              name: mailu-front
+            patch:
+              - op: add
+                path: /spec/template/spec/hostname
+                value: mailu-front
+          # - target:
+          #     kind: Service
+          #     name: mailu-front-ext
+          #   patch:
+          #     - op: add
+          #       path: /spec/externalTrafficPolicy
+          #       value: Local

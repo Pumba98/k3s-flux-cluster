@@ -73,7 +73,7 @@ spec:
       NOT_ROUTED_TO_GATEWAY_CIDRS: "${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR}"
       VPN_LOCAL_CIDRS: "172.16.0.0/24 ${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR} ${NETWORK_LOCAL_CIDR}"
     publicPorts:
-      - hostname: mailu-front-ext
+      - hostname: mailu-front
         IP: 2
         ports:
           - type: tcp
