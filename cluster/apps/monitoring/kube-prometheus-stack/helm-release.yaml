@@ -28,7 +28,7 @@ spec:
     alertmanager:
       image:
         repository: quay.io/prometheus/alertmanager
-        tag: v0.22.2
+        tag: v0.23.0
       ingress:
         enabled: true
         pathType: Prefix
