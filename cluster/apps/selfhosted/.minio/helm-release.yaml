@@ -33,7 +33,7 @@ spec:
       - name: minio1
         image:
           repository: minio/minio
-          tag: RELEASE.2021-06-17T00-10-46Z
+          tag: RELEASE.2021-09-03T03-56-13Z
         namespace: default
         imagePullSecret: {}
         scheduler: {}
