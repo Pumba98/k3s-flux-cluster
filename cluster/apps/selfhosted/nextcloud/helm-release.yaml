@@ -22,6 +22,7 @@ spec:
       tag: 22.1.0-apache
     ingress:
       enabled: true
+      className: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
         external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
