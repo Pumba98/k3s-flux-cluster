@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 22.1.0-apache
+      tag: 22.1.1-apache
     ingress:
       enabled: true
       annotations:
