@@ -17,8 +17,17 @@ spec:
         namespace: flux-system
   values:
     controller:
+      image:
+        registry: k8s.gcr.io
+        image: ingress-nginx/controller
+        tag: "v1.0.0"
       ingressClass: nginx
       kind: DaemonSet
+      watchIngressWithoutClass: false
+      ingressClassRessource:
+        enabled: true
+        name: nginx
+        default: true
       service:
         type: LoadBalancer
         loadBalancerIP: "${INGRESS_NGINX_LB}"
