@@ -8,12 +8,12 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://releases.rancher.com/server-charts/stable
+      # renovate: registryUrl=https://releases.rancher.com/server-charts/latest
       chart: rancher
       version: 2.5.9
       sourceRef:
         kind: HelmRepository
-        name: rancher-stable
+        name: rancher-latest
         namespace: flux-system
   values:
     hostname: rancher.${SECRET_DOMAIN}
