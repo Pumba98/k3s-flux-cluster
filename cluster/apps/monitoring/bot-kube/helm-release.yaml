@@ -18,8 +18,9 @@ spec:
       interval: 5m
   values:
     image:
+      registry: ghcr.io
       repository: infracloudio/botkube
-      tag: v0.12.1
+      tag: v0.12.3
     communications:
       discord:
         enabled: true
