@@ -24,19 +24,19 @@ spec:
       recurringJobs:
         enable: true
         jobList: '[
-          { 
-            "name":"snap", 
-            "task":"snapshot", 
-            "cron":"0 * * * *", 
+          {
+            "name":"snap",
+            "task":"snapshot",
+            "cron":"0 * * * *",
             "retain":24
           },
           {
-            "name":"backup", 
-            "task":"backup", 
-            "cron":"0 2 * * *", 
+            "name":"backup",
+            "task":"backup",
+            "cron":"0 2 * * *",
             "retain":1
           }
-        ]'
+          ]'
     ingress:
       enabled: true
       annotations:

@@ -1,6 +1,4 @@
-
 ---
-
 name: Schedule - Renovate Helm Releases
 
 on: # yamllint disable-line rule:truthy

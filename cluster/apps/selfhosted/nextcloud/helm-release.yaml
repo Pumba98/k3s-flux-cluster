@@ -28,9 +28,9 @@ spec:
         external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
       tls:
       - hosts:
-        - cloud.${SECRET_DOMAIN} 
+        - cloud.${SECRET_DOMAIN}
     nextcloud:
-      host: cloud.${SECRET_DOMAIN} 
+      host: cloud.${SECRET_DOMAIN}
       existingSecret:
         enabled: true
         secretName: nextcloud-secrets
@@ -43,8 +43,8 @@ spec:
             'trusted_proxies' => array('${NETWORK_K8S_CIDR}')
           );
       extraEnv:
-        - name: OVERWRITEPROTOCOL
-          value: https
+      - name: OVERWRITEPROTOCOL
+        value: https
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
