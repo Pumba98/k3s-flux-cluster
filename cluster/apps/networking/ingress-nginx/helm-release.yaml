@@ -23,7 +23,7 @@ spec:
         tag: "v1.0.0"
       ingressClass: nginx
       kind: DaemonSet
-      watchIngressWithoutClass: false
+      watchIngressWithoutClass: true
       ingressClassRessource:
         enabled: true
         name: nginx
