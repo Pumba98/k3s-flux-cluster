@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://releases.rancher.com/server-charts/latest
       chart: rancher
-      version: 2.5.9
+      version: 2.6.0
       sourceRef:
         kind: HelmRepository
         name: rancher-latest
@@ -19,3 +19,4 @@ spec:
     hostname: rancher.${SECRET_DOMAIN}
     tls: external
     replicas: 1
+    bootstrapPassword: ""
