@@ -91,7 +91,7 @@ pre-commit install-hooks
 
 ```sh
 export GPG_TTY=$(tty)
-sops --encrypt --in-place ./cluster/base/cluster-secrets.yaml
+sops --encrypt --in-place ./cluster/base/cluster-secrets.sops.yaml
 ```
 
 3. Pre-create the `flux-system` namespace

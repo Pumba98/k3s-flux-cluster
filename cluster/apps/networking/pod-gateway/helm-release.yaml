@@ -32,7 +32,7 @@ spec:
           TZ: "Etc/UTC"
           IPTABLES_BACKEND: legacy
           KILLSWITCH: "false"
-        configFileSecret: pod-gateway-vpnconfig
+        configFileSecret: pod-gateway-secrets
         resources:
           requests:
             cpu: "0.001"
