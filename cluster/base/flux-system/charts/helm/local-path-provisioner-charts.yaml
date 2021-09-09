@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 30m
   url: https://github.com/rancher/local-path-provisioner.git
-  ref: 
+  ref:
     tag: v0.0.19
   ignore: |
     /*

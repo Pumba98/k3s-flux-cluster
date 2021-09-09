@@ -1,10 +1,10 @@
 ignore: |
-  .github/
-  crds.yaml
+  *.sops.*
+  gotk-components.yaml
 extends: default
 rules:
   truthy:
-    allowed-values: ['true', 'false', 'on', 'yes']
+    allowed-values: ["true", "false", "on"]
   comments:
     min-spaces-from-content: 1
   line-length: disable
