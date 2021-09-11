@@ -7,6 +7,7 @@ resources:
 - k8s-at-home-charts.yaml
 - metallb-charts.yaml
 - rancher-stable-charts.yaml
+- rancher-latest-charts.yaml
 - longhorn-charts.yaml
 - nextcloud-charts.yaml
 - prometheus-charts.yaml
