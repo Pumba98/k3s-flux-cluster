@@ -22,7 +22,7 @@
     // regexManager to read and process HelmRelease files
     {
       "fileMatch": [
-        "cluster/.+\\.yaml$"
+        "cluster/[^\\.]+\\.yaml$"
       ],
       "matchStrings": [
         // helm releases
