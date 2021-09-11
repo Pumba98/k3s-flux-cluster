@@ -6,12 +6,13 @@ metadata:
   namespace: mail
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/app-root: /admin
 spec:
   rules:
   - host: "mailu.${SECRET_DOMAIN}"
     http:
       paths:
-      - path: "/admin"
+      - path: "/"
         backend:
           serviceName: mailu-front
           servicePort: 80
