@@ -1,7 +1,8 @@
+---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: mailu-web-ingress
+  name: mailu-admin-ingress
   namespace: mail
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
@@ -10,7 +11,7 @@ spec:
   - host: "mailu.${SECRET_DOMAIN}"
     http:
       paths:
-      - path: "/"
+      - path: "/admin"
         backend:
           serviceName: mailu-front
           servicePort: 80
