@@ -29,6 +29,7 @@ spec:
         kubernetes.io/ingress.class: "nginx"
       host: longhorn.${SECRET_DOMAIN}
     defaultSettings:
+      defaultLonghornStaticStorageClass: longhorn-backup
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       backupTarget: s3://longhorn@us-east-1/
       backupTargetCredentialSecret: longhorn-system-secrets
