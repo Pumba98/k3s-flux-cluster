@@ -6,7 +6,7 @@ provisioner: driver.longhorn.io
 allowVolumeExpansion: true
 parameters:
   numberOfReplicas: "3"
-  staleReplicaTimeout: "2880"
+  staleReplicaTimeout: "2880" # 48 hours in minutes
   fromBackup: ""
   fsType: "ext4"
   recurringJobs: '[
@@ -21,5 +21,8 @@ parameters:
       "task":"backup",
       "cron":"0 */6 * * *",
       "retain":1,
+      "labels": {
+        "interval":"6h"
+      }
     }
   ]'
