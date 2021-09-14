@@ -21,6 +21,8 @@ spec:
       defaultClass: true
       defaultClassReplicaCount: 3
       reclaimPolicy: Delete
+      recurringJobSelector:
+        enable: false
     ingress:
       enabled: true
       annotations:
