@@ -39,8 +39,7 @@ spec:
         hosts:
           - "mail.${SECRET_DOMAIN}"
     persistence:
-      size: 1Gi
-      accessMode: ReadWriteMany
+      existingClaim: mailu-storage
     roundcube:
       resources:
         requests:

@@ -47,8 +47,7 @@ spec:
         value: https
     persistence:
       enabled: true
-      accessMode: ReadWriteOnce
-      size: 8Gi
+      existingClaim: nextcloud-data
     externalDatabase:
       enabled: true
       type: postgresql
@@ -81,4 +80,4 @@ spec:
       postgresqlDatabase: nextcloud
       persistence:
         enabled: true
-        size: 1Gi
+        existingClaim: nextcloud-postgresql

@@ -21,6 +21,7 @@ spec:
       repository: vaultwarden/server
       tag: 1.22.2
     env:
+      DATABASE_URL: postgresql://vaultwarden:${SECRET_VAULTWARDEN_DB_PASSWORD}@vaultwarden-postgresql:5432/vaultwarden
       DATA_FOLDER: "config"
       WEBSOCKET_ENABLED: 'true'
       SIGNUPS_ALLOWED: 'false'
@@ -66,3 +67,12 @@ spec:
     persistence:
       config:
         enabled: true
+        existingClaim: vaultwarden-config
+    postgresql:
+      enabled: true
+      postgresqlUsername: vaultwarden
+      postgresqlPassword: ${SECRET_VAULTWARDEN_DB_PASSWORD}
+      postgresqlDatabase: vaultwarden
+      persistence:
+        enabled: true
+        existingClaim: vaultwarden-postgresql
