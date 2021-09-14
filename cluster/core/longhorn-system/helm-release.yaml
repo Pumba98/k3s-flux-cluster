@@ -21,22 +21,6 @@ spec:
       defaultClass: true
       defaultClassReplicaCount: 3
       reclaimPolicy: Delete
-      recurringJobs:
-        enable: true
-        jobList: '[
-          {
-            "name":"snap",
-            "task":"snapshot",
-            "cron":"0 * * * *",
-            "retain":24
-          },
-          {
-            "name":"backup",
-            "task":"backup",
-            "cron":"0 2 * * *",
-            "retain":1
-          }
-          ]'
     ingress:
       enabled: true
       annotations:
