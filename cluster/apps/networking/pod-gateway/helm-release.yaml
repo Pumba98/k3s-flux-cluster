@@ -27,7 +27,7 @@ spec:
         wireguard:
           image:
             repository: ghcr.io/k8s-at-home/wireguard
-            tag: v1.0.20210424
+            tag: v1.0.20210914
         env:
           TZ: "Etc/UTC"
           IPTABLES_BACKEND: legacy
