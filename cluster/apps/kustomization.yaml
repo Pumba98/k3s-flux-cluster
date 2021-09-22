@@ -7,4 +7,4 @@ resources:
 - selfhosted
 - monitoring
 - mail
-# - system-upgrade
+- system-upgrade
