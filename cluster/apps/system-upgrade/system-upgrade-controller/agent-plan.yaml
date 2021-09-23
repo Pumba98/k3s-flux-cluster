@@ -4,22 +4,17 @@ kind: Plan
 metadata:
   name: k3s-agent
   namespace: system-upgrade
-  labels:
-    k3s-upgrade: agent
 spec:
-  serviceAccountName: system-upgrade
+  version: v1.21.5+k3s1
   concurrency: 1
-  channel: https://update.k3s.io/v1-release/channels/v1.21
+  serviceAccountName: system-upgrade
   nodeSelector:
     matchExpressions:
       - key: node-role.kubernetes.io/master
         operator: NotIn
         values:
           - "true"
-      - key: k3s-upgrade
-        operator: In
-        values:
-          - "true"
+  cordon: true
   prepare:
     image: rancher/k3s-upgrade
     args:
