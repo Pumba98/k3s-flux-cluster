@@ -45,8 +45,15 @@ spec:
         requests:
           cpu: 200m
         limits:
-          cpu:
-            400m
+          cpu: 800m
+    rspamd:
+      resources:
+        requests:
+          cpu: 200m
+          memory: 100Mi
+        limits:
+          cpu: 2000m
+          memory: 1500Mi
     front:
       controller:
         kind: Deployment
