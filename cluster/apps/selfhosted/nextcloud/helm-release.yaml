@@ -43,9 +43,6 @@ spec:
             'trusted_proxies' => array('${NETWORK_K8S_CIDR}'),
             'overwriteprotocol' => 'https'
           );
-      # extraEnv:
-      # - name: OVERWRITEPROTOCOL
-      #   value: https
     persistence:
       enabled: true
       existingClaim: nextcloud-data
