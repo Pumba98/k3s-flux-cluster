@@ -40,11 +40,12 @@ spec:
         proxy.config.php: |-
           <?php
           $CONFIG = array (
-            'trusted_proxies' => array('${NETWORK_K8S_CIDR}')
+            'trusted_proxies' => array('${NETWORK_K8S_CIDR}'),
+            'overwriteprotocol' => 'https'
           );
-      extraEnv:
-      - name: OVERWRITEPROTOCOL
-        value: https
+      # extraEnv:
+      # - name: OVERWRITEPROTOCOL
+      #   value: https
     persistence:
       enabled: true
       existingClaim: nextcloud-data
