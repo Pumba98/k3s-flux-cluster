@@ -1,5 +1,5 @@
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: mailu-roundcube-ingress
@@ -13,5 +13,7 @@ spec:
       paths:
       - path: "/"
         backend:
-          serviceName: mailu-front
-          servicePort: 80
+          service:
+            name: mailu-front
+            port: 
+              number: 80
