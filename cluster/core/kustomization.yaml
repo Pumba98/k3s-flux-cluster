@@ -6,4 +6,4 @@ resources:
 - cert-manager
 - longhorn-system
 - flux-extra
-- system-upgrade
+- networking
