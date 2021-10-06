@@ -3,5 +3,3 @@ kind: Kustomization
 resources:
 - helm-release.yaml
 - mailu-pvc.yaml
-- roundcube-ingress.yaml
-- mailu-admin-ingress.yaml

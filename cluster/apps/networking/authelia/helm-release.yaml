@@ -61,25 +61,41 @@ spec:
             memory: 1024
             parallelism: 8
       access_control:
-        ## Default policy can either be 'bypass', 'one_factor', 'two_factor' or 'deny'.
         default_policy: deny
         networks:
         - name: private
           networks:
           - ${NETWORK_LOCAL_CIDR}
-
         rules:
-        - domain: "*.${SECRET_DOMAIN}"
-          policy: one_factor
+        # Disable Authelia for local network
+        - policy: bypass
+          domain: "*.${SECRET_DOMAIN}"
           networks:
           - private
-        # - domain:
-        #   - secure.example.com
-        #   - private.example.com
-        #   policy: two_factor
-        # - domain: dev.example.com
-        #   resources:
-        #   - "^/users/john/.*$"
+        # No public access
+        - policy: deny
+          domain: mail.${SECRET_DOMAIN}
+          resources:
+          - "^/admin.*$"
+        # Applications with built-in auth
+        - policy: one_factor
+          domain:
+          - mail.${SECRET_DOMAIN}
+          - grafana.${SECRET_DOMAIN}
+          # - rancher.${SECRET_DOMAIN}
+          # - bw.${SECRET_DOMAIN}
+          # - cloud.${SECRET_DOMAIN}
+        # Applications without auth
+        - policy: two_factor
+          domain:
+          - longhorn.${SECRET_DOMAIN}
+          - homer-config.${SECRET_DOMAIN}
+        # Applications without auth but low security requirements
+        - policy: one_factor
+          domain:
+          - homer.${SECRET_DOMAIN}
+          - prometheus.${SECRET_DOMAIN}
+          - alert-manager.${SECRET_DOMAIN}
 
       session:
         name: authelia_session
