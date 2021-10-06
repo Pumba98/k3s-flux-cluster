@@ -10,13 +10,13 @@ spec:
   serviceAccountName: system-upgrade
   nodeSelector:
     matchExpressions:
-      - key: node-role.kubernetes.io/master
-        operator: In
-        values: 
-        - "true"
+    - key: node-role.kubernetes.io/master
+      operator: In
+      values:
+      - "true"
   tolerations:
-    - key: CriticalAddonsOnly
-      operator: Exists
+  - key: CriticalAddonsOnly
+    operator: Exists
   cordon: true
   upgrade:
     image: rancher/k3s-upgrade
