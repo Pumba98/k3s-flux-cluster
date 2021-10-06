@@ -99,6 +99,8 @@ spec:
         filesystem:
           enabled: true
           filename: /config/notification.txt
+        smtp:
+          enabled: false
 
     persistence:
       enabled: true
