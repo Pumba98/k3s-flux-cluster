@@ -16,3 +16,4 @@ resources:
 - minio-charts.yaml
 - local-path-provisioner-charts.yaml
 - mailu-charts.yaml
+- authelia-charts.yaml

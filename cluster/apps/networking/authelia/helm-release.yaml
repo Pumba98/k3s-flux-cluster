@@ -1,0 +1,107 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authelia
+  namespace: networking
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.authelia.com
+      chart: authelia
+      version: 0.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: authelia-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    domain: ${SECRET_DOMAIN}
+
+    image:
+      registry: ghcr.io
+      repository: authelia/authelia
+      tag: 4.31.0
+
+    ingress:
+      enabled: true
+      subdomain: auth
+      className: nginx
+      tls:
+        enabled: true
+
+    pod:
+      kind: Deployment
+      replicas: 1
+      strategy:
+        type: Recreate
+      extraVolumes:
+      - name: users-volume
+        secret:
+          secretName: authelia-users
+      extraVolumeMounts:
+      - name: users-volume
+        mountPath: /config/users_database.yml
+        subPath: users_database.yml
+
+    configMap:
+      theme: dark
+      authentication_backend:
+        ldap:
+          enabled: false
+        file:
+          enabled: true
+          path: /config/users_database.yml
+          password:
+            algorithm: argon2id
+            iterations: 1
+            key_length: 32
+            salt_length: 16
+            memory: 1024
+            parallelism: 8
+      access_control:
+        ## Default policy can either be 'bypass', 'one_factor', 'two_factor' or 'deny'.
+        default_policy: deny
+        networks:
+        - name: private
+          networks:
+          - ${NETWORK_LOCAL_CIDR}
+
+        rules:
+        - domain: "*.${SECRET_DOMAIN}"
+          policy: bypass
+          networks:
+          - private
+        # - domain:
+        #   - secure.example.com
+        #   - private.example.com
+        #   policy: two_factor
+        # - domain: dev.example.com
+        #   resources:
+        #   - "^/users/john/.*$"
+
+      session:
+        name: authelia_session
+        same_site: lax
+        expiration: 1h
+        inactivity: 5m
+        remember_me_duration: 1M
+      regulation:
+        max_retries: 3
+        find_time: 2m
+        ban_time: 5m
+      storage:
+        local:
+          enabled: true
+          path: /config/db.sqlite3
+      notifier:
+        filesystem:
+          enabled: true
+          filename: /config/notification.txt
+
+    persistence:
+      enabled: true
+      accessModes:
+      - ReadWriteOnce
+      size: 100Mi
