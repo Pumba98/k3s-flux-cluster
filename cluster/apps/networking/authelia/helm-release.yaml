@@ -70,7 +70,7 @@ spec:
 
         rules:
         - domain: "*.${SECRET_DOMAIN}"
-          policy: bypass
+          policy: one_factor
           networks:
           - private
         # - domain:
