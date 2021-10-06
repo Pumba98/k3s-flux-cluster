@@ -76,7 +76,7 @@ spec:
       enabled: true
       image:
         repository: grafana/grafana
-        tag: 8.1.6
+        tag: 8.1.7
       admin:
         existingSecret: grafana-secrets
       ingress:
