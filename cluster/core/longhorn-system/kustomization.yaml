@@ -4,3 +4,5 @@ resources:
 - helm-release.yaml
 - longhorn-system-secrets.sops.yaml
 - storageclass.yaml
+- recurringjob-backup.yaml
+- recurringjob-snapshot.yaml
