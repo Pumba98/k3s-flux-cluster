@@ -87,6 +87,8 @@ spec:
         expiration: 1h
         inactivity: 5m
         remember_me_duration: 1M
+        redis:
+          enabled: false
       regulation:
         max_retries: 3
         find_time: 2m
@@ -95,6 +97,8 @@ spec:
         local:
           enabled: true
           path: /config/db.sqlite3
+        postgres:
+          enabled: false
       notifier:
         filesystem:
           enabled: true
