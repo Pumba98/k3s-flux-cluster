@@ -82,6 +82,18 @@ spec:
         tag: 8.2.0
       admin:
         existingSecret: grafana-secrets
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+          - name: "default"
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
       dashboards:
         default:
           # # Ref: https://grafana.com/grafana/dashboards/13502
