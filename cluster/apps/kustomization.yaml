@@ -4,6 +4,7 @@ resources:
 - default
 - networking
 - cattle-system
+- flux-system
 - selfhosted
 - monitoring
 - mail
