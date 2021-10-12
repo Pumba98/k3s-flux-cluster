@@ -36,9 +36,6 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/auth-url: http://authelia.networking.svc.cluster.local/api/verify
           nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}
-          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
-          nginx.ingress.kubernetes.io/configuration-snippet: proxy_set_header X-Forwarded-Method $request_method;
         hosts:
         - "alert-manager.${SECRET_DOMAIN}"
         tls:
@@ -114,9 +111,6 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/auth-url: http://authelia.networking.svc.cluster.local/api/verify
           nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}
-          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
-          nginx.ingress.kubernetes.io/configuration-snippet: proxy_set_header X-Forwarded-Method $request_method;
         hosts:
         - "grafana.${SECRET_DOMAIN}"
         tls:
@@ -133,9 +127,6 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/auth-url: http://authelia.networking.svc.cluster.local/api/verify
           nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}
-          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
-          nginx.ingress.kubernetes.io/configuration-snippet: proxy_set_header X-Forwarded-Method $request_method;
         hosts:
         - "prometheus.${SECRET_DOMAIN}"
         tls:
