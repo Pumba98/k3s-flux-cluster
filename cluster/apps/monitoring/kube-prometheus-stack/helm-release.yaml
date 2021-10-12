@@ -85,6 +85,28 @@ spec:
         tag: 8.2.0
       admin:
         existingSecret: grafana-secrets
+      dashboards:
+        default:
+          # # Ref: https://grafana.com/grafana/dashboards/13502
+          # minio:
+          #   gnetId: 13502
+          #   revision: 10
+          #   datasource: Prometheus
+          flux-cluster:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/cluster.json
+            datasource: Prometheus
+          flux-control-plane:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
+            datasource: Prometheus
+      sidecar:
+        dashboards:
+          enabled: true
+          searchNamespace: ALL
+        datasources:
+          enabled: true
+          searchNamespace: ALL
+      serviceMonitor:
+        enabled: true
       ingress:
         enabled: true
         pathType: Prefix
