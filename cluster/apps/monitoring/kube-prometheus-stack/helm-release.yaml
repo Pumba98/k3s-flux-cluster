@@ -145,6 +145,10 @@ spec:
         - hosts:
           - "prometheus.${SECRET_DOMAIN}"
       prometheusSpec:
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
         retention: 14d
         storageSpec:
           volumeClaimTemplate:
