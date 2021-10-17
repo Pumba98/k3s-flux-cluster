@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mailu-roundcube-ingress
+  namespace: mail
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/auth-url: http://authelia.networking.svc.cluster.local/api/verify
+    nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "roundcube.${SECRET_DOMAIN}"
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: mailu-front
+            port:
+              number: 80
