@@ -149,7 +149,7 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        retention: 14d
+        retention: 10d
         storageSpec:
           volumeClaimTemplate:
             spec:
