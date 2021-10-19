@@ -20,7 +20,7 @@ The following components will are installed in the [k3s](https://k3s.io/) cluste
 | [metallb](https://metallb.universe.tf/)  | Bare metal LoadBalancer                      |
 | [cert-manager](https://cert-manager.io/) | Letsencrypt certificates with Cloudflare DNS |
 | [longhorn](https://longhorn.io/)         | Persistent Block Storage Provisioner         |
-| [system-upgrade-controller]()            | Automatic k3s upgrades                       |
+| [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller)            | Automatic k3s upgrades                       |
 
 ### Apps
 
@@ -31,7 +31,7 @@ The following components will are installed in the [k3s](https://k3s.io/) cluste
 | [rancher](https://rancher.com/products/rancher/)                            | Kubernetes Management Dashboard                        |
 | [kube-prom-stack](https://github.com/prometheus-operator/kube-prometheus)   | Prometheus & Exporters to monitor the cluster          |
 | [homer](https://github.com/bastienwirtz/homer)                              | Static dashboard for the cluster applications          |
-| [nextcloud](https://nextcloud.com/)                                         | File share and collaboration platform​                  |
+| [nextcloud](https://nextcloud.com/)                                         | File share and collaboration platform                  |
 | [vaultwarden](https://github.com/dani-garcia/vaultwarden)                   | Unofficial Bitwarden compatible server written in Rust |
 | [mailu](https://mailu.io/)                                                  | email stack on kubernetes                              |
 | [pod-gateway](https://github.com/k8s-at-home/pod-gateway)                   | route mail traffic through an external gateway         |
@@ -40,19 +40,6 @@ The following components will are installed in the [k3s](https://k3s.io/) cluste
 | [Loki](https://grafana.com/oss/loki/)                                       | log aggregation system                                 |
 | [BotKube](https://www.botkube.io/)                                          | messaging bot for monitoring and debugging Kubernetes  |
 | [local-path-provisioner](https://github.com/rancher/local-path-provisioner) | Storage Provisioner for local path                     |
-
-## :wrench:&nbsp; Tools
-
-The following tools were used to manage the GitOps project
-
-| Tool                                                                                               | Purpose                                                             |
-| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| [kubectl](https://kubernetes.io/docs/tasks/tools/)                                                 | Allows you to run commands against Kubernetes clusters              |
-| [flux](https://toolkit.fluxcd.io/)                                                                 | Operator that manages your k8s cluster based on your Git repository |
-| [SOPS](https://github.com/mozilla/sops)                                                            | Encrypts k8s secrets with GnuPG                                     |
-| [GnuPG](https://gnupg.org/)                                                                        | Encrypts and signs your data                                        |
-| [pre-commit](https://github.com/pre-commit/pre-commit)                                             | Runs checks during `git commit`                                     |
-| [VSCode SOPS](https://marketplace.visualstudio.com/items?itemName=signageos.signageos-vscode-sops) | Decrypt & encrypt SOPS secrets automatically in VSCode              |
 
 ## :open_file_folder:&nbsp; Repository structure
 
@@ -63,28 +50,22 @@ The Git repository contains the following directories under `cluster` and are or
 - **core** directory (depends on **crds**) are important infrastructure applications (grouped by namespace) that should never be pruned by Flux
 - **apps** directory (depends on **core**) is where your common applications (grouped by namespace) could be placed, Flux will prune resources here if they are not tracked by Git anymore
 
-```
-cluster
-├── apps
-│   ├── default
-│   ├── networking
-│   └ ...
-├── base
-│   └── flux-system
-├── core
-│   ├── cert-manager
-│   ├── metallb-system
-│   ├── namespaces
-│   └ ...
-└── crds
-    ├── cert-manager
-    └ ...
-```
+ 
+## :robot:&nbsp; Automation
 
-## :rocket:&nbsp; Lets go!
+- [Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) Bot creates PullRequests when Docker images, Helm charts or anything else that can be tracked has a newer versions.
+- [Renovate schedule](./.github/workflows/renovate-schedule.yaml) workflow annotates `HelmRelease`'s which allows [Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) to track Helm chart versions.
+- [Flux upgrade schedule](./.github/workflows/flux-schedule.yaml) workflow creates PullRequests to upgrade to new Flux versions.
 
-:round_pushpin: Some notes how to install [flux](https://toolkit.fluxcd.io/) into the cluster.
+## :handshake:&nbsp; Thanks
 
+Big shout out to [k8s@home](https://github.com/k8s-at-home) for their [k3s-cluster-template](https://github.com/k8s-at-home/template-cluster-k3s) and everyone from [awesome-home-kubernetes](https://github.com/k8s-at-home/awesome-home-kubernetes) for the inspiration :heart:
+
+## :open_book:&nbsp Notes
+
+<details>
+    <summary>:round_pushpin: Some notes how to install [flux](https://toolkit.fluxcd.io/) into the cluster.</summary>
+<br>
 1. :warning:&nbsp; Install pre-commit hooks
 
 ```sh
@@ -127,12 +108,4 @@ kubectl apply --kustomize=./cluster/base/flux-system
 
 :round_pushpin: Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
 
-## :robot:&nbsp; Automation
-
-- [Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) Bot creates PullRequests when Docker images, Helm charts or anything else that can be tracked has a newer versions.
-- [Renovate schedule](./.github/workflows/renovate-schedule.yaml) workflow annotates `HelmRelease`'s which allows [Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) to track Helm chart versions.
-- [Flux upgrade schedule](./.github/workflows/flux-schedule.yaml) workflow creates PullRequests to upgrade to new Flux versions.
-
-## :handshake:&nbsp; Thanks
-
-Big shout out to [k8s@home](https://github.com/k8s-at-home) for their [k3s-cluster-template](https://github.com/k8s-at-home/template-cluster-k3s) and everyone from [awesome-home-kubernetes](https://github.com/k8s-at-home/awesome-home-kubernetes) for the inspiration :heart:
+</details>
