@@ -5,7 +5,8 @@
 # Single k3s cluster backed by Flux v2
 
 Kubernetes cluster using the [GitOps](https://www.weave.works/blog/what-is-gitops-really) tool [Flux](https://toolkit.fluxcd.io/).  
-The Git repository is the driving the state of the Kubernetes cluster. [Flux SOPS integration](https://toolkit.fluxcd.io/guides/mozilla-sops/) is used to encrypt secrets with gpg.
+The Git repository is the driving the state of the Kubernetes cluster.  
+The awesome [Flux SOPS integration](https://toolkit.fluxcd.io/guides/mozilla-sops/) is used to encrypt secrets with gpg.
 
 ## :computer:&nbsp; Software
 
