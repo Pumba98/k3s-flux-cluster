@@ -45,7 +45,7 @@ The following components are installed on the [k3s](https://k3s.io/) cluster.
 
 Big shout out to [k8s@home](https://github.com/k8s-at-home) for their [k3s-cluster-template](https://github.com/k8s-at-home/template-cluster-k3s) and everyone from [awesome-home-kubernetes](https://github.com/k8s-at-home/awesome-home-kubernetes) for the inspiration :heart:
 
-## :open_book:&nbsp Notes
+## :open_book:&nbsp; Notes
 
 <details>
     <summary>:round_pushpin: Some notes how to install [flux](https://toolkit.fluxcd.io/) into the cluster.</summary>
