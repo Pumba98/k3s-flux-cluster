@@ -25,6 +25,7 @@ The following components are installed on the [k3s](https://k3s.io/) cluster.
 | [Cert-Manager](https://cert-manager.io/)                                                | Letsencrypt certificates with Cloudflare DNS           |
 | [ExternalDNS](https://github.com/kubernetes-sigs/external-dns)                          | Configure Cloudflare DNS Servers                       |
 | [System Upgrade Controller](https://github.com/rancher/system-upgrade-controller)       | Automated k3s upgrades                                 |
+| [Authelia](https://www.authelia.com/)                                                   | SSO & 2FA authentication server for Cluster Web Apps   |
 | [Nextcloud](https://nextcloud.com/)                                                     | File share and collaboration platform                  |
 | [Vaultwarden](https://github.com/dani-garcia/vaultwarden)                               | Unofficial Bitwarden compatible server written in Rust |
 | [Rancher](https://rancher.com/products/rancher/)                                        | Kubernetes Management Dashboard                        |
