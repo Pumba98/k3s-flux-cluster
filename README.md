@@ -10,9 +10,7 @@ Kubernetes cluster using the [GitOps](https://www.weave.works/blog/what-is-gitop
 
 ## :computer:&nbsp; Software
 
-The following components will are installed in the [k3s](https://k3s.io/) cluster.
-
-### Core
+The following components are installed on the [k3s](https://k3s.io/) cluster.
 
 | Software                                                                                | Purpose                                                |
 | --------------------------------------------------------------------------------------- | ------------------------------------------------------ |
@@ -36,16 +34,7 @@ The following components will are installed in the [k3s](https://k3s.io/) cluste
 | [BotKube](https://www.botkube.io/)                                                      | messaging bot for monitoring and debugging Kubernetes  |
 | [local-path-provisioner](https://github.com/rancher/local-path-provisioner)             | Storage Provisioner for local path                     |
 
-## :open_file_folder:&nbsp; Repository structure
 
-The Git repository contains the following directories under `cluster` and are ordered below by how Flux will apply them.
-
-- **base** directory is the entrypoint to Flux
-- **crds** directory contains custom resource definitions (CRDs) that need to exist globally in your cluster before anything else exists
-- **core** directory (depends on **crds**) are important infrastructure applications (grouped by namespace) that should never be pruned by Flux
-- **apps** directory (depends on **core**) is where your common applications (grouped by namespace) could be placed, Flux will prune resources here if they are not tracked by Git anymore
-
- 
 ## :robot:&nbsp; Automation
 
 - [Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) Bot creates PullRequests when Docker images, Helm charts or anything else that can be tracked has a newer versions.
