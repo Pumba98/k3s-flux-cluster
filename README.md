@@ -48,7 +48,7 @@ Big shout out to [k8s@home](https://github.com/k8s-at-home) for their [k3s-clust
 ## :open_book:&nbsp; Notes
 
 <details>
-    <summary>:round_pushpin: Some notes how to install [flux](https://toolkit.fluxcd.io/) into the cluster.</summary>
+    <summary>:round_pushpin: Installation Notes</summary>
 <br>
 1. :warning:&nbsp; Install pre-commit hooks
 
