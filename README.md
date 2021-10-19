@@ -17,14 +17,14 @@ The following components are installed on the [k3s](https://k3s.io/) cluster.
 | --------------------------------------------------------------------------------------- | ------------------------------------------------------ |
 | [Flux](https://fluxcd.io/)                                                              | GitOps Tool managing the cluster                       |
 | [Longhorn](https://longhorn.io/)                                                        | Persistent Block Storage Provisioner                   |
-| [Kube-Prometheus Stack](https://github.com/prometheus-operator/kube-prometheus)         | Prometheus & Exporters to monitor the cluster          |
-| [Grafana](https://grafana.com/)                                                         | Monitoring & Logging Dashboard                         |
-| [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)                | Monitoring Alerts                                      |
-| [Grafana Loki](https://grafana.com/oss/loki/)                                           | Log aggregation system                                 |
 | [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/)                 | Cluster Ingress controller                             |
 | [MetalLB](https://metallb.universe.tf/)                                                 | Bare metal LoadBalancer                                |
 | [Cert-Manager](https://cert-manager.io/)                                                | Letsencrypt certificates with Cloudflare DNS           |
 | [ExternalDNS](https://github.com/kubernetes-sigs/external-dns)                          | Configure Cloudflare DNS Servers                       |
+| [Kube-Prometheus Stack](https://github.com/prometheus-operator/kube-prometheus)         | Prometheus & Exporters to monitor the cluster          |
+| [Grafana](https://grafana.com/)                                                         | Monitoring & Logging Dashboard                         |
+| [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)                | Monitoring Alerts                                      |
+| [Grafana Loki](https://grafana.com/oss/loki/)                                           | Log aggregation system                                 |
 | [System Upgrade Controller](https://github.com/rancher/system-upgrade-controller)       | Automated k3s upgrades                                 |
 | [Authelia](https://www.authelia.com/)                                                   | SSO & 2FA authentication server for Cluster Web Apps   |
 | [Nextcloud](https://nextcloud.com/)                                                     | File share and collaboration platform                  |
