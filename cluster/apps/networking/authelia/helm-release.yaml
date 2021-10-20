@@ -28,6 +28,9 @@ spec:
       enabled: true
       subdomain: auth
       className: nginx
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
+        external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
       tls:
         enabled: true
 
