@@ -5,3 +5,5 @@ resources:
 - mailu-pvc.yaml
 - mailu-admin-ingress.yaml
 - roundcube-ingress.yaml
+- postgresql-helm-release.yaml
+- mailu-postgresql-pvc.yaml

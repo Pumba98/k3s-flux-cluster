@@ -17,6 +17,17 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    database:
+      type: postgresql
+      roundcubeType: postgresql
+      postgresql:
+        host: mailu-postgresql
+        database: mailu
+        user: mailu
+        password: ${SECRET_MAILU_DB_PASSWORD}
+        roundcubeDatabase: mailu
+        roundcubeUser: mailu
+        roundcubePassword: ${SECRET_MAILU_DB_PASSWORD}
     certmanager:
       issuerName: letsencrypt-production
     domain: "${SECRET_DOMAIN}"
