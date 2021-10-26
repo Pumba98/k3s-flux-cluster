@@ -9,13 +9,4 @@ parameters:
   staleReplicaTimeout: "2880" # 48 hours in minutes
   fromBackup: ""
   fsType: "ext4"
-  recurringJobSelector: '[
-    {
-      "name":"snapshot-6h",
-      "isGroup":false,
-    },
-    {
-      "name":"backup-daily",
-      "isGroup":false,
-    }
-  ]'
+  recurringJobSelector: '[ { "name":"snapshot-6h", "isGroup":false }, { "name":"backup-daily", "isGroup":false } ]'
