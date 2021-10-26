@@ -27,11 +27,11 @@ spec:
       username: ${SECRET_MAILU_ADMIN_USER}
       password: "${SECRET_MAILU_ADMIN_PASSWORD}"
     secretKey: "${SECRET_MAILU_SECRET_KEY}"
-    subnet: ${NETWORK_K8S_CIDR}
+    subnet: ${NETWORK_K8S_CLUSTER_CIDR}
     ingress:
       annotations:
         external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
-        nginx.ingress.kubernetes.io/whitelist-source-range: "${NETWORK_LOCAL_CIDR}"
+        nginx.ingress.kubernetes.io/whitelist-source-range: "${NETWORK_K8S_CLUSTER_CIDR}"
       hosts:
         - "mail.${SECRET_DOMAIN}"
       tls:
