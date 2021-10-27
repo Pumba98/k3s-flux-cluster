@@ -27,11 +27,11 @@ spec:
       SIGNUPS_ALLOWED: 'false'
       SHOW_PASSWORD_HINT: 'false'
       DOMAIN: 'https://bw.${SECRET_DOMAIN}'
-      ADMIN_TOKEN:
-        valueFrom:
-          secretKeyRef:
-            name: vaultwarden-secrets
-            key: adminToken
+      # ADMIN_TOKEN:
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: vaultwarden-secrets
+      #       key: adminToken
       YUBICO_CLIENT_ID:
         valueFrom:
           secretKeyRef:
@@ -49,8 +49,6 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-          nginx.ingress.kubernetes.io/auth-url: http://authelia.networking.svc.cluster.local/api/verify
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}
         hosts:
           - host: bw.${SECRET_DOMAIN}
             paths:

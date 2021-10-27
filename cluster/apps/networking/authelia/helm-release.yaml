@@ -79,7 +79,6 @@ spec:
         - policy: deny
           domain:
           - mail.${SECRET_DOMAIN}
-          - bw.${SECRET_DOMAIN}
           resources:
           - "^/admin.*$"
         # Applications with built-in auth

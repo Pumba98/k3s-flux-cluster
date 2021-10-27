@@ -41,13 +41,6 @@ spec:
         value: "${NETWORK_K8S_CLUSTER_CIDR}"
       - name: OVERWRITEPROTOCOL
         value: https
-      # configs:
-      #   proxy.config.php: |-
-      #     <?php
-      #     $CONFIG = array (
-      #       'trusted_proxies' => array('${NETWORK_K8S_CLUSTER_CIDR}'),
-      #       'overwriteprotocol' => 'https'
-      #     );
     persistence:
       enabled: true
       existingClaim: nextcloud-data
