@@ -33,3 +33,8 @@ spec:
     promtail:
       serviceMonitor:
         enabled: true
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
