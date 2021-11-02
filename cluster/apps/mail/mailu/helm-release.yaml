@@ -29,6 +29,8 @@ spec:
         roundcubeUser: mailu
         roundcubePassword: ${SECRET_MAILU_DB_PASSWORD}
     certmanager:
+      enabled: true
+      apiVersion: cert-manager.io/v1
       issuerName: letsencrypt-production
     domain: "${SECRET_DOMAIN}"
     hostnames:
