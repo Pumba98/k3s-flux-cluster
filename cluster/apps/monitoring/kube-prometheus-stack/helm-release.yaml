@@ -17,6 +17,12 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    nodeExporter:
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
     prometheusOperator:
       createCustomResource: false
     kubeControllerManager:
