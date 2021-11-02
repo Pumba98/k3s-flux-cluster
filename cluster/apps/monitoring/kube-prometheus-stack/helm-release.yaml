@@ -17,7 +17,7 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    nodeExporter:
+    prometheus-node-exporter:
       tolerations:
         - effect: NoSchedule
           operator: Exists
