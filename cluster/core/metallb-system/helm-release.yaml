@@ -21,4 +21,4 @@ spec:
       - name: default
         protocol: layer2
         addresses:
-        - "${METALLB_LB_RANGE}"
+        - "${INGRESS_NGINX_LB}/32"
