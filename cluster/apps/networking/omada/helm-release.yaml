@@ -33,9 +33,11 @@ spec:
       main:
         enabled: true
         ingressClassName: "nginx"
-        annotations: {}
-          # external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
-          # external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: "https"
+          nginx.ingress.kubernetes.io/proxy-redirect-from: "$scheme://$host:8043/login"
+          nginx.ingress.kubernetes.io/proxy-redirect-to: "$scheme://$host/login"
+          nginx.ingress.kubernetes.io/upstream-vhost: "$host:8043"
         hosts:
           - host: "omada.${SECRET_DOMAIN}"
             paths:
@@ -122,23 +124,8 @@ spec:
             protocol: UDP
             targetPort: 29813
 
-    # persistence:
-    #   data:
-    #     enabled: true
-    #     mountPath: /opt/tplink/EAPController/data
-    #     existingClaim: omada-data-pvc
-    #   work:
-    #     enabled: true
-    #     mountPath: /opt/tplink/EAPController/work
-    #     existingClaim: omada-work-pvc
-    #   logs:
-    #     enabled: true
-    #     mountPath: /opt/tplink/EAPController/logs
-    #     existingClaim: omada-logs-pvc
-    #   cert:
-    #     enabled: true
-    #     mountPath: /cert
-    #     type: custom
-    #     volumeSpec:
-    #       secret:
-    #         secretName: omada-cert
+    persistence:
+      data:
+        enabled: true
+        mountPath: /opt/tplink/EAPController/data
+        existingClaim: omada-data-pvc
