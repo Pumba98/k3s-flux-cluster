@@ -48,12 +48,14 @@ spec:
     service:
       main:
         enabled: true
-      controller:
+      controller-tcp:
         enabled: true
         type: LoadBalancer
         externalIPs:
           - "${LB_IP_OMADA_SVC}"
         externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: omada-controller
         ports:
           mgmt-8088-tcp:
             enabled: true
@@ -75,36 +77,45 @@ spec:
             port: 29810
             protocol: TCP
             targetPort: 29810
-          eap-29810-udp:
-            enabled: true
-            port: 29810
-            protocol: UDP
-            targetPort: 29810
           eap-29811-tcp:
             enabled: true
             port: 29811
             protocol: TCP
-            targetPort: 29811
-          eap-29811-udp:
-            enabled: true
-            port: 29811
-            protocol: UDP
             targetPort: 29811
           eap-29812-tcp:
             enabled: true
             port: 29812
             protocol: TCP
             targetPort: 29812
-          eap-29812-udp:
-            enabled: true
-            port: 29812
-            protocol: UDP
-            targetPort: 29812
           eap-29813-tcp:
             enabled: true
             port: 29813
             protocol: TCP
             targetPort: 29813
+      controller-udp:
+        enabled: true
+        type: LoadBalancer
+        externalIPs:
+          - "${LB_IP_OMADA_SVC}"
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: omada-controller
+        ports:
+          eap-29810-udp:
+            enabled: true
+            port: 29810
+            protocol: UDP
+            targetPort: 29810
+          eap-29811-udp:
+            enabled: true
+            port: 29811
+            protocol: UDP
+            targetPort: 29811
+          eap-29812-udp:
+            enabled: true
+            port: 29812
+            protocol: UDP
+            targetPort: 29812
           eap-29813-udp:
             enabled: true
             port: 29813
