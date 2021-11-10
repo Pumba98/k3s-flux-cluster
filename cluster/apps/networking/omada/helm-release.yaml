@@ -128,4 +128,4 @@ spec:
       data:
         enabled: true
         mountPath: /opt/tplink/EAPController/data
-        existingClaim: omada-data-pvc
+        existingClaim: omada-data
