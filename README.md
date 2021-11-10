@@ -33,9 +33,8 @@ The following components are installed on the [k3s](https://k3s.io/) cluster.
 | [Homer](https://github.com/bastienwirtz/homer)                                          | Static dashboard for the cluster applications          |
 | [Mailu](https://mailu.io/)                                                              | Email stack on kubernetes                              |
 | [Pod-Gateway](https://github.com/k8s-at-home/pod-gateway)                               | Route mail traffic through an external gateway         |
+| [Omada Controller](https://www.tp-link.com/de/omada-sdn/)                               | Omada SDN Controller                                   |
 | [BotKube](https://www.botkube.io/)                                                      | Messaging bot for monitoring and debugging Kubernetes  |
-| [Local Path Provisioner](https://github.com/rancher/local-path-provisioner)             | Storage Provisioner for local path                     |
-
 
 ## :robot:&nbsp; Automation
 
