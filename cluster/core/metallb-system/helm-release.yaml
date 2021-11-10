@@ -21,4 +21,4 @@ spec:
       - name: default
         protocol: layer2
         addresses:
-        - "${INGRESS_NGINX_LB}/32"
+        - "${LB_IP_NGINX_INGRESS}/32"
