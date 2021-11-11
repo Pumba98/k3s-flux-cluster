@@ -59,37 +59,37 @@ spec:
         annotations:
           metallb.universe.tf/allow-shared-ip: omada-controller
         ports:
-          mgmt-8088-tcp:
-            enabled: true
-            port: 8088
-            protocol: TCP
-            targetPort: 8088
-          mgmt-8043-tcp:
+          mgmt-https:
             enabled: true
             port: 8043
             protocol: TCP
             targetPort: 8043
-          portal-8843-tcp:
+          mgmt-http:
+            enabled: true
+            port: 8088
+            protocol: TCP
+            targetPort: 8088
+          portal-https:
             enabled: true
             port: 8843
             protocol: TCP
             targetPort: 8843
-          eap-29810-tcp:
+          controller-searching: # not needed
             enabled: true
-            port: 29810
+            port: 27002
             protocol: TCP
-            targetPort: 29810
-          eap-29811-tcp:
+            targetPort: 27002
+          eap-management:
             enabled: true
             port: 29811
             protocol: TCP
             targetPort: 29811
-          eap-29812-tcp:
+          eap-adoption:
             enabled: true
             port: 29812
             protocol: TCP
             targetPort: 29812
-          eap-29813-tcp:
+          eap-upgrading:
             enabled: true
             port: 29813
             protocol: TCP
@@ -103,26 +103,16 @@ spec:
         annotations:
           metallb.universe.tf/allow-shared-ip: omada-controller
         ports:
-          eap-29810-udp:
+          controller-discovery: # not needed
+            enabled: true
+            port: 27001
+            protocol: UDP
+            targetPort: 27001
+          eap-discovery:
             enabled: true
             port: 29810
             protocol: UDP
             targetPort: 29810
-          eap-29811-udp:
-            enabled: true
-            port: 29811
-            protocol: UDP
-            targetPort: 29811
-          eap-29812-udp:
-            enabled: true
-            port: 29812
-            protocol: UDP
-            targetPort: 29812
-          eap-29813-udp:
-            enabled: true
-            port: 29813
-            protocol: UDP
-            targetPort: 29813
 
     persistence:
       data:
