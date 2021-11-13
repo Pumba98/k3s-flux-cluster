@@ -70,10 +70,15 @@ spec:
         default:
           - 1.1.1.1
           - 1.0.0.1
-      conditional:
-        rewrite: ${SECRET_DOMAIN}: local
+      customDNS:
         mapping:
-          ${SECRET_DOMAIN}: tcp+udp:192.168.1.1
+          nuc8i5beh.${SECRET_DOMAIN}: 192.168.1.10
+          nuc8i5bek.${SECRET_DOMAIN}: 192.168.1.11
+          pikvm.${SECRET_DOMAIN}: 192.168.1.12
+          nas.${SECRET_DOMAIN}: 192.168.1.15
+          proxmox.${SECRET_DOMAIN}: 192.168.1.10
+          mail.${SECRET_DOMAIN}: ${SECRET_VPN_GATEWAY_IP}
+          ${SECRET_DOMAIN}: ${LB_IP_NGINX_INGRESS}
       blocking:
         blackLists:
           ads:
