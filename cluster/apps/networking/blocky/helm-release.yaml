@@ -39,7 +39,7 @@ spec:
         annotations:
           metallb.universe.tf/allow-shared-ip: blocky
         ports:
-          tcp:
+          dns-tcp:
             enabled: true
             port: 53
             protocol: TCP
@@ -53,7 +53,7 @@ spec:
         annotations:
           metallb.universe.tf/allow-shared-ip: blocky
         ports:
-          udp:
+          dns-udp:
             enabled: true
             port: 53
             protocol: UDP
