@@ -15,26 +15,26 @@ The following components are installed on the [k3s](https://k3s.io/) cluster.
 
 | Software                                                                                | Purpose                                                |
 | --------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| [Flux](https://fluxcd.io/)                                                              | GitOps Tool managing the cluster                       |
-| [Longhorn](https://longhorn.io/)                                                        | Persistent Block Storage Provisioner                   |
-| [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/)                 | Cluster Ingress controller                             |
-| [MetalLB](https://metallb.universe.tf/)                                                 | Bare metal LoadBalancer                                |
-| [Cert-Manager](https://cert-manager.io/)                                                | Letsencrypt certificates with Cloudflare DNS           |
+| [Flux](https://fluxcd.io)                                                               | GitOps Tool managing the cluster                       |
+| [Longhorn](https://longhorn.io)                                                         | Persistent Block Storage Provisioner                   |
+| [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx)                  | Cluster Ingress controller                             |
+| [MetalLB](https://metallb.universe.tf)                                                  | Bare metal LoadBalancer                                |
+| [Cert-Manager](https://cert-manager.io)                                                 | Letsencrypt certificates with Cloudflare DNS           |
 | [ExternalDNS](https://github.com/kubernetes-sigs/external-dns)                          | Configure Cloudflare DNS Servers                       |
 | [Kube-Prometheus Stack](https://github.com/prometheus-operator/kube-prometheus)         | Prometheus & Exporters to monitor the cluster          |
-| [Grafana](https://grafana.com/)                                                         | Monitoring & Logging Dashboard                         |
-| [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)                | Monitoring Alerts                                      |
-| [Grafana Loki](https://grafana.com/oss/loki/)                                           | Log aggregation system                                 |
+| [Grafana](https://grafana.com)                                                          | Monitoring & Logging Dashboard                         |
+| [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager)                 | Monitoring Alerts                                      |
+| [Grafana Loki](https://grafana.com/oss/loki)                                            | Log aggregation system                                 |
 | [System Upgrade Controller](https://github.com/rancher/system-upgrade-controller)       | Automated k3s upgrades                                 |
-| [Authelia](https://www.authelia.com/)                                                   | SSO & 2FA authentication server for Cluster Web Apps   |
-| [Nextcloud](https://nextcloud.com/)                                                     | File share and collaboration platform                  |
+| [Authelia](https://www.authelia.com)                                                    | SSO & 2FA authentication server for Cluster Web Apps   |
+| [Nextcloud](https://nextcloud.com)                                                      | File share and collaboration platform                  |
 | [Vaultwarden](https://github.com/dani-garcia/vaultwarden)                               | Unofficial Bitwarden compatible server written in Rust |
-| [Rancher](https://rancher.com/products/rancher/)                                        | Kubernetes Management Dashboard                        |
-| [Homer](https://github.com/bastienwirtz/homer)                                          | Static dashboard for the cluster applications          |
 | [Mailu](https://mailu.io/)                                                              | Email stack on kubernetes                              |
+| [Rancher](https://rancher.com/products/rancher)                                         | Kubernetes Management Dashboard                        |
+| [Homer](https://github.com/bastienwirtz/homer)                                          | Static dashboard for the cluster applications          |
 | [Pod-Gateway](https://github.com/k8s-at-home/pod-gateway)                               | Route mail traffic through an external gateway         |
-| [Omada Controller](https://www.tp-link.com/de/omada-sdn/)                               | Omada SDN Controller                                   |
-| [BotKube](https://www.botkube.io/)                                                      | Messaging bot for monitoring and debugging Kubernetes  |
+| [Omada Controller](https://www.tp-link.com/de/omada-sdn)                                | Omada SDN Controller                                   |
+| [Blocky](https://github.com/0xERR0R/blocky)                                             | Fast and lightweight DNS proxy as ad-blocker           |
 
 ## :robot:&nbsp; Automation
 

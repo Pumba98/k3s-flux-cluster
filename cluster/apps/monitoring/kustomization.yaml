@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
 - kube-prometheus-stack
 - loki
-- bot-kube
