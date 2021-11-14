@@ -22,5 +22,5 @@ spec:
     ingress:
       extraAnnotations:
         external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
-        external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+        external-dns/is-public: "true"
     bootstrapPassword: "${SECRET_RANCHER_ADMIN_PASSWORD}"

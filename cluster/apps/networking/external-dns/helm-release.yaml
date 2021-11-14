@@ -24,12 +24,13 @@ spec:
     cloudflare:
       secretName: external-dns-secrets
       email: "${SECRET_CLOUDFLARE_EMAIL}"
-      proxied: false
+      proxied: true
     policy: sync
     domainFilters:
     - "${SECRET_DOMAIN}"
     crd:
       create: false
+    annotationFilter: "external-dns/is-public in (true)"
     resources:
       requests:
         memory: 100Mi

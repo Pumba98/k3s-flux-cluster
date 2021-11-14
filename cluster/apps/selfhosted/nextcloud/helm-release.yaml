@@ -25,7 +25,7 @@ spec:
       className: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
-        external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+        external-dns/is-public: "true"
       tls:
       - hosts:
         - cloud.${SECRET_DOMAIN}
