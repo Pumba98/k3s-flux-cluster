@@ -108,26 +108,23 @@ spec:
         inactivity: 5m
         remember_me_duration: 1M
         redis:
-          enabled: false
+          enabled: true
+          enabledSecret: true
+          host: authelia-redis-master
       regulation:
         max_retries: 3
         find_time: 2m
         ban_time: 5m
       storage:
-        local:
-          enabled: true
-          path: /config/db.sqlite3
         postgres:
-          enabled: false
-      notifier:
-        filesystem:
           enabled: true
-          filename: /config/notification.txt
+          host: authelia-postgresql
+          database: authelia
+          username: authelia
+      notifier:
         smtp:
-          enabled: false
-
-    persistence:
-      enabled: true
-      accessModes:
-      - ReadWriteOnce
-      size: 100Mi
+          enabled: true
+          host: mailu-front.mail.svc.cluster.local
+          sender: authelia@${SECRET_DOMAIN}
+    secret:
+      existingSecret: authelia-secrets
