@@ -38,7 +38,9 @@
       ],
       "matchStrings": [
         "githubReleaseVar repo=(?<depName>.*?)\n *version: (?<currentValue>.*)\n",
-        "githubReleaseVar repo=(?<depName>.*?)\"\n\[\!\[k3s\]\(https\:\/\/img\.shields\.io\/badge\/k8s\-(?<currentValue>.*)-orange\?style\=for\-the\-badge&logo\=kubernetes\)\]\(https\:\/\/k3s\.io\/\)\n"
+        "githubReleaseVar repo=(?<depName>.*?)\"\n\[\!\[k3s\]\(https\:\/\/img\.shields\.io\/badge\/k8s\-(?<currentValue>.*)-orange\?style\=for\-the\-badge&logo\=kubernetes\)\]\(https\:\/\/k3s\.io\/\)\n",
+        "githubReleaseVar repo=(?<depName>.*?)\nk8s\-(?<currentValue>.*)-orange",
+        "githubReleaseVar repo=(?<depName>.*?)\"\nk8s\-(?<currentValue>.*)-orange"
       ],
       "datasourceTemplate": "github-releases"
     },
