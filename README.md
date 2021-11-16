@@ -6,7 +6,7 @@
 
 
 [//]: # "renovate: githubReleaseVar repo=k3s-io/k3s"
-k8s-v1.21.5+k3s1-orange
+k8s-v1.22.3+k3s1-orange
 
 # Single k3s cluster backed by Flux v2
 
