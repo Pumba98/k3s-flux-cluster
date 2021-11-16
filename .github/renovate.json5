@@ -38,7 +38,7 @@
       ],
       "matchStrings": [
         "githubReleaseVar repo=(?<depName>.*?)\n *version: (?<currentValue>.*)\n",
-        "githubReleaseVar repo=(?<depName>.*?)\n[![k3s](https://img.shields.io/badge/(?<currentValue>.*)-orange?style=for-the-badge&logo=kubernetes)](https://k3s.io/)\n"
+        "githubReleaseVar repo=(?<depName>.*?)\"\n\[\!\[k3s\]\(https\:\/\/img\.shields\.io\/badge\/k8s\-(?<currentValue>.*)-orange\?style\=for\-the\-badge&logo\=kubernetes\)\]\(https\:\/\/k3s\.io\/\)\n"
       ],
       "datasourceTemplate": "github-releases"
     },
@@ -108,6 +108,11 @@
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
       "labels": ["renovate/helm", "dep/patch"]
+    },
+    {
+      "matchDatasources": ["github-releases"],
+      "separateMinorPatch": true,
+      "separateMultipleMajor": true
     },
     // custom version schemes
     {
