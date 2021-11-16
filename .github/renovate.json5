@@ -30,6 +30,18 @@
       ],
       "datasourceTemplate": "helm"
     },
+    // regexManager to read and process Github Releases
+    {
+      "fileMatch": [
+        "cluster/[^\\.]+\\.yaml$",
+        "README.md"
+      ],
+      "matchStrings": [
+        "githubReleaseVar repo=(?<depName>.*?)\n *version: (?<currentValue>.*)\n",
+        "githubReleaseVar repo=(?<depName>.*?)\n[![k3s](https://img.shields.io/badge/(?<currentValue>.*)-orange?style=for-the-badge&logo=kubernetes)](https://k3s.io/)\n"
+      ],
+      "datasourceTemplate": "github-releases"
+    },
     // regexManager to read and process cert-manager CRD's
     {
       "fileMatch": [
