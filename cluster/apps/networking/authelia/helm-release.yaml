@@ -126,5 +126,7 @@ spec:
           enabled: true
           host: mailu-front.mail.svc.cluster.local
           sender: authelia@${SECRET_DOMAIN}
+          tls:
+            skip_verify: true
     secret:
       existingSecret: authelia
