@@ -127,4 +127,4 @@ spec:
           host: mailu-front.mail.svc.cluster.local
           sender: authelia@${SECRET_DOMAIN}
     secret:
-      existingSecret: authelia-secrets
+      existingSecret: authelia
