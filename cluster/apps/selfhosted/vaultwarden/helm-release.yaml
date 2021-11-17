@@ -45,6 +45,7 @@ spec:
       SMTP_HOST: mailu-front.mail.svc.cluster.local
       SMTP_FROM: bitwarden@${SECRET_DOMAIN}
       SMTP_PORT: 25
+      SMTP_SSL: 'false'
     ingress:
       main:
         enabled: true

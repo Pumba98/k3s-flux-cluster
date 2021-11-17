@@ -42,7 +42,7 @@ spec:
         domain: "${SECRET_DOMAIN}"
         smtp:
           host: mailu-front.mail.svc.cluster.local
-          secure: ssl
+          secure: ''
           port: 25
           authtype: PLAIN
       extraEnv:
