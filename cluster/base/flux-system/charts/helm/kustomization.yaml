@@ -18,3 +18,4 @@ resources:
 - mailu-charts.yaml
 - authelia-charts.yaml
 - fairwinds-charts.yaml
+- metrics-server-charts.yaml
