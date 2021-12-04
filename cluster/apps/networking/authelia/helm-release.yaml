@@ -22,7 +22,7 @@ spec:
     image:
       registry: ghcr.io
       repository: authelia/authelia
-      tag: 4.32.2
+      tag: 4.33.1
 
     ingress:
       enabled: true
