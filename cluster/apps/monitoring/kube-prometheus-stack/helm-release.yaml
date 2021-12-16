@@ -141,7 +141,7 @@ spec:
     prometheus:
       image:
         repository: quay.io/prometheus/prometheus
-        tag: v2.31.1
+        tag: v2.32.0
       ingress:
         enabled: true
         pathType: Prefix
