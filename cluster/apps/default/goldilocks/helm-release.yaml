@@ -21,6 +21,10 @@ spec:
     dashboard:
       enabled: true
       replicaCount: 1
+      resources:
+        limits:
+          cpu: null
+          memory: 32Mi
       ingress:
         enabled: true
         hosts:
@@ -29,3 +33,8 @@ spec:
         tls:
           - hosts:
               - "goldilocks.${SECRET_DOMAIN}"
+    controller:
+      resources:
+        limits:
+          cpu: null
+          memory: 32Mi
