@@ -161,10 +161,10 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        retention: 10d
+        retention: 7d
         storageSpec:
           volumeClaimTemplate:
             spec:
               resources:
                 requests:
-                  storage: 20Gi
+                  storage: 35Gi
