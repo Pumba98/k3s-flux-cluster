@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: vaultwarden
-      version: 3.3.2
+      version: 4.0.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -58,15 +58,15 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  port: 80
+                  port: http
               - path: /notifications/hub/negotiate
                 pathType: Prefix
                 service:
-                  port: 80
+                  port: http
               - path: /notifications/hub
                 pathType: Prefix
                 service:
-                  port: 3012
+                  port: websocket
         tls:
           - hosts:
               - bw.${SECRET_DOMAIN}
