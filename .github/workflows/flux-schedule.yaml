@@ -42,8 +42,3 @@ jobs:
         body: |
           Release notes: https://github.com/fluxcd/flux2/releases/tag/${{ steps.upgrade.outputs.flux_version }}
         labels: flux/upgrade
-
-    - name: Rebase Flux upgrade branch
-      uses: Label305/AutoRebase@v0.1
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
