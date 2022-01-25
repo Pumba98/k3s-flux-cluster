@@ -8,6 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
+      # renovate: registryUrl=https://charts.authelia.com
       chart: authelia
       version: 0.7.10
       sourceRef:
