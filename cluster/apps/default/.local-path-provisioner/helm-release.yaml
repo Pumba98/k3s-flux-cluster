@@ -18,7 +18,7 @@ spec:
     replicaCount: 1
     image:
       repository: rancher/local-path-provisioner
-      tag: v0.0.20
+      tag: v0.0.21
     storageClass:
       create: true
       defaultClass: false
