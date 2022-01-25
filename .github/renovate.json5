@@ -5,7 +5,7 @@
   "dependencyDashboardTitle": "Renovate Dashboard",
   "suppressNotifications": ["prIgnoreNotification"],
   "rebaseWhen": "conflicted",
-  "helm-values": {
+  "flux": {
     "fileMatch": [
       "cluster/[^\\.]+/helm-release\\.yaml$"
     ]
