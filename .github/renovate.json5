@@ -7,13 +7,13 @@
   "rebaseWhen": "behind-base-branch",
   "flux": {
     "fileMatch": [
-      "cluster/[^\\.]+/helm-release\\.yaml$",
+      "cluster/[^\\.]+/.*helm-release\\.yaml$",
       "cluster/base/flux-system/charts/helm/.+\\.yaml$",
     ]
   },
   "helm-values": {
     "fileMatch": [
-      "cluster/[^\\.]+/helm-release\\.yaml$"
+      "cluster/[^\\.]+/.*helm-release\\.yaml$"
     ]
   },
   "kubernetes": {
