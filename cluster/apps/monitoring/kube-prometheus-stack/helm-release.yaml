@@ -30,6 +30,8 @@ spec:
       enabled: false
     kubeEtcd:
       enabled: false
+    kubeProxy:
+      enabled: false
     alertmanager:
       image:
         repository: quay.io/prometheus/alertmanager
