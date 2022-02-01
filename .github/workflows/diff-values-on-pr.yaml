@@ -25,14 +25,8 @@ jobs:
       with:
         list-files: shell
         filters: |
-          changed:
-            - '**'
-    - name: Keep HelmReleases only
-      id: extract
-      run: |
-        filtered=$(grep -zl "kind: HelmRelease.*registryUrl=" ${{ steps.filter.outputs.changed_files }} \
-          | jq -nR '[inputs | select(length>0)]')
-        echo ::set-output name=files::${filtered}
+          yaml:
+            - added|modified: "**/helm-release.yaml"
 
   helm:
     name: Template HelmReleases
@@ -56,46 +50,36 @@ jobs:
       with:
         ref: ${{ env.conf_live_branch }}
         path: live
-    - name: Checkout PR branch
-      uses: actions/checkout@v2
-      with:
-        path: pr
     - name: Create diff
       id: diff
       run: |
-        hr_live_url=$(sed -nr 's|.*registryUrl=(.+)$|\1|p' live/${{ matrix.file }})
-        hr_live_chart=$(yq e .spec.chart.spec.chart live/${{ matrix.file }})
+        hr_chart=$(yq e .spec.chart.spec.chart ${{ matrix.file }})
+        hr_chart_source=$(yq e .spec.chart.spec.sourceRef.name ${{ matrix.file }})
+        for file in $(find cluster/base/flux-system/charts/helm -name '*-charts.yaml'); do
+            if [[ $(yq e .metadata.name ${file}) != ${hr_chart_source} ]]; then continue; fi
+            hr_url=$(yq e .spec.url ${file}); break;
+        done
         hr_live_version=$(yq e .spec.chart.spec.version live/${{ matrix.file }})
-        hr_live_values=$(yq e .spec.values live/${{ matrix.file }})
-        hr_pr_url=$(sed -nr 's|.*registryUrl=(.+)$|\1|p' pr/${{ matrix.file }})
-        hr_pr_chart=$(yq e .spec.chart.spec.chart pr/${{ matrix.file }})
-        hr_pr_version=$(yq e .spec.chart.spec.version pr/${{ matrix.file }})
-        hr_pr_values=$(yq e .spec.values pr/${{ matrix.file }})
-        helm repo add live "$hr_live_url"
-        helm repo add pr "$hr_pr_url"
-        resources_live=$(helm show values live/"$hr_live_chart" --version "$hr_live_version" || true)
+        hr_pr_version=$(yq e .spec.chart.spec.version ${{ matrix.file }})
+
+        helm repo add pr "$hr_url"
+        resources_live=$(helm show values pr/"$hr_chart" --version "$hr_live_version" || true)
         echo "$resources_live"
         echo "#####################################################"
-        resources_pr=$(helm show values pr/"$hr_pr_chart" --version "$hr_pr_version" || true)
+        resources_pr=$(helm show values pr/"$hr_chart" --version "$hr_pr_version" || true)
         echo "$resources_pr"
         echo "#####################################################"
         diff=$((diff -u <(echo "$resources_live") <(echo "$resources_pr") || true) | tail +3)
         echo "$diff"
         message="Path: \`${{ matrix.file }}\`"
-        if [ "$hr_live_chart" != "$hr_pr_chart" ]; then
-          message="$message"$'\n'"Chart: \`$hr_live_chart\` -> \`$hr_pr_chart\`"
-        fi
         if [ "$hr_live_version" != "$hr_pr_version" ]; then
-          message="$message"$'\n'"Version: \`$hr_live_version\` -> \`$hr_pr_version\`"
-        fi
-        if [ "$hr_live_url" != "$hr_pr_url" ]; then
-          message="$message"$'\n'"Repo: \`$hr_live_url\` -> \`$hr_pr_url\`"
+            message="$message"$'\n'"Version: \`$hr_live_version\` -> \`$hr_pr_version\`"
         fi
         message="$message"$'\n'$'\n'
         if [ -z "$diff" ]; then
-          message="$message"'```'$'\n'"No changes in detected in resources"$'\n''```'
+            message="$message"'```'$'\n'"No changes in detected in resources"$'\n''```'
         else
-          message="$message"'```diff'$'\n'"$diff"$'\n''```'
+            message="$message"'```diff'$'\n'"$diff"$'\n''```'
         fi
         echo "::set-output name=message::$(echo "$message" | jq --raw-input --slurp)"
 
