@@ -100,7 +100,7 @@
     },
     {
       "matchPackageNames": ["k3s-io/k3s"],
-      "labels": ["renovate/k3s"]
+      "labels": ["renovate/k3s"],
       "separateMinorPatch": true,
       "separateMultipleMajor": true
     },
