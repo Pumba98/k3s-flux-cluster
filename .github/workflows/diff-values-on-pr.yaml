@@ -31,7 +31,7 @@ jobs:
   helm:
     name: Template HelmReleases
     runs-on: ubuntu-20.04
-    if: ${{ needs.changes.outputs.files != '[]' }}
+    if: ${{ needs.changes.outputs.yaml_files != '[]' }}
     needs: changes
     strategy:
       matrix:
