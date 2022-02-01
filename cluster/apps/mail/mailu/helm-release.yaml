@@ -34,6 +34,7 @@ spec:
     domain: "${SECRET_DOMAIN}"
     hostnames:
       - "mail.${SECRET_DOMAIN}"
+    postmaster: ${SECRET_MAILU_ADMIN_USER}
     initialAccount:
       domain: "${SECRET_DOMAIN}"
       username: ${SECRET_MAILU_ADMIN_USER}
