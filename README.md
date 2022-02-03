@@ -41,6 +41,7 @@ The following components are installed on the [k3s](https://k3s.io/) cluster.
 ## :robot:&nbsp; Automation
 
 [Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) Bot makes sure the Cluster is never outdated.
+
 It creates PullRequests when Helm charts or Docker images have newer versions available and even keeps Flux and k3s up-to-date.
 
 ## :handshake:&nbsp; Thanks
