@@ -26,7 +26,7 @@ jobs:
         list-files: json
         filters: |
           yaml:
-            - added|modified: "**/helm-release.yaml"
+            - added|modified: "**/*helm-release.yaml"
 
   helm:
     name: Template HelmReleases
@@ -83,8 +83,18 @@ jobs:
         fi
         echo "::set-output name=message::$(echo "$message" | jq --raw-input --slurp)"
 
-    - name: Create comment
-      uses: peter-evans/create-or-update-comment@v1
+    - name: Find Comment
+      uses: peter-evans/find-comment@v1
+      id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
+        comment-author: 'github-actions[bot]'
+        body-includes: ${{ matrix.file }}
+
+    - name: Create or update comment
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        comment-id: ${{ steps.fc.outputs.comment-id }}
+        issue-number: ${{ github.event.pull_request.number }}
         body: "${{ fromJSON(steps.diff.outputs.message) }}"
+        edit-mode: replace
