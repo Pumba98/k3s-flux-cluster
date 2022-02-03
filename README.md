@@ -33,14 +33,15 @@ The following components are installed on the [k3s](https://k3s.io/) cluster.
 | [Mailu](https://mailu.io/)                                                              | Email stack on kubernetes                              |
 | [Rancher](https://rancher.com/products/rancher)                                         | Kubernetes Management Dashboard                        |
 | [Homer](https://github.com/bastienwirtz/homer)                                          | Static dashboard for the cluster applications          |
-| [Jellyfin](https://jellyfin.org/)                                                       | Softwae Media System                                   |
+| [Jellyfin](https://jellyfin.org/)                                                       | Software Media System                                  |
 | [Pod-Gateway](https://github.com/k8s-at-home/pod-gateway)                               | Route mail traffic through an external gateway         |
 | [Omada Controller](https://www.tp-link.com/de/omada-sdn)                                | Omada SDN Controller                                   |
 | [Blocky](https://github.com/0xERR0R/blocky)                                             | Fast and lightweight DNS proxy as ad-blocker           |
 
 ## :robot:&nbsp; Automation
 
-[Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) Bot creates PullRequests when Helm charts, Docker images, Flux, k3s or any other dependencies have newer versions available
+[Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) Bot makes sure the Cluster is never outdated.
+It creates PullRequests when Helm charts or Docker images have newer versions available and even keeps Flux and k3s up-to-date.
 
 ## :handshake:&nbsp; Thanks
 
