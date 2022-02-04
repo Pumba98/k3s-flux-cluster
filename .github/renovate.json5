@@ -25,7 +25,7 @@
     ],
   },
   "regexManagers": [
-    // regexManager to read and process Github Releases
+    // regexManager to read and process k3s Releases
     {
       "fileMatch": [
         "cluster/[^\\.]+\\.yaml$",
@@ -46,6 +46,16 @@
         "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/"
       ],
       "datasourceTemplate": "helm"
+    },
+    // regexManager to read and process external-dns CRDs
+    {
+      "fileMatch": [
+        "cluster/crds/external-dns/.+\\.yaml$"
+      ],
+      "matchStrings": [
+        "datasource=(?<datasource>.*?)\n *url: https:\/\/github\\.com\/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "github-releases"
     },
     // regexManager to read and process kube-prometheus-stack CRD's
     {
