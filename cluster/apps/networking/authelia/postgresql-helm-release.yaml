@@ -16,12 +16,17 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    postgresqlUsername: authelia
-    postgresqlPassword: "${SECRET_AUTHELIA_DB_PASSWORD}"
-    postgresqlDatabase: authelia
-    persistence:
-      enabled: true
-      existingClaim: authelia-postgresql-data
+    image:
+      repository: bitnami/postgresql
+      tag: 11.14.0-debian-10-r28
+    auth:
+      username: authelia
+      password: "${SECRET_AUTHELIA_DB_PASSWORD}"
+      database: authelia
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: authelia-postgresql-data
     metrics:
       enabled: true
       serviceMonitor:
