@@ -19,3 +19,4 @@ resources:
 - authelia-charts.yaml
 - fairwinds-charts.yaml
 - metrics-server-charts.yaml
+- external-dns-charts.yaml

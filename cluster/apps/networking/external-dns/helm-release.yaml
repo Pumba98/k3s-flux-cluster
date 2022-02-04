@@ -9,30 +9,34 @@ spec:
   chart:
     spec:
       chart: external-dns
-      version: 6.1.3
+      version: 1.7.1
       sourceRef:
         kind: HelmRepository
-        name: bitnami-charts
+        name: external-dns-charts
         namespace: flux-system
       interval: 5m
   values:
-    logLevel: debug
-    sources:
-    - ingress
-    provider: cloudflare
-    cloudflare:
-      secretName: external-dns-secrets
-      email: "${SECRET_CLOUDFLARE_EMAIL}"
-      proxied: true
-    policy: sync
-    domainFilters:
-    - "${SECRET_DOMAIN}"
-    crd:
-      create: false
-    annotationFilter: "external-dns/is-public in (true)"
+    env:
+      - name: CF_API_EMAIL
+        value: "${SECRET_CLOUDFLARE_EMAIL}"
+      - name: CF_API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: external-dns-secrets
+            key: cloudflare_api_token
     resources:
       requests:
         memory: 100Mi
         cpu: 25m
       limits:
         memory: 250Mi
+    logLevel: debug
+    sources:
+    - ingress
+    policy: sync
+    domainFilters:
+    - "${SECRET_DOMAIN}"
+    provider: cloudflare
+    extraArgs:
+      - --cloudflare-proxied
+      - --annotation-filter=external-dns/is-public in (true)
