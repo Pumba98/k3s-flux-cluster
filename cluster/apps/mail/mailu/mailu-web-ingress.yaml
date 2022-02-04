@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mailu-roundcube-ingress
+  name: mailu-web-ingress
   namespace: mail
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
@@ -13,7 +13,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "roundcube.${SECRET_DOMAIN}"
+  - host: "mailu.${SECRET_DOMAIN}"
     http:
       paths:
       - path: "/"

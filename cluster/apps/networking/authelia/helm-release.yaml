@@ -77,13 +77,13 @@ spec:
         # No public access
         - policy: deny
           domain:
-          - mail.${SECRET_DOMAIN}
+          - mailu.${SECRET_DOMAIN}
           resources:
           - "^/admin.*$"
         # Applications with built-in auth
         - policy: one_factor
           domain:
-          - mail.${SECRET_DOMAIN}
+          - mailu.${SECRET_DOMAIN}
           - grafana.${SECRET_DOMAIN}
           # - rancher.${SECRET_DOMAIN}
           # - bw.${SECRET_DOMAIN}
