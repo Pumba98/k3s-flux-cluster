@@ -38,7 +38,7 @@ spec:
         use-forwarded-headers: "true"
         forwarded-for-header: "CF-Connecting-IP"
       metrics:
-        enabled: false
+        enabled: true
         serviceMonitor:
           enabled: false
       extraArgs:
