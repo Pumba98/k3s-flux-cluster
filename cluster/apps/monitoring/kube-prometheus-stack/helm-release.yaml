@@ -82,7 +82,7 @@ spec:
           routes:
           - receiver: 'null'
             match:
-              alertname: Watchdog
+              severity: none
           - receiver: 'discord'
     grafana:
       enabled: true
