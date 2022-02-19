@@ -34,8 +34,7 @@ spec:
         ingressClassName: "nginx"
         annotations:
           nginx.ingress.kubernetes.io/backend-protocol: "https"
-          nginx.ingress.kubernetes.io/proxy-redirect-from: "$scheme://$host:8043/login"
-          nginx.ingress.kubernetes.io/proxy-redirect-to: "$scheme://$host/login"
+          nginx.ingress.kubernetes.io/app-root: /login
           nginx.ingress.kubernetes.io/upstream-vhost: "$host:8043"
         hosts:
           - host: "omada.${SECRET_DOMAIN}"
