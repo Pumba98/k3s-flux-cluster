@@ -50,9 +50,14 @@ spec:
         value: "${NETWORK_K8S_CLUSTER_CIDR}"
       - name: OVERWRITEPROTOCOL
         value: https
+
     persistence:
       enabled: true
       existingClaim: nextcloud-data
+
+    startupProbe:
+      enabled: true
+
     externalDatabase:
       enabled: true
       type: postgresql
