@@ -32,7 +32,7 @@ spec:
             description: Redis cluster has too many nodes marked as master.
             summary: Redis too many masters.
           expr: |
-            countby (service) (redis_instance_info{role="master"})
+            count by (service) (redis_instance_info{role="master"})
               > 1
           for: 1m
           labels:
