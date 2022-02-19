@@ -78,6 +78,10 @@ spec:
       master:
         persistence:
           enabled: false
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
 
     internalDatabase:
       enabled: false
