@@ -11,3 +11,4 @@ resources:
 - networking
 - selfhosted
 - system-upgrade
+- longhorn-system
