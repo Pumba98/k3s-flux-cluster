@@ -22,7 +22,7 @@ spec:
             description: Redis cluster has no node marked as master.
             summary: Redis missing master.
           expr: |
-            (count by (service) (redis_instance_info{role="master"}) or vector(0))
+            (count by(service) (redis_instance_info{role="master"}) OR on() vector(0))
               < 1
           for: 0m
           labels:
