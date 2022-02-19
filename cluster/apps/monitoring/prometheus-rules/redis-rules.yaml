@@ -22,7 +22,7 @@ spec:
             description: Redis cluster has no node marked as master.
             summary: Redis missing master.
           expr: |
-            (count(redis_instance_info{role="master"}) or vector(0))
+            (count by (service) (redis_instance_info{role="master"}) or vector(0))
               < 1
           for: 0m
           labels:
@@ -32,7 +32,7 @@ spec:
             description: Redis cluster has too many nodes marked as master.
             summary: Redis too many masters.
           expr: |
-            count(redis_instance_info{role="master"})
+            countby (service) (redis_instance_info{role="master"})
               > 1
           for: 1m
           labels:
@@ -42,9 +42,9 @@ spec:
             description: Redis not replicating for all slaves. Consider reviewing the redis replication status.
             summary: Redis disconnected slaves.
           expr: |
-            count without (instance, job) (redis_connected_slaves)
+            count by (service) without (instance, job) (redis_connected_slaves)
               -
-            sum without (instance, job) (redis_connected_slaves) - 1
+            sum by (service) without (instance, job) (redis_connected_slaves) - 1
               > 1
           for: 0m
           labels:
@@ -70,15 +70,15 @@ spec:
           for: 2m
           labels:
             severity: critical
-        - alert: RedisMissingBackup
-          annotations:
-            description: Redis has not been backuped for 24 hours.
-            summary: Redis missing backup.
-          expr: |
-            time() - redis_rdb_last_save_timestamp_seconds > 60 * 60 * 24
-          for: 0m
-          labels:
-            severity: critical
+        # - alert: RedisMissingBackup
+        #   annotations:
+        #     description: Redis has not been backuped for 24 hours.
+        #     summary: Redis missing backup.
+        #   expr: |
+        #     time() - redis_rdb_last_save_timestamp_seconds > 60 * 60 * 24
+        #   for: 0m
+        #   labels:
+        #     severity: critical
         - alert: RedisOutOfSystemMemory
           annotations:
             description: Redis is running out of system memory (> 90%).
@@ -115,11 +115,11 @@ spec:
             severity: warning
         - alert: RedisNotEnoughConnections
           annotations:
-            description: Redis instance should have more connections (> 5).
+            description: Redis instance should have more connections (> 0).
             summary: Redis not enough connections.
           expr: |
             redis_connected_clients
-              < 5
+              < 1
           for: 2m
           labels:
             severity: warning

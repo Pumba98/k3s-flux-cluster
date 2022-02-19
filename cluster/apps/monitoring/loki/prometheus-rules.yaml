@@ -89,9 +89,9 @@ spec:
             description: Log file for {{ $labels.instance }} {{ $labels.job }} {{ $labels.path }} matches the glob but is not being tailed.
             summary: Promtail file missing.
           expr: |
-            promtail_file_bytes_total{path!~".*init.*"} == 0
+            promtail_file_bytes_total
               unless
-            promtail_read_bytes_total != 0
+            promtail_read_bytes_total
           for: 15m
           labels:
             severity: critical
