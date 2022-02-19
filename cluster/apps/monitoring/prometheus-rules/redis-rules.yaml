@@ -42,9 +42,9 @@ spec:
             description: Redis not replicating for all slaves. Consider reviewing the redis replication status.
             summary: Redis disconnected slaves.
           expr: |
-            count by (service) without (instance, job) (redis_connected_slaves)
+            count without (instance, job) (redis_connected_slaves)
               -
-            sum by (service) without (instance, job) (redis_connected_slaves) - 1
+            sum without (instance, job) (redis_connected_slaves) - 1
               > 1
           for: 0m
           labels:
