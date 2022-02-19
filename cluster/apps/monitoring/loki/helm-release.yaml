@@ -29,6 +29,19 @@ spec:
         size: 5Gi
       serviceMonitor:
         enabled: true
+    config:
+      ruler:
+        storage:
+          type: local
+          local:
+            directory: /rules
+        rule_path: /tmp/scratch
+        alertmanager_url: http://kube-prometheus-stack-alertmanager:9093
+        ring:
+          kvstore:
+            store: inmemory
+        enable_api: true
+
     promtail:
       serviceMonitor:
         enabled: true
@@ -37,3 +50,28 @@ spec:
           operator: Exists
         - effect: NoExecute
           operator: Exists
+
+    alerting_groups:
+      #
+      # Mailu Postfix
+      #
+      - name: mailu-postfix
+        rules:
+          - alert: MailuPostfixLookupFailure
+            expr: |
+              sum by (app) (count_over_time({app=~"mailu", component="postfix"} |~ "lookup failure"[2m])) > 0
+            for: 2m
+            labels:
+              severity: critical
+              category: logs
+            annotations:
+              summary: "Mailu Postfix reports temporary lookup failures"
+          - alert: MailuPostfixStartupError
+            expr: |
+              sum by (app) (count_over_time({app=~"mailu", component="postfix"} |~ "FileExistsError"[2m])) > 0
+            for: 2m
+            labels:
+              severity: critical
+              category: logs
+            annotations:
+              summary: "Mailu Postfix startup failure"
