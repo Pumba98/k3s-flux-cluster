@@ -4,4 +4,4 @@ resources:
 - discord-notifier.yaml
 - discord-webhook-secrets.sops.yaml
 - pod-monitor.yaml
-- prometheus-rule.yaml
+- prometheus-rules.yaml
