@@ -116,6 +116,22 @@ spec:
           flux-control-plane:
             url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
             datasource: Prometheus
+          ingress-nginx:
+            gnetId: 9614
+            revision: 1
+            datasource: Prometheus
+          cert-manager:
+            gnetId: 11001
+            revision: 1
+            datasource: Prometheus
+          redis:
+            gnetId: 11835
+            revision: 1
+            datasource: Prometheus
+          postgresql:
+            gnetId: 9628
+            revision: 7
+            datasource: Prometheus
       sidecar:
         dashboards:
           enabled: true
