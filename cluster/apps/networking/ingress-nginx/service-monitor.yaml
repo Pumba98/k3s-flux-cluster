@@ -6,12 +6,12 @@ metadata:
   labels:
     name: longhorn-prometheus-servicemonitor
 spec:
-  endpoints:
-    - port: metrics
-      interval: 30s
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ingress-nginx
   namespaceSelector:
     matchNames:
       - networking
-  selector:
-    matchLabels:
-      app.kubernetes.io/component: controller
+  endpoints:
+    - port: metrics
+      interval: 30s
