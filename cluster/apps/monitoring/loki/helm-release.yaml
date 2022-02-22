@@ -49,7 +49,7 @@ spec:
             - alert: MailuPostfixLookupFailure
               expr: |
                 sum by (app) (count_over_time({app=~"mailu", component="postfix"} |~ "lookup failure"[2m])) > 0
-              for: 2m
+              for: 0m
               labels:
                 severity: critical
                 category: logs
@@ -58,7 +58,7 @@ spec:
             - alert: MailuPostfixStartupError
               expr: |
                 sum by (app) (count_over_time({app=~"mailu", component="postfix"} |~ "FileExistsError"[2m])) > 0
-              for: 2m
+              for: 0m
               labels:
                 severity: critical
                 category: logs
