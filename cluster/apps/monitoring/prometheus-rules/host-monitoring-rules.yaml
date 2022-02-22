@@ -143,14 +143,14 @@ spec:
         # 1000 context switches is an arbitrary number.
         # Alert threshold depends on nature of application.
         # Please read: https://github.com/samber/awesome-prometheus-alerts/issues/58
-        - alert: HostContextSwitching
-          expr: (rate(node_context_switches_total[5m])) / (count without(cpu, mode) (node_cpu_seconds_total{mode="idle"})) > 1000
-          for: 0m
-          labels:
-            severity: warning
-          annotations:
-            summary: Host context switching (instance {{ $labels.instance }})
-            description: "Context switching is growing on node (> 1000 / s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        # - alert: HostContextSwitching
+        #   expr: (rate(node_context_switches_total[5m])) / (count without(cpu, mode) (node_cpu_seconds_total{mode="idle"})) > 1000
+        #   for: 0m
+        #   labels:
+        #     severity: warning
+        #   annotations:
+        #     summary: Host context switching (instance {{ $labels.instance }})
+        #     description: "Context switching is growing on node (> 1000 / s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
         - alert: HostSwapIsFillingUp
           expr: (1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 > 80
@@ -170,14 +170,14 @@ spec:
             summary: Host systemd service crashed (instance {{ $labels.instance }})
             description: "systemd service crashed\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
-        - alert: HostPhysicalComponentTooHot
-          expr: node_hwmon_temp_celsius > 75
-          for: 5m
-          labels:
-            severity: warning
-          annotations:
-            summary: Host physical component too hot (instance {{ $labels.instance }})
-            description: "Physical hardware component too hot\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        # - alert: HostPhysicalComponentTooHot
+        #   expr: node_hwmon_temp_celsius > 75
+        #   for: 5m
+        #   labels:
+        #     severity: warning
+        #   annotations:
+        #     summary: Host physical component too hot (instance {{ $labels.instance }})
+        #     description: "Physical hardware component too hot\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
         - alert: HostNodeOvertemperatureAlarm
           expr: node_hwmon_temp_crit_alarm_celsius == 1
@@ -187,15 +187,6 @@ spec:
           annotations:
             summary: Host node overtemperature alarm (instance {{ $labels.instance }})
             description: "Physical node temperature alarm triggered\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
-        - alert: HostKernelVersionDeviations
-          expr: count(sum(label_replace(node_uname_info, "kernel", "$1", "release", "([0-9]+.[0-9]+.[0-9]+).*")) by (kernel)) > 1
-          for: 6h
-          labels:
-            severity: warning
-          annotations:
-            summary: Host kernel version deviations (instance {{ $labels.instance }})
-            description: "Different kernel versions are running\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
         - alert: HostOomKillDetected
           expr: increase(node_vmstat_oom_kill[1m]) > 0
