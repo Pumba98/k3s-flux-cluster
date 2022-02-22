@@ -9,19 +9,24 @@ spec:
   chart:
     spec:
       chart: postgresql
-      version: 10.16.2
+      version: 11.0.2
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
         namespace: flux-system
       interval: 5m
   values:
-    postgresqlUsername: mailu
-    postgresqlPassword: ${SECRET_MAILU_DB_PASSWORD}
-    postgresqlDatabase: mailu
-    persistence:
-      enabled: true
-      existingClaim: mailu-postgresql
+    image:
+      repository: bitnami/postgresql
+      tag: 11.14.0-debian-10-r28
+    auth:
+      username: mailu
+      password: "${SECRET_MAILU_DB_PASSWORD}"
+      database: mailu
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: mailu-postgresql
     metrics:
       enabled: true
       serviceMonitor:
