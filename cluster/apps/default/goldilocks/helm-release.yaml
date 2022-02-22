@@ -28,7 +28,9 @@ spec:
         enabled: true
         hosts:
           - host: "goldilocks.${SECRET_DOMAIN}"
-            paths: ["/"]
+            paths:
+              - path: /
+                pathType: Prefix
         tls:
           - hosts:
               - "goldilocks.${SECRET_DOMAIN}"
