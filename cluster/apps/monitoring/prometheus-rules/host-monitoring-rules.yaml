@@ -234,7 +234,7 @@ spec:
             description: "Bond \"{{ $labels.device }}\" degraded on \"{{ $labels.instance }}\".\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
         - alert: HostRequiresReboot
-          expr: node_reboot_required > 0
+          expr: (node_reboot_required or RebootRequired) > 0
           for: 4h
           labels:
             severity: info
