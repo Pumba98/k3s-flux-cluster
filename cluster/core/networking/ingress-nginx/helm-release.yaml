@@ -17,9 +17,8 @@ spec:
   values:
     controller:
       image:
-        registry: k8s.gcr.io
-        image: ingress-nginx/controller
-        tag: "v1.0.0"
+        repository: k8s.gcr.io/ingress-nginx/controller
+        tag: v1.0.0
       ingressClass: nginx
       kind: DaemonSet
       watchIngressWithoutClass: true
