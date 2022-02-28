@@ -16,6 +16,9 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    image:
+      repository: weaveworks/kured
+      tag: 1.9.1
     updateStrategy: RollingUpdate
     # Configured for Monitoring only, no automated reboots
     configuration:
