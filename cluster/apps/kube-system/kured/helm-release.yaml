@@ -17,14 +17,15 @@ spec:
       interval: 5m
   values:
     updateStrategy: RollingUpdate
+    # Configured for Monitoring only, no automated reboots
     configuration:
       prometheusUrl: "kube-prometheus-stack-prometheus.monitoring.svc.cluster.local"
-      alertFilterRegexp: "^RebootRequired$" #",^Watchdog$"
+      alertFilterRegexp: "^HostRequiresReboot$" #",^Watchdog$"
       rebootCommand: "echo reboot" #"/usr/bin/systemctl reboot"
-      tolerations:
-        - effect: NoSchedule
-          operator: Exists
-        - effect: NoExecute
-          operator: Exists
+    tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      - effect: NoExecute
+        operator: Exists
     metrics:
       create: true
