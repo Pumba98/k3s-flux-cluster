@@ -237,7 +237,7 @@ spec:
           expr: (node_reboot_required or kured_reboot_required) > 0
           for: 4h
           labels:
-            severity: info
+            severity: warning
           annotations:
             summary: Host requires reboot (instance {{ $labels.instance }})
             description: "{{ $labels.instance }} requires a reboot.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
