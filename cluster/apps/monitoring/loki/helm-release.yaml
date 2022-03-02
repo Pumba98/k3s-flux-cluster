@@ -64,6 +64,20 @@ spec:
                 category: logs
               annotations:
                 summary: "Mailu Postfix startup failure"
+        #
+        # PostgreSQL
+        #
+        - name: postgresql
+          rules:
+            - alert: PostgreSQLReadOnlyFS
+              expr: |
+                sum by (app) (count_over_time({app_kubernetes_io_name="postgresql"} |~ "Read-only file system"[2m])) > 0
+              for: 0m
+              labels:
+                severity: critical
+                category: logs
+              annotations:
+                summary: "PostgreSQL has read-only file system"
     promtail:
       serviceMonitor:
         enabled: true
