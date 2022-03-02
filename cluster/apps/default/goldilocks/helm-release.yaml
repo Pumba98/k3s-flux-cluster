@@ -26,6 +26,7 @@ spec:
           memory: 32Mi
       ingress:
         enabled: true
+        ingressClassName: nginx
         hosts:
           - host: "goldilocks.${SECRET_DOMAIN}"
             paths:

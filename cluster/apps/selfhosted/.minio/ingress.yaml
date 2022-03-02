@@ -27,6 +27,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
+  ingressClassName: nginx
   rules:
   - host: minio1-console.${SECRET_DOMAIN}
     http:
