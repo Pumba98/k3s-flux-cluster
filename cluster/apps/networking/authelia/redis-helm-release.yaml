@@ -16,12 +16,11 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    architecture: standalone
     master:
       persistence:
         enabled: true
         existingClaim: authelia-redis-data
-    replica:
-      replicaCount: 0
     metrics:
       enabled: true
       serviceMonitor:
