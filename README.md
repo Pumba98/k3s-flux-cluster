@@ -78,16 +78,13 @@ kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f
 4. Add the Flux GPG key in-order for Flux to decrypt SOPS secrets
 
 ```sh
-gpg --export-secret-keys --armor "F218E6030557131BFE2B62AF9EB6C6C54B075E78" |
-kubectl create secret generic sops-gpg \
-    --namespace=flux-system \
-    --from-file=sops.asc=/dev/stdin
+sops -d ./flux-sops-gpg-secret.sops.yaml | kubectl apply -f -
 ```
 
 5. Add the Flux SSH key in-order for Flux to pull private git repositories
 
 ```sh
-sops -d ./flux-secret.yaml | kubectl apply -f -
+sops -d ./flux-secret.sops.yaml | kubectl apply -f -
 ```
 
 6. Push everything & Install Flux
