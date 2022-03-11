@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: bitnami/postgresql
-      tag: 11.15.0-debian-10-r28
+      tag: 14.2.0-debian-10-r28
     auth:
       username: mailu
       password: "${SECRET_MAILU_DB_PASSWORD}"
