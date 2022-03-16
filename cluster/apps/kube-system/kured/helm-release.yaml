@@ -20,11 +20,10 @@ spec:
       repository: weaveworks/kured
       tag: 1.9.1
     updateStrategy: RollingUpdate
-    # Configured for Monitoring only, no automated reboots
     configuration:
       prometheusUrl: "kube-prometheus-stack-prometheus.monitoring.svc.cluster.local"
-      alertFilterRegexp: "^HostRequiresReboot$" #",^Watchdog$"
-      rebootCommand: "echo reboot" #"/usr/bin/systemctl reboot"
+      alertFilterRegexp: "^HostRequiresReboot$,^Watchdog$"
+      rebootCommand: "/usr/bin/systemctl reboot"
     tolerations:
       - effect: NoSchedule
         operator: Exists
