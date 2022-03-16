@@ -21,7 +21,7 @@ spec:
       tag: 1.9.1
     updateStrategy: RollingUpdate
     configuration:
-      prometheusUrl: "kube-prometheus-stack-prometheus.monitoring.svc.cluster.local"
+      prometheusUrl: "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local"
       alertFilterRegexp: "^HostRequiresReboot$,^Watchdog$"
       rebootCommand: "/usr/bin/systemctl reboot"
     tolerations:
