@@ -18,7 +18,7 @@ spec:
     controller:
       image:
         repository: k8s.gcr.io/ingress-nginx/controller
-        tag: v1.1.2
+        tag: v1.1.3
       ingressClass: nginx
       kind: DaemonSet
       ingressClassRessource:
