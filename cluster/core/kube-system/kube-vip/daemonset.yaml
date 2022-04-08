@@ -40,7 +40,7 @@ spec:
         - name: svc_enable
           value: "false"
         - name: vip_address
-          value: "192.168.1.200"
+          value: "192.168.100.200"
         securityContext:
           capabilities:
             add:
