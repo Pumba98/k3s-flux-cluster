@@ -185,11 +185,11 @@ spec:
               resources:
                 requests:
                   storage: 35Gi
-        additionalScrapeConfigs:
-        - job_name: node-exporter
-          honor_timestamps: true
-          static_configs:
-          - targets:
-            - "192.168.1.10:9100"
-            - "192.168.1.11:9100"
-            - "192.168.1.15:9100"
+        # additionalScrapeConfigs:
+        # - job_name: node-exporter
+        #   honor_timestamps: true
+        #   static_configs:
+        #   - targets:
+        #     - "192.168.1.10:9100"
+        #     - "192.168.1.11:9100"
+        #     - "192.168.1.15:9100"
