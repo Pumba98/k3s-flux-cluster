@@ -82,7 +82,7 @@ kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f
 sops -d ./flux-sops-gpg-secret.sops.yaml | kubectl apply -f -
 ```
 
-5. Add the Flux SSH key in-order for Flux to pull private git repositories
+5. (Optional) Add the Flux SSH key in-order for Flux to pull private git repositories
 
 ```sh
 sops -d ./flux-secret.sops.yaml | kubectl apply -f -
@@ -94,6 +94,6 @@ sops -d ./flux-secret.sops.yaml | kubectl apply -f -
 kubectl apply --kustomize=./cluster/base/flux-system
 ```
 
-:round_pushpin: Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
+:round_pushpin: Due to race conditions with the Flux CRDs run the last command twice. There should be no errors on the second run.
 
 </details>
