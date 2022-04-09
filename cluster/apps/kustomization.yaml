@@ -6,7 +6,7 @@ resources:
 - default
 - flux-system
 - kube-system
-- mail
+# - mail
 - monitoring
 - networking
 - selfhosted
