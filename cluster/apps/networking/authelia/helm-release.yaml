@@ -65,10 +65,10 @@ spec:
           - ${NETWORK_LOCAL_CIDR}
         rules:
         # Disable Authelia for local network
-        - policy: bypass
-          domain: "*.${SECRET_DOMAIN}"
-          networks:
-          - private
+        # - policy: bypass
+        #   domain: "*.${SECRET_DOMAIN}"
+        #   networks:
+        #   - private
         # No public access
         - policy: deny
           domain:
@@ -117,7 +117,7 @@ spec:
           username: authelia
       notifier:
         smtp:
-          enabled: true
+          enabled: false
           host: mailu-front.mail.svc.cluster.local
           sender: authelia@${SECRET_DOMAIN}
           tls:
