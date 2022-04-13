@@ -28,3 +28,11 @@ spec:
     persistence:
       enabled: true
       existingClaim: minio-data
+    consoleIngress:
+      enabled: true
+      path: /
+      hosts:
+        - minio.${SECRET_DOMAIN}
+      tls:
+        - hosts:
+            - minio.${SECRET_DOMAIN}
