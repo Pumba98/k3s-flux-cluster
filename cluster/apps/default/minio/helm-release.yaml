@@ -24,12 +24,15 @@ spec:
         policy: none
         purge: false
         versioning: false
-    resources: {}
+    resources:
+      requests:
+        memory: 1Gi
     persistence:
       enabled: true
       existingClaim: minio-data
     consoleIngress:
       enabled: true
+      ingressClassName: nginx
       path: /
       hosts:
         - minio.${SECRET_DOMAIN}
