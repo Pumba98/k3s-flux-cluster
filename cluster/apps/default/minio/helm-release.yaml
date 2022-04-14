@@ -19,14 +19,9 @@ spec:
     rootPassword: "${SECRET_MINIO_SECRETKEY}"
     mode: standalone
     replicas: 1
-    buckets:
-      - name: backups
-        policy: none
-        purge: false
-        versioning: false
     resources:
       requests:
-        memory: 1Gi
+        memory: null
     persistence:
       enabled: true
       existingClaim: minio-data
