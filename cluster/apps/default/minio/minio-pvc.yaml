@@ -17,7 +17,7 @@ spec:
     driver: smb.csi.k8s.io
     volumeHandle: minio-smb-volume
     volumeAttributes:
-      source: "${SECRET_CIFS_SHARE}"
+      source: "${SECRET_CIFS_SHARE}/minio"
     nodeStageSecretRef:
       name: smb-secrets
       namespace: default
