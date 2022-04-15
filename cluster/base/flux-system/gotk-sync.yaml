@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: develop
+    branch: main
   url: ssh://git@github.com/Pumba98/k3s-flux-cluster
   secretRef:
     name: flux-system
