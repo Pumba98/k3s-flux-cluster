@@ -91,12 +91,17 @@ spec:
 
     postgresql:
       enabled: true
-      postgresqlUsername: nextcloud
-      postgresqlPassword: ${SECRET_NEXTCLOUD_DB_PASSWORD}
-      postgresqlDatabase: nextcloud
-      persistence:
-        enabled: true
-        existingClaim: nextcloud-postgresql
+      image:
+        repository: bitnami/postgresql
+        tag: 11.15.0-debian-10-r28
+      auth:
+        username: nextcloud
+        password: ${SECRET_NEXTCLOUD_DB_PASSWORD}
+        database: nextcloud
+      primary:
+        persistence:
+          enabled: true
+          existingClaim: nextcloud-postgresql
       metrics:
         enabled: true
         serviceMonitor:
