@@ -1,13 +1,37 @@
 ---
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nextcloud-static-pv
+spec:
+  capacity:
+    storage: 500Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: smb
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+  csi:
+    driver: smb.csi.k8s.io
+    volumeHandle: nextcloud-smb-volume
+    volumeAttributes:
+      source: "${SECRET_CIFS_SHARE}/nextcloud"
+    nodeStageSecretRef:
+      name: smb-secrets
+      namespace: default
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: nextcloud-data
   namespace: selfhosted
 spec:
-  storageClassName: longhorn-backup
+  volumeName: nextcloud-static-pv
+  storageClassName: smb
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 100Gi
+      storage: 500Gi
