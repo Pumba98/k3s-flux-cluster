@@ -184,7 +184,7 @@ spec:
             spec:
               resources:
                 requests:
-                  storage: 35Gi
+                  storage: 25Gi
         # additionalScrapeConfigs:
         # - job_name: node-exporter
         #   honor_timestamps: true
