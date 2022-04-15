@@ -20,6 +20,7 @@ spec:
       image:
         repository: grafana/loki
         tag: 2.5.0
+      isDefault: false
       config:
         table_manager:
           retention_deletes_enabled: true
