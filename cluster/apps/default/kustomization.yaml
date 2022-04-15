@@ -3,5 +3,3 @@ kind: Kustomization
 resources:
 - homer
 - goldilocks
-- csi-driver-smb
-- minio

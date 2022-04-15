@@ -20,13 +20,13 @@ spec:
       source: "${SECRET_CIFS_SHARE}/minio"
     nodeStageSecretRef:
       name: smb-secrets
-      namespace: default
+      namespace: kube-system
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: minio-data
-  namespace: default
+  namespace: selfhosted
 spec:
   volumeName: minio-static-pv
   storageClassName: smb

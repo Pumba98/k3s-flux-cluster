@@ -21,5 +21,3 @@ spec:
         protocol: layer2
         addresses:
         - "${LB_IP_NGINX_INGRESS}/32"
-        # - "${LB_IP_OMADA_SVC}/32"
-        # - "${LB_IP_BLOCKY_SVC}/32"

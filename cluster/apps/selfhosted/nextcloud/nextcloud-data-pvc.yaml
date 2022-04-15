@@ -20,7 +20,7 @@ spec:
       source: "${SECRET_CIFS_SHARE}/nextcloud"
     nodeStageSecretRef:
       name: smb-secrets
-      namespace: default
+      namespace: kube-system
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

@@ -35,10 +35,7 @@ The following components are installed on the [k3s](https://k3s.io/) cluster.
 | [Mailu](https://mailu.io/)                                                        | Email stack on kubernetes                                     |
 | [Rancher](https://rancher.com/products/rancher)                                   | Kubernetes Management Dashboard                               |
 | [Homer](https://github.com/bastienwirtz/homer)                                    | Static dashboard for the cluster applications                 |
-| [Jellyfin](https://jellyfin.org/)                                                 | Software Media System                                         |
 | [Pod-Gateway](https://github.com/k8s-at-home/pod-gateway)                         | Route mail traffic through an external gateway                |
-| [Omada Controller](https://www.tp-link.com/de/omada-sdn)                          | Omada SDN Controller                                          |
-| [Blocky](https://github.com/0xERR0R/blocky)                                       | Fast and lightweight DNS proxy as ad-blocker                  |
 | [Goldilocks](https://github.com/FairwindsOps/goldilocks)                          | Utility to help identifying good resource requests and limits |
 
 
