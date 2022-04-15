@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: minio-charts
+  name: csi-driver-smb-charts
   namespace: flux-system
 spec:
   interval: 30m
-  url: https://charts.min.io
+  url: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
   timeout: 2m

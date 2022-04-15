@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
 - vaultwarden
 - nextcloud
-- jellyfin
-# - minio
+- minio

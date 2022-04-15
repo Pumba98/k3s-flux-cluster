@@ -22,3 +22,4 @@ resources:
 - external-dns-charts.yaml
 - descheduler-charts.yaml
 - kured-charts.yaml
+- csi-driver-smb-charts.yaml

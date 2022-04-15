@@ -53,7 +53,10 @@ spec:
 
     persistence:
       enabled: true
-      existingClaim: nextcloud-data
+      existingClaim: nextcloud-config
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-data
 
     startupProbe:
       enabled: true

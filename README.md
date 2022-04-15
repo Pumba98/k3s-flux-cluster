@@ -35,10 +35,7 @@ The following components are installed on the [k3s](https://k3s.io/) cluster.
 | [Mailu](https://mailu.io/)                                                        | Email stack on kubernetes                                     |
 | [Rancher](https://rancher.com/products/rancher)                                   | Kubernetes Management Dashboard                               |
 | [Homer](https://github.com/bastienwirtz/homer)                                    | Static dashboard for the cluster applications                 |
-| [Jellyfin](https://jellyfin.org/)                                                 | Software Media System                                         |
 | [Pod-Gateway](https://github.com/k8s-at-home/pod-gateway)                         | Route mail traffic through an external gateway                |
-| [Omada Controller](https://www.tp-link.com/de/omada-sdn)                          | Omada SDN Controller                                          |
-| [Blocky](https://github.com/0xERR0R/blocky)                                       | Fast and lightweight DNS proxy as ad-blocker                  |
 | [Goldilocks](https://github.com/FairwindsOps/goldilocks)                          | Utility to help identifying good resource requests and limits |
 
 
@@ -82,7 +79,7 @@ kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f
 sops -d ./flux-sops-gpg-secret.sops.yaml | kubectl apply -f -
 ```
 
-5. Add the Flux SSH key in-order for Flux to pull private git repositories
+5. (Optional) Add the Flux SSH key in-order for Flux to pull private git repositories
 
 ```sh
 sops -d ./flux-secret.sops.yaml | kubectl apply -f -
@@ -94,6 +91,6 @@ sops -d ./flux-secret.sops.yaml | kubectl apply -f -
 kubectl apply --kustomize=./cluster/base/flux-system
 ```
 
-:round_pushpin: Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
+:round_pushpin: Due to race conditions with the Flux CRDs run the last command twice. There should be no errors on the second run.
 
 </details>

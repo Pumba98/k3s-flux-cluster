@@ -4,6 +4,4 @@ resources:
 - external-dns
 - pod-gateway
 - authelia
-- omada
-- blocky
 - ingress-nginx
