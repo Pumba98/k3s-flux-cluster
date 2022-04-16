@@ -14,4 +14,8 @@ spec:
         kind: HelmRepository
         name: csi-driver-smb-charts
         namespace: flux-system
-  values: {}
+  values:
+    image:
+      smb:
+        repository: mcr.microsoft.com/k8s/csi/smb-csi
+        tag: v1.6.0
