@@ -9,9 +9,13 @@ spec:
   chart:
     spec:
       chart: csi-driver-smb
-      version: 1.6.0
+      version: v1.7.0
       sourceRef:
         kind: HelmRepository
         name: csi-driver-smb-charts
         namespace: flux-system
-  values: {}
+  values:
+    image:
+      smb:
+        repository: mcr.microsoft.com/k8s/csi/smb-csi
+        tag: v1.6.0
