@@ -33,7 +33,18 @@
       ],
       "matchStrings": [
         "githubReleaseVar repo=(?<depName>.*?)\n *version: (?<currentValue>.*)\n",
-        "githubReleaseVar repo=(?<depName>.*?)\"\n.*k8s\-(?<currentValue>.*)\-orange"
+        "githubReleaseVar repo=(?<depName>.*?)\"\n.*k8s\-(?<currentValue>.*)\-orange",
+        "githubReleaseVar repo=(?<depName>.*?)\n *mailuVersion: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "github-releases"
+    },
+    // regexManager to read and process mailu Releases
+    {
+      "fileMatch": [
+        "cluster/apps/mail/[^\\.]+\\.yaml$"
+      ],
+      "matchStrings": [
+        "githubReleaseVar repo=(?<depName>.*?)\n *mailuVersion: (?<currentValue>.*)\n"
       ],
       "datasourceTemplate": "github-releases"
     },
