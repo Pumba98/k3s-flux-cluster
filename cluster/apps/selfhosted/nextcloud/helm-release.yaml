@@ -61,14 +61,6 @@ spec:
     startupProbe:
       enabled: true
 
-    externalDatabase:
-      enabled: true
-      type: postgresql
-      host: nextcloud-postgresql
-      user: nextcloud
-      password: ${SECRET_NEXTCLOUD_DB_PASSWORD}
-      database: nextcloud
-
     cronjob:
       enabled: true
       image:
