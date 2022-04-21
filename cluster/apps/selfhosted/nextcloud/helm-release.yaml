@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: nextcloud
-      version: 2.14.1
+      version: 2.14.2
       sourceRef:
         kind: HelmRepository
         name: nextcloud-charts
@@ -60,14 +60,6 @@ spec:
 
     startupProbe:
       enabled: true
-
-    externalDatabase:
-      enabled: true
-      type: postgresql
-      host: nextcloud-postgresql
-      user: nextcloud
-      password: ${SECRET_NEXTCLOUD_DB_PASSWORD}
-      database: nextcloud
 
     cronjob:
       enabled: true
