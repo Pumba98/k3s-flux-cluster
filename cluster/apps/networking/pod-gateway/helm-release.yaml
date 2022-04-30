@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: pod-gateway
-      version: 5.2.1
+      version: 5.3.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -17,8 +17,8 @@ spec:
       interval: 5m
   values:
     image:
-      repository: ghcr.io/pumba98/pod-gateway
-      tag: v1.4.3
+      repository: ghcr.io/k8s-at-home/pod-gateway
+      tag: v1.5.0
     DNS: ${POD_GATEWAY_VXLAN}.1
     addons:
       vpn:
