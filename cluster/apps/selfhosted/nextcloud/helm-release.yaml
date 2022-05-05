@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: 23.0.4-apache
+      tag: 24.0.0-apache
     ingress:
       enabled: true
       className: nginx
