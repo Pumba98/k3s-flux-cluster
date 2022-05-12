@@ -24,8 +24,9 @@ spec:
       vpn:
         enabled: true
         type: openvpn
+        openvpn:
+          authSecret: pod-gateway-vpn-secrets
         configFileSecret: pod-gateway-vpn-secrets
-        authSecret: pod-gateway-vpn-secrets
         resources:
           requests:
             cpu: "0.001"
