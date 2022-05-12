@@ -1,0 +1,71 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: pod-gateway-vpn
+  namespace: networking
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: pod-gateway
+      version: 5.4.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/k8s-at-home/pod-gateway
+      tag: v1.5.0
+    DNS: ${POD_GATEWAY_VPN_VXLAN}.1
+    addons:
+      vpn:
+        enabled: true
+        type: openvpn
+        configFileSecret: pod-gateway-vpn-secrets
+        resources:
+          requests:
+            cpu: "0.001"
+            memory: 128Mi
+          limits:
+            memory: 512Mi
+        livenessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - if [ $(curl -s https://ipinfo.io/country) = 'DE' ]; then exit 0; else exit $?; fi
+          initialDelaySeconds: 30
+          periodSeconds: 60
+          failureThreshold: 1
+        networkPolicy:
+          enabled: true
+          egress:
+            - to:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                # VPN traffic
+                - port: 1194
+                  protocol: UDP
+            - to:
+                - ipBlock:
+                    cidr: ${NETWORK_K8S_CLUSTER_CIDR}
+            - to:
+                - ipBlock:
+                    cidr: ${NETWORK_K8S_SERVICE_CIDR}
+    routed_namespaces:
+      - vpn
+    settings:
+      VXLAN_IP_NETWORK: ${POD_GATEWAY_VPN_VXLAN}
+      VPN_INTERFACE: tun0
+      VPN_BLOCK_OTHER_TRAFFIC: true
+      VPN_TRAFFIC_PORT: "1194"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: "${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR}"
+      VPN_LOCAL_CIDRS: "${POD_GATEWAY_VPN_VXLAN}.0/24 ${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR}"
+    webhook:
+      image:
+        repository: ghcr.io/k8s-at-home/gateway-admision-controller
+        tag: v3.4.0
