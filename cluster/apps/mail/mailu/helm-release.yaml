@@ -17,7 +17,7 @@ spec:
       interval: 5m
   values:
     # renovate: githubReleaseVar repo=mailu/mailu
-    mailuVersion: 1.9.28
+    mailuVersion: 1.9.29
     database:
       type: postgresql
       roundcubeType: postgresql
