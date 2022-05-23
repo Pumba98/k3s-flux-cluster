@@ -81,8 +81,8 @@ spec:
           receiver: 'discord'
           routes:
           - receiver: 'null'
-            match:
-              severity: none
+            matchers:
+            - severity =~ "none"
           - receiver: 'discord'
     grafana:
       enabled: true
