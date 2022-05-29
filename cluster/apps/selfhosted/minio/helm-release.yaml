@@ -26,7 +26,7 @@ spec:
       enabled: true
       existingClaim: minio-data
     consoleIngress:
-      enabled: true
+      enabled: false
       ingressClassName: nginx
       path: /
       hosts:
