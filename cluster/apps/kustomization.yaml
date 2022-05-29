@@ -12,3 +12,4 @@ resources:
 - selfhosted
 - system-upgrade
 - longhorn-system
+- vpn
