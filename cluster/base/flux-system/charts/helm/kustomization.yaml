@@ -23,4 +23,4 @@ resources:
 - descheduler-charts.yaml
 - kured-charts.yaml
 - csi-driver-smb-charts.yaml
-- truecharts.yaml
+- truecharts-charts.yaml
