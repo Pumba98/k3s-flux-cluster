@@ -24,7 +24,7 @@ spec:
           protocol: TCP
         env:
           - name: FIREFLY_PAYPAL_ACCOUNT_ID
-            value: 1
+            value: "1"
           - name: FIREFLY_URI
             value: firefly-iii:8080
           - name: FIREFLY_TOKEN
