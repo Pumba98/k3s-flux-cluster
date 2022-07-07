@@ -1,0 +1,60 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: firefly-iii-paypal-importer
+  namespace: selfhosted
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: firefly-iii-paypal-importer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: firefly-iii-paypal-importer
+    spec:
+      containers:
+      - image: robvankeilegom/firefly-iii-paypal-importer:0.2.4
+        imagePullPolicy: IfNotPresent
+        name: firefly-iii-paypal-importer
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        env:
+          - name: FIREFLY_PAYPAL_ACCOUNT_ID
+            value: 1
+          - name: FIREFLY_URI
+            value: firefly-iii:8080
+          - name: FIREFLY_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: firefly-iii-secrets
+                key: privateAccessKey
+          - name: PAYPAL_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: firefly-iii-secrets
+                key: paypalClientId
+          - name: PAYPAL_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: firefly-iii-secrets
+                key: paypalClientSecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: firefly-iii-paypal-importer
+  namespace: selfhosted
+spec:
+  selector:
+    app.kubernetes.io/name: firefly-iii-paypal-importer
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  sessionAffinity: None
+  type: ClusterIP

@@ -6,3 +6,4 @@ resources:
 - firefly-iii-secrets.sops.yaml
 - firefly-postgresql-pvc.yaml
 - firefly-iii-fints-importer.yaml
+- firefly-iii-paypal-importer.yaml
