@@ -48,3 +48,29 @@ spec:
     targetPort: 8080
   sessionAffinity: None
   type: ClusterIP
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: firefly-iii-fints-importer-cronjob
+  namespace: selfhosted
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "0 3 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: curl
+            image: curlimages/curl:latest
+            imagePullPolicy: IfNotPresent
+            command:
+              - /usr/bin/curl
+            args:
+              - --silent
+              - --show-error
+              - --fail
+              - http://firefly-iii-fints-importer:8080?config=config.json&automate=true
+          restartPolicy: Never
+          backoffLimit: 1
