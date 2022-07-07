@@ -78,12 +78,14 @@ spec:
         enabled: false
     postgresql:
       enabled: true
-      postgresqlUsername: firefly
-      postgresqlPassword: ${SECRET_FIREFLYIII_DB_PASSWORD}
-      postgresqlDatabase: firefly
-      persistence:
-        enabled: true
-        existingClaim: firefly-iii-postgresql
+      auth:
+        username: firefly
+        password: ${SECRET_FIREFLYIII_DB_PASSWORD}
+        database: firefly
+      primary:
+        persistence:
+          enabled: true
+          existingClaim: firefly-iii-postgresql
       metrics:
         enabled: true
         serviceMonitor:
