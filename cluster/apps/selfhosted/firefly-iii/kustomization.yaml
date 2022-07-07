@@ -5,3 +5,4 @@ resources:
 - helm-release.yaml
 - firefly-iii-secrets.sops.yaml
 - firefly-postgresql-pvc.yaml
+- firefly-iii-fints-importer.yaml

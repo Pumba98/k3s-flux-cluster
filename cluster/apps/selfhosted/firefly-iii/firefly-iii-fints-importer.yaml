@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: firefly-iii-fints-importer
+  namespace: selfhosted
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: firefly-iii-fints-importer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: firefly-iii-fints-importer
+    spec:
+      containers:
+      - image: benkl/firefly-iii-fints-importer@sha256:79fff25690f456e8a84372caf23db21fd17ec208e085fd397e7b72660aa03058
+        imagePullPolicy: IfNotPresent
+        name: firefly-iii-fints-importer
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /app/configurations
+          name: fints-config
+      volumes:
+      - name: fints-config
+        secret:
+          secretName: firefly-iii-secrets
+          items:
+          - key: fintsConfig
+            path: config.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: firefly-iii-fints-importer
+  namespace: selfhosted
+spec:
+  selector:
+    app.kubernetes.io/name: firefly-iii-fints-importer
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  sessionAffinity: None
+  type: ClusterIP
