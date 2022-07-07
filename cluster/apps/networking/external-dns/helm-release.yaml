@@ -19,7 +19,7 @@ spec:
     env:
       - name: CF_API_EMAIL
         value: "${SECRET_CLOUDFLARE_EMAIL}"
-      - name: CF_API_KEY
+      - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
             name: external-dns-secrets
