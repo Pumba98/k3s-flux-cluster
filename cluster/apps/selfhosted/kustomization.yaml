@@ -4,3 +4,4 @@ resources:
 - vaultwarden
 - nextcloud
 - minio
+- firefly-iii

@@ -1,0 +1,90 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: firefly-iii
+  namespace: selfhosted
+spec:
+  releaseName: firefly-iii
+  interval: 5m
+  chart:
+    spec:
+      chart: firefly-iii
+      version: 0.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: fireflyiii/core
+      tag: version-5.7.9
+    cronjobs:
+      recurring:
+        enabled: true
+        schedule: "0 3 * * *"
+        image:
+          repository: curlimages/curl
+          tag: latest
+    importer:
+      enabled: false
+    env:
+      LOG_CHANNEL: stdout
+      SITE_OWNER: mail@${SECRET_DOMAIN}
+      APP_KEY:
+        valueFrom:
+          secretKeyRef:
+            name: firefly-iii-secrets
+            key: appKey
+      STATIC_CRON_TOKEN:
+        valueFrom:
+          secretKeyRef:
+            name: firefly-iii-secrets
+            key: staticCronToken
+      # MAIL_MAILER: log
+      # MAIL_HOST: mailu-front.mail.svc.cluster.local
+      # MAIL_PORT: 25
+      # MAIL_FROM: firefly-iii@${SECRET_DOMAIN}
+      # MAIL_USERNAME: ""
+      # MAIL_PASSWORD: ""
+      # MAIL_ENCRYPTION: ""
+      # SEND_REGISTRATION_MAIL: true
+      # SEND_ERROR_MESSAGE: true
+      # SEND_LOGIN_NEW_IP_WARNING: true
+      # SEND_REPORT_JOURNALS: false
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
+          external-dns/is-public: "true"
+        hosts:
+          - host: firefly-iii.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: http
+        tls:
+          - hosts:
+              - firefly-iii.${SECRET_DOMAIN}
+    persistence:
+      config:
+        enabled: false
+      uploads:
+        enabled: false
+    postgresql:
+      enabled: true
+      postgresqlUsername: firefly
+      postgresqlPassword: ${SECRET_FIREFLYIII_DB_PASSWORD}
+      postgresqlDatabase: firefly
+      persistence:
+        enabled: true
+        existingClaim: firefly-iii-postgresql
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    redis:
+      enabled: false
