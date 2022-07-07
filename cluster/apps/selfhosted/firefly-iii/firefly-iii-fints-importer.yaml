@@ -15,7 +15,7 @@ spec:
         app.kubernetes.io/name: firefly-iii-fints-importer
     spec:
       containers:
-      - image: benkl/firefly-iii-fints-importer@sha256:79fff25690f456e8a84372caf23db21fd17ec208e085fd397e7b72660aa03058
+      - image: bur0k/firefly-iii-fints-importer@sha256:f1b49a14bf982c1ab1dbde8743514e9afa5bd72e69828129a4dac6e65c7f3352
         imagePullPolicy: IfNotPresent
         name: firefly-iii-fints-importer
         ports:
@@ -23,7 +23,7 @@ spec:
           name: http
           protocol: TCP
         volumeMounts:
-        - mountPath: /app/configurations
+        - mountPath: /data/configurations
           name: fints-config
       volumes:
       - name: fints-config
