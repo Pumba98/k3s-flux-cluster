@@ -36,22 +36,11 @@ spec:
           secretKeyRef:
             name: firefly-iii-secrets
             key: appKey
-      STATIC_CRON_TOKEN:
-        valueFrom:
-          secretKeyRef:
-            name: firefly-iii-secrets
-            key: staticCronToken
-      # MAIL_MAILER: log
-      # MAIL_HOST: mailu-front.mail.svc.cluster.local
-      # MAIL_PORT: 25
-      # MAIL_FROM: firefly-iii@${SECRET_DOMAIN}
-      # MAIL_USERNAME: ""
-      # MAIL_PASSWORD: ""
-      # MAIL_ENCRYPTION: ""
-      # SEND_REGISTRATION_MAIL: true
-      # SEND_ERROR_MESSAGE: true
-      # SEND_LOGIN_NEW_IP_WARNING: true
-      # SEND_REPORT_JOURNALS: false
+      STATIC_CRON_TOKEN: ${SECRET_FIREFLYIII_CRON_TOKEN}
+      MAIL_MAILER: smtp
+      MAIL_HOST: mailu-front.mail.svc.cluster.local
+      MAIL_PORT: 25
+      MAIL_FROM: firefly-iii@${SECRET_DOMAIN}
     ingress:
       main:
         enabled: true
@@ -59,8 +48,6 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
           external-dns/is-public: "true"
-          nginx.ingress.kubernetes.io/auth-url: http://authelia.networking.svc.cluster.local/api/verify
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}
         hosts:
           - host: firefly-iii.${SECRET_DOMAIN}
             paths:
