@@ -41,6 +41,7 @@ spec:
       MAIL_HOST: mailu-front.mail.svc.cluster.local
       MAIL_PORT: 25
       MAIL_FROM: firefly-iii@${SECRET_DOMAIN}
+      MAIL_ENCRYPTION: "null"
     ingress:
       main:
         enabled: true
