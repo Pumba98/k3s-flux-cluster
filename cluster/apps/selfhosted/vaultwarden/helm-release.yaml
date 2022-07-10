@@ -76,12 +76,17 @@ spec:
         existingClaim: vaultwarden-config
     postgresql:
       enabled: true
-      postgresqlUsername: vaultwarden
-      postgresqlPassword: ${SECRET_VAULTWARDEN_DB_PASSWORD}
-      postgresqlDatabase: vaultwarden
-      persistence:
-        enabled: true
-        existingClaim: vaultwarden-postgresql
+      image:
+        repository: bitnami/postgresql
+        tag: 11.15.0-debian-10-r28
+      auth:
+        username: vaultwarden
+        password: ${SECRET_VAULTWARDEN_DB_PASSWORD}
+        database: vaultwarden
+      primary:
+        persistence:
+          enabled: true
+          existingClaim: vaultwarden-postgresql
       metrics:
         enabled: true
         serviceMonitor:
