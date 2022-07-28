@@ -15,11 +15,11 @@ spec:
         app.kubernetes.io/name: firefly-iii-paypal-importer
     spec:
       containers:
-      - image: robvankeilegom/firefly-iii-paypal-importer:0.2.4
+      - image: ghcr.io/pumba98/firefly-iii-paypal-importer:0.3.0
         imagePullPolicy: IfNotPresent
         name: firefly-iii-paypal-importer
         ports:
-        - containerPort: 8080
+        - containerPort: 80
           name: http
           protocol: TCP
         env:
@@ -55,6 +55,32 @@ spec:
   - name: http
     port: 8080
     protocol: TCP
-    targetPort: 8080
+    targetPort: 80
   sessionAffinity: None
   type: ClusterIP
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: firefly-iii-paypal-importer-cronjob
+  namespace: selfhosted
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: curl
+            image: curlimages/curl:latest
+            imagePullPolicy: IfNotPresent
+            command:
+              - /usr/bin/curl
+            args:
+              - --silent
+              - --show-error
+              - --fail
+              - http://firefly-iii-paypal-importer:8080/sync/1
+          restartPolicy: Never
+      backoffLimit: 1
