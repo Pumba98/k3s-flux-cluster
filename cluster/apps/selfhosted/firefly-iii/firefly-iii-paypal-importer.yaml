@@ -23,6 +23,8 @@ spec:
           name: http
           protocol: TCP
         env:
+          - name: APP_TIMEZONE
+            value: Europe/Berlin
           - name: FIREFLY_PAYPAL_ACCOUNT_ID
             value: "1"
           - name: FIREFLY_URI
