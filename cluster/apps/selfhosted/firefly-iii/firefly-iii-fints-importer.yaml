@@ -32,6 +32,8 @@ spec:
           items:
           - key: fintsConfig
             path: config.json
+          - key: fints2Config
+            path: config2.json
 ---
 apiVersion: v1
 kind: Service
