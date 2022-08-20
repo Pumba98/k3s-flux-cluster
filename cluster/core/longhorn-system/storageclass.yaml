@@ -1,3 +1,4 @@
+---
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -10,3 +11,15 @@ parameters:
   fromBackup: ""
   fsType: "ext4"
   recurringJobSelector: '[ { "name":"snapshot-6h", "isGroup":false }, { "name":"backup-daily", "isGroup":false } ]'
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: longhorn-xfs
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+parameters:
+  numberOfReplicas: "3"
+  staleReplicaTimeout: "2880" # 48 hours in minutes
+  fromBackup: ""
+  fsType: "xfs"
