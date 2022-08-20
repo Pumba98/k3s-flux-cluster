@@ -44,29 +44,6 @@ spec:
         enabled: true
       alerting_groups:
         #
-        # Mailu Postfix
-        #
-        - name: mailu-postfix
-          rules:
-            - alert: MailuPostfixLookupFailure
-              expr: |
-                sum by (app) (count_over_time({app=~"mailu", component="postfix"} |~ "lookup failure"[2m])) > 0
-              for: 0m
-              labels:
-                severity: critical
-                category: logs
-              annotations:
-                summary: "Mailu Postfix reports temporary lookup failures"
-            - alert: MailuPostfixStartupError
-              expr: |
-                sum by (app) (count_over_time({app=~"mailu", component="postfix"} |~ "FileExistsError"[2m])) > 0
-              for: 0m
-              labels:
-                severity: critical
-                category: logs
-              annotations:
-                summary: "Mailu Postfix startup failure"
-        #
         # PostgreSQL
         #
         - name: postgresql
