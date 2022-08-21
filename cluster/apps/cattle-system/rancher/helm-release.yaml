@@ -19,18 +19,8 @@ spec:
     hostname: rancher.${SECRET_DOMAIN}
     tls: external
     ingress:
+      ingressClassName: nginx
       extraAnnotations:
         external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
         external-dns/is-public: "true"
     bootstrapPassword: "${SECRET_RANCHER_ADMIN_PASSWORD}"
-  # https://github.com/rancher/rancher/pull/35698
-  postRenderers:
-    - kustomize:
-        patchesJson6902:
-          - target:
-              kind: Ingress
-              name: rancher
-            patch:
-              - op: add
-                path: /spec/ingressClassName
-                value: nginx
