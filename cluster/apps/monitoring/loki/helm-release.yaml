@@ -38,7 +38,7 @@ spec:
           enable_api: true
       persistence:
         enabled: true
-        size: 5Gi
+        size: 20Gi
         storageClassName: longhorn-xfs
       serviceMonitor:
         enabled: true
