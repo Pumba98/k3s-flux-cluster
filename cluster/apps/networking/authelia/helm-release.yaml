@@ -62,7 +62,7 @@ spec:
         networks:
         - name: private
           networks:
-          - ${WIREGUARD_VPN_NETWORK}
+          - ${PRIVATE_NETWORK}
         rules:
         # Disable Authelia for local network
         - policy: bypass
