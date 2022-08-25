@@ -23,7 +23,7 @@ spec:
       resources:
         limits:
           cpu: null
-          memory: 32Mi
+          memory: null
       ingress:
         enabled: true
         ingressClassName: nginx
@@ -39,4 +39,4 @@ spec:
       resources:
         limits:
           cpu: null
-          memory: 32Mi
+          memory: null
