@@ -5,3 +5,4 @@ resources:
 - nextcloud
 - minio
 - firefly-iii
+- paperless-ngx
