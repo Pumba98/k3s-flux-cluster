@@ -19,6 +19,11 @@ spec:
       repository: b4bz/homer
       tag: v22.07.2
       pullPolicy: IfNotPresent
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
     ingress:
       main:
         enabled: true
