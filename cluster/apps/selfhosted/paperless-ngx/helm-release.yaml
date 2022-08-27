@@ -34,7 +34,7 @@ spec:
       PAPERLESS_MEDIA_ROOT: /paperless/media
       PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{title}"
       PAPERLESS_FILENAME_FORMAT_REMOVE_NONE: true
-      PAPERLESS_CONSUMER_POLLING: 300
+      PAPERLESS_CONSUMER_POLLING: 60
       PAPERLESS_CONSUMER_DELETE_DUPLICATES: true
       PAPERLESS_CONSUMER_RECURSIVE: true
       PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: true
@@ -52,6 +52,8 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "${SECRET_VPN_GATEWAY_IP}"
           external-dns/is-public: "true"
+          nginx.ingress.kubernetes.io/auth-url: http://authelia.networking.svc.cluster.local/api/verify
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}
         hosts:
           - host: paperless.${SECRET_DOMAIN}
             paths:

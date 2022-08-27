@@ -69,6 +69,12 @@ spec:
           domain: "*.${SECRET_DOMAIN}"
           networks:
           - private
+        # Disable Authelia for apps that don't support it
+        - policy: bypass
+          domain: 
+          - bw.${SECRET_DOMAIN}
+          - cloud.${SECRET_DOMAIN}
+          - firefly-iii.${SECRET_DOMAIN}
         # No public access
         - policy: deny
           domain:
@@ -80,14 +86,14 @@ spec:
           domain:
           - mailu.${SECRET_DOMAIN}
           - grafana.${SECRET_DOMAIN}
-          # - rancher.${SECRET_DOMAIN}
-          # - bw.${SECRET_DOMAIN}
-          # - cloud.${SECRET_DOMAIN}
+          - rancher.${SECRET_DOMAIN}
         # Applications without auth
         - policy: two_factor
           domain:
+          - paperless.${SECRET_DOMAIN}
           - longhorn.${SECRET_DOMAIN}
           - homer-config.${SECRET_DOMAIN}
+          - jd2.${SECRET_DOMAIN}
         # Applications without auth but low security requirements
         - policy: one_factor
           domain:
