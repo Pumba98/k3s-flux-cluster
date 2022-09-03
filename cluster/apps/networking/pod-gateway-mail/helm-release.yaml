@@ -80,6 +80,8 @@ spec:
           - type: tcp
             port: 25
           - type: tcp
+            port: 110
+          - type: tcp
             port: 465
           - type: tcp
             port: 587
@@ -87,6 +89,8 @@ spec:
             port: 143
           - type: tcp
             port: 993
+          - type: tcp
+            port: 995
     webhook:
       image:
         repository: ghcr.io/k8s-at-home/gateway-admision-controller
