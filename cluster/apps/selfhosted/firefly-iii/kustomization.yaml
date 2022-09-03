@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
 - helm-release.yaml
 - firefly-iii-secrets.sops.yaml
-- firefly-iii-cron.yaml
+- firefly-iii-cronjob.yaml
 - postgresql-helm-release.yaml
 - firefly-postgresql-pvc.yaml
 - firefly-iii-fints-importer.yaml
