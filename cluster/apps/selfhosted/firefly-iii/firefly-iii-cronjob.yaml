@@ -1,0 +1,29 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: firefly-iii-cron
+  namespace: selfhosted
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "0 3 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: curl
+            image: curlimages/curl:latest
+            imagePullPolicy: IfNotPresent
+            command:
+              - /usr/bin/curl
+            args:
+              - --silent
+              - --show-error
+              - --fail
+              - firefly-iii:8080/api/v1/cron/$(STATIC_CRON_TOKEN)
+            env:
+              - name: STATIC_CRON_TOKEN
+                value: ${SECRET_FIREFLYIII_CRON_TOKEN}
+          restartPolicy: Never
+      backoffLimit: 1

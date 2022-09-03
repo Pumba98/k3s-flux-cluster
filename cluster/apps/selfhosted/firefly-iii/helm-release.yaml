@@ -8,26 +8,22 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: firefly-iii
-      version: 0.2.2
+      chart: app-template
+      version: 0.1.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
       interval: 5m
   values:
     image:
       repository: fireflyiii/core
       tag: version-5.7.9
-    cronjobs:
-      recurring:
-        enabled: true
-        schedule: "0 3 * * *"
-        image:
-          repository: curlimages/curl
-          tag: latest
-    importer:
-      enabled: false
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
     env:
       LOG_CHANNEL: stdout
       SITE_OWNER: mail@${SECRET_DOMAIN}
@@ -37,6 +33,12 @@ spec:
             name: firefly-iii-secrets
             key: appKey
       STATIC_CRON_TOKEN: ${SECRET_FIREFLYIII_CRON_TOKEN}
+      DB_CONNECTION: pgsql
+      DB_HOST: firefly-iii-postgresql	
+      DB_PORT: 5432
+      DB_DATABASE: firefly
+      DB_USERNAME: firefly
+      DB_PASSWORD: ${SECRET_FIREFLYIII_DB_PASSWORD}
       MAIL_MAILER: smtp
       MAIL_HOST: mailu-front.mail.svc.cluster.local
       MAIL_PORT: 25
@@ -61,24 +63,3 @@ spec:
         tls:
           - hosts:
               - firefly-iii.${SECRET_DOMAIN}
-    persistence:
-      config:
-        enabled: false
-      uploads:
-        enabled: false
-    postgresql:
-      enabled: true
-      auth:
-        username: firefly
-        password: ${SECRET_FIREFLYIII_DB_PASSWORD}
-        database: firefly
-      primary:
-        persistence:
-          enabled: true
-          existingClaim: firefly-iii-postgresql
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-    redis:
-      enabled: false
