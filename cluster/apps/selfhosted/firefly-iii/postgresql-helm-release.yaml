@@ -16,9 +16,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    image:
-      repository: bitnami/postgresql
-      tag: 11.15.0-debian-10-r28
     auth:
       username: firefly
       password: ${SECRET_FIREFLYIII_DB_PASSWORD}
