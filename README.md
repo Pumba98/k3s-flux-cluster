@@ -32,6 +32,8 @@ The following components are installed on the [k3s](https://k3s.io/) cluster.
 | [Authelia](https://www.authelia.com)                                              | SSO & 2FA authentication server for Cluster Web Apps          |
 | [Nextcloud](https://nextcloud.com)                                                | File share and collaboration platform                         |
 | [Vaultwarden](https://github.com/dani-garcia/vaultwarden)                         | Unofficial Bitwarden compatible server written in Rust        |
+| [Firefly-iii](https://www.firefly-iii.org/)                                       | Personal finance manager                                      |
+| [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx)                   | Document management system                                    |
 | [Mailu](https://mailu.io/)                                                        | Email stack on kubernetes                                     |
 | [Rancher](https://rancher.com/products/rancher)                                   | Kubernetes Management Dashboard                               |
 | [Homer](https://github.com/bastienwirtz/homer)                                    | Static dashboard for the cluster applications                 |
