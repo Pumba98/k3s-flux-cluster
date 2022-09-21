@@ -12,12 +12,12 @@ spec:
       version: 3.0.1
       sourceRef:
         kind: HelmRepository
-        name: kured-charts
+        name: kubereboot-charts
         namespace: flux-system
       interval: 5m
   values:
     image:
-      repository: weaveworks/kured
+      repository: ghcr.io/kubereboot/kured
       tag: 1.10.2
     updateStrategy: RollingUpdate
     configuration:
