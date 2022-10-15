@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: vaultwarden/server
-      tag: 1.25.2
+      tag: 1.26.0
     env:
       DATABASE_URL: postgresql://vaultwarden:${SECRET_VAULTWARDEN_DB_PASSWORD}@vaultwarden-postgresql:5432/vaultwarden
       DATA_FOLDER: "config"
