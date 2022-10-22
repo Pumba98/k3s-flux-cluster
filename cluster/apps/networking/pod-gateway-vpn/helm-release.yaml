@@ -17,47 +17,24 @@ spec:
       interval: 5m
   values:
     image:
-      repository: ghcr.io/k8s-at-home/pod-gateway
-      tag: v1.7.0
+      repository: ghcr.io/angelnu/pod-gateway
+      tag: v1.8.1
     DNS: ${POD_GATEWAY_VPN_VXLAN}.1
-    addons:
-      vpn:
-        enabled: true
-        type: openvpn
-        openvpn:
-          authSecret: pod-gateway-vpn-secrets
-        configFileSecret: pod-gateway-vpn-secrets
-        resources:
-          requests:
-            cpu: "0.001"
-            memory: 128Mi
-          limits:
-            memory: 512Mi
-        livenessProbe:
-          exec:
-            command:
-              - sh
-              - -c
-              - if [ $(curl -s https://ipinfo.io/country) != 'DE' ]; then exit 0; else exit $?; fi
-          initialDelaySeconds: 30
-          periodSeconds: 60
-          failureThreshold: 1
-        networkPolicy:
-          enabled: true
-          egress:
-            - to:
-                - ipBlock:
-                    cidr: 0.0.0.0/0
-              ports:
-                # VPN traffic
-                - port: 1194
-                  protocol: UDP
-            - to:
-                - ipBlock:
-                    cidr: ${NETWORK_K8S_CLUSTER_CIDR}
-            - to:
-                - ipBlock:
-                    cidr: ${NETWORK_K8S_SERVICE_CIDR}
+    additionalContainers:
+      gluetun:
+        image: qmcgaw/gluetun:v3.31.1
+        env:
+        - name: FIREWALL
+          value: "off"
+        - name: DOT
+          value: "off"
+        envFrom:
+        - secretRef:
+            name: pod-gateway-vpn-secrets
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
     routed_namespaces:
       - vpn
     settings:
