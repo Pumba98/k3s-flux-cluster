@@ -44,14 +44,14 @@ spec:
           image: 
             repository: qmcgaw/gluetun
             tag: v3.31.1
-          env:
-          - name: FIREWALL
-            value: "off"
-          - name: DOT
-            value: "off"
-          envFrom:
-          - secretRef:
-              name: pod-gateway-vpn-secrets
+        env:
+        - name: FIREWALL
+          value: "off"
+        - name: DOT
+          value: "off"
+        envFrom:
+        - secretRef:
+            name: pod-gateway-vpn-secrets
         networkPolicy:
           enabled: true
           egress:
