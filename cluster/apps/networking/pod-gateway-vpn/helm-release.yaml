@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: pod-gateway
-      version: 5.6.2
+      version: 5.8.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: angelnu-charts
         namespace: flux-system
       interval: 5m
   values:
@@ -20,21 +20,6 @@ spec:
       repository: ghcr.io/angelnu/pod-gateway
       tag: v1.8.1
     DNS: ${POD_GATEWAY_VPN_VXLAN}.1
-    additionalContainers:
-      gluetun:
-        image: qmcgaw/gluetun:v3.31.1
-        env:
-        - name: FIREWALL
-          value: "off"
-        - name: DOT
-          value: "off"
-        envFrom:
-        - secretRef:
-            name: pod-gateway-vpn-secrets
-        securityContext:
-          capabilities:
-            add:
-              - NET_ADMIN
     routed_namespaces:
       - vpn
     settings:
@@ -46,8 +31,38 @@ spec:
       VPN_LOCAL_CIDRS: "${POD_GATEWAY_VPN_VXLAN}.0/24 ${NETWORK_K8S_CLUSTER_CIDR} ${NETWORK_K8S_SERVICE_CIDR}"
     webhook:
       image:
-        repository: ghcr.io/k8s-at-home/gateway-admision-controller
-        tag: v3.6.0
+        repository: ghcr.io/angelnu/gateway-admision-controller
+        tag: v3.7.0
       namespaceSelector:
         type: label
         label: vpn-routed
+    addons:
+      vpn:
+        enabled: true
+        type: gluetun
+        gluetun:
+          image: qmcgaw/gluetun:v3.31.1
+          env:
+          - name: FIREWALL
+            value: "off"
+          - name: DOT
+            value: "off"
+          envFrom:
+          - secretRef:
+              name: pod-gateway-vpn-secrets
+        networkPolicy:
+          enabled: true
+          egress:
+            - to:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                # VPN traffic
+                - port: 1194
+                  protocol: UDP
+            - to:
+                - ipBlock:
+                    cidr: ${NETWORK_K8S_CLUSTER_CIDR}
+            - to:
+                - ipBlock:
+                    cidr: ${NETWORK_K8S_SERVICE_CIDR}
