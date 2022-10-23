@@ -25,3 +25,4 @@ resources:
 - csi-driver-smb-charts.yaml
 - truecharts-charts.yaml
 - bjw-s-charts.yaml
+- angelnu-charts.yaml
