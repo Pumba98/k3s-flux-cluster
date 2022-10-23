@@ -41,7 +41,9 @@ spec:
         enabled: true
         type: gluetun
         gluetun:
-          image: qmcgaw/gluetun:v3.31.1
+          image: 
+            repository: qmcgaw/gluetun
+            tag: v3.31.1
           env:
           - name: FIREWALL
             value: "off"
