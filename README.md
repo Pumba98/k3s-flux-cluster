@@ -1,5 +1,5 @@
 [//]: # "renovate: githubReleaseVar repo=k3s-io/k3s"
-[![k3s](https://img.shields.io/badge/k8s-v1.24.6+k3s1-orange?style=for-the-badge&logo=kubernetes)](https://k3s.io/)
+[![k3s](https://img.shields.io/badge/k8s-v1.24.7+k3s1-orange?style=for-the-badge&logo=kubernetes)](https://k3s.io/)
 [![flux](https://img.shields.io/badge/GitOps-Flux-blue?style=for-the-badge&logo=git)](https://fluxcd.io/)
 [![renovate](https://img.shields.io/badge/renovate-enabled-brightgreen?style=for-the-badge&logo=renovatebot)](https://github.com/renovatebot/renovate)
 <!-- [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=for-the-badge)](https://github.com/pre-commit/pre-commit) -->
