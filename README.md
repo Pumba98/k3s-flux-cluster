@@ -1,3 +1,9 @@
+# :warning: Deprecation and Archive Notice :warning:
+
+**This repository is no longer maintained!** My Clusters found a new home at [Pumba98/flux2-gitops](https://github.com/Pumba98/flux2-gitops)
+
+---
+
 [//]: # "renovate: githubReleaseVar repo=k3s-io/k3s"
 [![k3s](https://img.shields.io/badge/k8s-v1.24.6+k3s1-orange?style=for-the-badge&logo=kubernetes)](https://k3s.io/)
 [![flux](https://img.shields.io/badge/GitOps-Flux-blue?style=for-the-badge&logo=git)](https://fluxcd.io/)
